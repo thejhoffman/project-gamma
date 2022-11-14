@@ -10,3 +10,5 @@ Link to our current working excalidraw:
 [Largesseance](https://excalidraw.com/#room=7e097e63c1fb339686de,p3bUaSu65jLaPaDdIrvEag)
 
 I spent some time translating our API endpoints from the excalidraw into the markdown file located at `\docs\api-design.md`
+
+I also spend time trying to configure and deploy the project to meet the deliverables listed in the README
