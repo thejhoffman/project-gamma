@@ -135,3 +135,81 @@ keys and types in it»
 «JSON-looking thing that has the
 keys and types in it»
 ```
+
+
+# Event API
+---
+### Get a list of events
+
+* Endpoint path: /events
+* Endpoint method: GET
+
+* Headers:
+    *Authorization: Bearer token
+
+* Response: A list of Events
+
+* Response shape (JSON):
+    ```json
+        "events": [
+            {
+                "date": "string",
+                "event_name": "string",
+                "people": "string",
+            }
+        ]
+    ```
+
+### Update an event
+
+* Endpoint path: /events
+* Endpoint method: PUT
+
+* Headers:
+    * Authorization: Bearer token
+
+* Request shape (JSON):
+    ```json
+        "events": [
+            {
+                "date": "string",
+                "event_name": "string",
+                "people": "string",
+            }
+        ]
+    ```
+
+* Response: Update an event
+
+* Response shape (JSON):
+    ```json
+        "events": [
+            {
+                "date": "string",
+                "event_name": "string",
+                "people": "string"
+            }
+        ]
+    ```
+
+### Delete an event
+
+* Endpoint path: /events
+* Endpoint method: DELETE
+
+* Headers:
+    * Authorization: Bearer token
+
+* Response: Delete an event
+
+* Response shape (JSON):
+    ```json
+        "events": [
+            {
+                "date": "string",
+                "event_name": "string",
+                "people": "string",
+            }
+        ]
+}
+    ```
