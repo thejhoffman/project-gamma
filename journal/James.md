@@ -11,4 +11,4 @@ Link to our current working excalidraw:
 
 I spent some time translating our API endpoints from the excalidraw into the markdown file located at `\docs\api-design.md`
 
-I also spend time trying to configure and deploy the project to meet the deliverables listed in the README
+I also spent time trying to configure and deploy the project to meet the deliverables listed in the README. After some troubleshooting, I was able to get the deployment to work. I was running into pipeline failed error when attempting to deploy via GitLab. The fixed was to validate my account on Gitlab so that I was able to use their free runners.
