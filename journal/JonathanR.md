@@ -1,0 +1,2 @@
+November 14, 2022 (11/14/2022):
+Last week, we worked collaboratively to create a wireframe design for our project. We each brought unique perspectives and ideas to fulfill our vision for this application. We also began creating API endpoints and incorporating them with our specific project. I wrote API endpoints for getting an event, updating an event, and deleting an event. We also incorporated authorization tokens into our endpoints.
