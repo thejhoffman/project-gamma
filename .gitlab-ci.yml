@@ -34,7 +34,6 @@ build-front-end-job:
     # You need to substitute in your real values for
     # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
     PUBLIC_URL: https://largesseance.gitlab.io/project-gamma/
-    # SAMPLE_SERVICE_API_HOST: https://largesseance.onrender.com
     REACT_APP_SAMPLE_SERVICE_API_HOST: https://largesseance.onrender.com
   script:
     - cd ghi
