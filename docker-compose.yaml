@@ -11,6 +11,9 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
+    environment:
+      DATABASE_URL: postgresql://gft-user:${POSTGRES_PASSWORD}@db/gft-data
+      WAIT_HOSTS: db:5432
     volumes:
       - ./sample_service:/app
 
