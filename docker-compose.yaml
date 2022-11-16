@@ -1,6 +1,8 @@
 volumes:
   api-gft-data:
     external: true
+  pg-admin:
+    external: true
 
 services:
   fastapi:
@@ -9,6 +11,9 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
+    environment:
+      DATABASE_URL: postgresql://gft-user:${POSTGRES_PASSWORD}@db/gft-data
+      WAIT_HOSTS: db:5432
     volumes:
       - ./sample_service:/app
 
@@ -42,3 +47,14 @@ services:
       - "15432:5432"
     volumes:
       - api-gft-data:/var/lib/postgresql/data
+
+  pg-admin:
+    image: dpage/pgadmin4
+    volumes:
+      - pg-admin:/var/lib/pgadmin
+    ports:
+      - 8082:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_DISABLE_POSTFIX: 1

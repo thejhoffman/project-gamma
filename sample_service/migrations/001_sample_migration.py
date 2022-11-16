@@ -1,38 +1,106 @@
 steps = [
     [
-        # "Up" SQL statement
+        # creates user table
+        # "up" SQL statement
         """
-        CREATE TABLE dummy (
+        CREATE TABLE users (
             id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+            username VARCHAR(20) NOT NULL,
+            email VARCHAR(100) NOT NULL
         );
         """,
-        # "Down" SQL statement
+        # "down" SQL statement for users table
         """
-        DROP TABLE dummy;
-        """
+        DROP TABLE users;
+        """,
     ],
     [
-        # "Up" SQL statement
+        # creates occasion table
+        # "up" SQL statement
         """
-        CREATE TABLE big_dummy (
+        CREATE TABLE occasion (
             id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+            "name" VARCHAR(50) NOT NULL,
+            date DATE
         );
         """,
-        # "Down" SQL statement
+        # "down" SQL statement for occasion table
         """
-        DROP TABLE big_dummy;
+        DROP TABLE occasion;
+        """,
+    ],
+    [
+        # creates age table
+        # "up" SQL statement
         """
-    ]
+        CREATE TABLE age_range (
+            id SERIAL PRIMARY KEY NOT NULL,
+            age integer NOT NULL
+        );
+        """,
+        # "down" SQL statement for age table
+        """
+        DROP TABLE age_range;
+        """,
+    ],
+    [
+        # creates interests table
+        # "up" SQL statement
+        """
+        CREATE TABLE interests (
+            id SERIAL PRIMARY KEY NOT NULL,
+            name VARCHAR(100) NOT NULL
+        );
+        """,
+        # down SQL statement for interests table
+        """
+        DROP TABLE interests;
+        """,
+    ],
+    [
+        # creates gender table
+        # "up" SQL statement
+        """
+        CREATE TABLE gender (
+            id SERIAL PRIMARY KEY NOT NULL,
+            name VARCHAR(20) NOT NULL
+        );
+        """,
+        # "down" SQL statement for gender table
+        """
+        DROP TABLE gender;
+        """,
+    ],
+    [
+        """
+        CREATE TABLE person (
+            id SERIAL PRIMARY KEY NOT NULL,
+            name VARCHAR(50) NOT NULL,
+            age_range_id INTEGER NOT NULL REFERENCES age_range("id") ON DELETE RESTRICT,
+            gender_id INTEGER REFERENCES gender("id") ON DELETE RESTRICT,
+            users_id SERIAL NOT NULL REFERENCES users("id") ON DELETE CASCADE,
+            interests_id INTEGER NOT NULL REFERENCES interests("id") ON DELETE RESTRICT
+        );
+        """,
+        # "down" SQL statement for person table
+        """
+        DROP TABLE person;
+        """,
+    ],
+    [
+        """
+        CREATE TABLE events (
+            id SERIAL PRIMARY KEY NOT NULL,
+            name VARCHAR(100) NOT NULL,
+            date DATE NOT NULL,
+            person_id INTEGER NOT NULL REFERENCES person("id") ON DELETE RESTRICT,
+            occasion_id INTEGER REFERENCES occasion("id") ON DELETE RESTRICT,
+            users_id SERIAL NOT NULL REFERENCES users("id") ON DELETE CASCADE
+        );
+        """,
+        # "down" SQL statement for events table
+        """
+        DROP TABLE events;
+        """,
+    ],
 ]
