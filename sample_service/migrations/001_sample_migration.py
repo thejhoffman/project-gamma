@@ -36,7 +36,7 @@ steps = [
         """
         CREATE TABLE age_range (
             id SERIAL PRIMARY KEY NOT NULL,
-            age integer NOT NULL
+            age VARCHAR(20) NOT NULL
         );
         """,
         # "down" SQL statement for age table
