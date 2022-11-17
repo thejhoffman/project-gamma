@@ -1,3 +1,6 @@
+November 17, 2022 (11/17/2022):
+Yesterday, we troubleshot problems related to creating our login/logout authenticators. Today, I created the Create Event API endpoint in Queries, Routers, and Main. I learned how to create API endpoints using FastAPI. My plan is to work on Interests API endpoint and assist teammates if any technical issues arise.
+
 November 16, 2022 (11/16/2022):
 Yesterday, we learned more SQL fundamentals. We also created our database and are currently planning on using PostgreSQL. I also fixed my docker issues from Windows.
 
