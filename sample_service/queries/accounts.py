@@ -33,23 +33,24 @@ class AccountQueries:
                         FROM accounts
                         WHERE email = %s
                         """,
-                        [email]
+                        [email],
                     )
                     record = result.fetchone()
                     if record is None:
                         return None
-                    return AccountOutWithPassword (
-                        id = record[0],
-                        email = record[1],
-                        hashed_password = record[2],
-                        name = record[3]
+                    return AccountOutWithPassword(
+                        id=record[0],
+                        email=record[1],
+                        hashed_password=record[2],
+                        name=record[3],
                     )
         except Exception as e:
             print(e)
             return {"message": "Could not get that user"}
 
-
-    def create(self, info: AccountIn, hashed_password: str) -> AccountOutWithPassword:
+    def create(
+        self, info: AccountIn, hashed_password: str
+    ) -> AccountOutWithPassword:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -61,14 +62,12 @@ class AccountQueries:
                             (%s, %s, %s)
                             RETURNING id;
                         """,
-                        [
-                            info.email,
-                            hashed_password,
-                            info.name
-                        ]
+                        [info.email, hashed_password, info.name],
                     )
                     id = result.fetchone()[0]
                     old_data = info.dict()
-                    return AccountOutWithPassword(id=id, hashed_password=hashed_password, **old_data)
+                    return AccountOutWithPassword(
+                        id=id, hashed_password=hashed_password, **old_data
+                    )
         except Exception:
             return {"message": "Create did not work"}

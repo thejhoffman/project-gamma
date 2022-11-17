@@ -4,8 +4,11 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "cSpell.words": [
+    "citext",
     "excalidraw",
     "fastapi",
-    "Largesseance"
+    "jwtdown",
+    "Largesseance",
+    "pydantic"
   ]
 }

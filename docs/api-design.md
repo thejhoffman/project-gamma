@@ -141,7 +141,7 @@ keys and types in it»
 ---
 ### Get a list of events
 
-* Endpoint path: /events
+* Endpoint path: `/api/events`
 * Endpoint method: GET
 
 * Headers:
@@ -162,7 +162,7 @@ keys and types in it»
 
 ### Update an event
 
-* Endpoint path: /events
+* Endpoint path: `/api/events/{id}/`
 * Endpoint method: PUT
 
 * Headers:
@@ -194,7 +194,7 @@ keys and types in it»
 
 ### Delete an event
 
-* Endpoint path: /events
+* Endpoint path: `/api/events/{id}/`
 * Endpoint method: DELETE
 
 * Headers:
