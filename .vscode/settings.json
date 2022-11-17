@@ -7,6 +7,8 @@
     "citext",
     "excalidraw",
     "fastapi",
-    "Largesseance"
+    "jwtdown",
+    "Largesseance",
+    "pydantic"
   ]
 }
