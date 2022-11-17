@@ -14,3 +14,7 @@ More than likely, the team will be adding more issues as we work on the project
 Today, I suggested working on a different branch other than main to make sure that we always have a copy of a working code.
 
 The team began discussing using MongoDB vs PostgreSQL, and we'll likely make a decision after the MongoDB lecture coming up. I found a database design tool called Luna Modeler that could potentially help if we decide to use PostgreSQL, as we were worried about the learning curve of learning SQL. It also helps create diagrams which can show a clear picture of the data structure and can help us spot errors, especially with normalization of tables.
+
+
+## November 17, 2022
+Yesterday I had difficulty with creating a user, but fortunately figured it out today with the help of James. I was able to create a user and save it on the database but I kept getting an error saying dict () had an invalid key and the password being saved was not the hashed_password. It turns out I was doing my queries incorrectly. After getting that fixed, the authentication, login, logout, and getting a token went easy. I shared my code to the team, had them test out everything on their ends to make sure everything is working and to discuss any changes that the code needs. We are having difficulties with email validation, and in the near future we'd like to have that working.
