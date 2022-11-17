@@ -15,3 +15,6 @@ I also spent time trying to configure and deploy the project to meet the deliver
 
 ### 11/15/2022
 Today was spent on updating the docker compose yaml file to include the postgres database. `.env` file was also setup for environment variables to be used for passwords and API keys.
+
+### 11/16/2022
+We settled on a database choice, that being PostgreSQL. We defined the schema for our tables. Theresa wrote the SQL statements for the migrations. I setup the docker compose yaml for pgAdmin service. We confirmed that all the docker containers are able to run and confirmed the ability to view the database from within pgAdmin.
