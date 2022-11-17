@@ -14,6 +14,9 @@ services:
     environment:
       DATABASE_URL: postgresql://gft-user:${POSTGRES_PASSWORD}@db/gft-data
       WAIT_HOSTS: db:5432
+      SIGNING_KEY: ${SIGNING_KEY}
+      WAIT_BEFORE: 5
+      WAIT_TIMEOUT: 60
     volumes:
       - ./sample_service:/app
 

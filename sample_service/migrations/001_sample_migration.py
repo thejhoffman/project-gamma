@@ -3,15 +3,16 @@ steps = [
         # creates user table
         # "up" SQL statement
         """
-        CREATE TABLE users (
+        CREATE TABLE accounts (
             id SERIAL PRIMARY KEY NOT NULL,
-            username VARCHAR(20) NOT NULL,
-            email VARCHAR(100) NOT NULL
+            email CITEXT UNIQUE NOT NULL,
+            name VARCHAR(100) NOT NULL,
+            hashed_password TEXT NOT NULL
         );
         """,
-        # "down" SQL statement for users table
+        # "down" SQL statement for accounts table
         """
-        DROP TABLE users;
+        DROP TABLE accounts;
         """,
     ],
     [
@@ -20,7 +21,7 @@ steps = [
         """
         CREATE TABLE occasion (
             id SERIAL PRIMARY KEY NOT NULL,
-            "name" VARCHAR(50) NOT NULL,
+            name VARCHAR(50) NOT NULL,
             date DATE
         );
         """,
@@ -78,7 +79,7 @@ steps = [
             name VARCHAR(50) NOT NULL,
             age_range_id INTEGER NOT NULL REFERENCES age_range("id") ON DELETE RESTRICT,
             gender_id INTEGER REFERENCES gender("id") ON DELETE RESTRICT,
-            users_id SERIAL NOT NULL REFERENCES users("id") ON DELETE CASCADE,
+            account_id SERIAL NOT NULL REFERENCES accounts("id") ON DELETE CASCADE,
             interests_id INTEGER NOT NULL REFERENCES interests("id") ON DELETE RESTRICT
         );
         """,
@@ -95,7 +96,7 @@ steps = [
             date DATE NOT NULL,
             person_id INTEGER NOT NULL REFERENCES person("id") ON DELETE RESTRICT,
             occasion_id INTEGER REFERENCES occasion("id") ON DELETE RESTRICT,
-            users_id SERIAL NOT NULL REFERENCES users("id") ON DELETE CASCADE
+            account_id SERIAL NOT NULL REFERENCES accounts("id") ON DELETE CASCADE
         );
         """,
         # "down" SQL statement for events table
