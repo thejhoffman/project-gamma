@@ -5,6 +5,7 @@ from routers import (
     accounts,
     events,
     age_range,
+    interests,
 )
 import os
 
@@ -13,6 +14,7 @@ app.include_router(authenticator.router)
 app.include_router(accounts.router)
 app.include_router(events.router)
 app.include_router(age_range.router)
+app.include_router(interests.router)
 
 app.add_middleware(
     CORSMiddleware,
