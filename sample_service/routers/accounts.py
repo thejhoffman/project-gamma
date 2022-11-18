@@ -32,7 +32,7 @@ class HttpError(BaseModel):
     detail: str
 
 
-router = APIRouter()
+router = APIRouter(tags=["Accounts"])
 
 
 @router.get("/api/protected", response_model=bool, tags=["accounts"])

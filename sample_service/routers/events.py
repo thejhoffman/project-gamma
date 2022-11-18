@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from queries.events import EventIn
 
-router = APIRouter()
+router = APIRouter(tags=["Events"])
 
 
 @router.post("/api/events", tags=["events"])

@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-
+from datetime import date
 
 class EventIn(BaseModel):
     name: str
-    date: str
+    date: date
     person_id: int
     occasion_id: int
     account_id: int
