@@ -12,4 +12,7 @@ Today we have worked on setting up the Postgres DB. I had had to write a special
 
 ### 11/17/2022
 Today we finished up the back end authentication, also installed flake8 for formatting.
-We are moving on the moving into end points.
+We are moving on the moving into end points. Had issues with docker, spend a big chunk of the day rebuilding.
+
+### 11/18/2022
+Today I finished up the In point for gender.
