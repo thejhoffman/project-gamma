@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Depends
-from typing import List, Union
+from fastapi import APIRouter, Depends, Response
+from typing import List, Union, Optional
 from queries.events import EventIn, EventOut, EventRepository, Error
 
 router = APIRouter(tags=["Events"])
@@ -35,3 +35,15 @@ def delete_event(
     repo: EventRepository = Depends(),
 ) -> bool:
     return repo.delete(event_id)
+
+
+@router.get("/api/events/{event_id}", response_model= Optional[EventOut])
+def get_one_event(
+    event_id: int,
+    response: Response,
+    repo: EventRepository = Depends(),
+) -> EventOut:
+    event = repo.get_one(event_id)
+    if event is None:
+        response.status_code = 404
+    return event

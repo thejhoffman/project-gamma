@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
-from typing import List, Union
+from typing import List, Union, Optional
 from queries.pool import pool
 
 
@@ -129,3 +129,42 @@ class EventRepository:
         except Exception as e:
             print(e)
             return False
+
+    def get_one(self, event_id: int) -> Optional[EventOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id
+                            , name
+                            , date,
+                            , person_id
+                            , occasion_id
+                            , account_id
+                        FROM events
+                        WHERE id = %s
+                        """,
+                        [event_id]
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_event_out(record)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get that event"}
+
+    def event_in_to_out(self, id: int, event: EventIn):
+        old_data = event.dict()
+        return EventOut(id=id, **old_data)
+
+    def record_to_event_out(self, record):
+        return EventOut(
+            id=record[0],
+            name=record[1],
+            date=record[2],
+            person_id=record[3],
+            occasion_id=record[4],
+            account_id=record[5],
+        )
