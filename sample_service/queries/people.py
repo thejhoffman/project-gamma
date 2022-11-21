@@ -65,10 +65,6 @@ class PeopleQueries:
         account_id: int,
         person: PersonIn,
     ) -> Union[PersonOut, ErrorMessage]:
-        print("-----------------------")
-        print(account_id)
-        print(person)
-        print("-----------------------")
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
