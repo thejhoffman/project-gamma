@@ -18,5 +18,18 @@ def get_all(
 ):
     return repo.get_all()
 
+@router.put("/api/events/{event_id}",response_model = Union[Error, EventOut])
+def update_event(
+    event_id: int,
+    event: EventIn,
+    repo: EventRepository = Depends(),
+) -> Union[Error, EventOut]:
+    return repo.update(event_id, event)
 
-# @router.get("/api/events/")
+
+@router.delete("/api/events/{event_id}", response_model=bool)
+def delete_event(
+    event_id: int,
+    repo: EventRepository = Depends(),
+ ) -> bool:
+    return repo.delete(event_id)
