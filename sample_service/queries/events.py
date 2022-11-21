@@ -26,7 +26,6 @@ class EventOut(BaseModel):
 
 
 class EventRepository:
-<<<<<<< HEAD
     def update(self, event_id: int, event: EventIn) -> Union[EventOut, Error]:
         try:
             with pool.connection() as conn:
@@ -56,9 +55,6 @@ class EventRepository:
             print(e)
             return {"message": "Could not update event"}
     def create_event(self, event:EventIn) -> EventOut:
-=======
-    def create_event(self, event: EventIn) -> EventOut:
->>>>>>> 426f4382c330ee22516554c46185377ce4c31df5
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -84,10 +80,6 @@ class EventRepository:
         except Exception:
             return {"message": "Could not create event"}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 426f4382c330ee22516554c46185377ce4c31df5
     def get_all(self) -> Union[Error, List[EventOut]]:
         try:
             with pool.connection() as conn:
