@@ -50,7 +50,8 @@ steps = [
         """
         CREATE TABLE interests (
             id SERIAL PRIMARY KEY NOT NULL,
-            name VARCHAR(100) NOT NULL
+            name VARCHAR(100) NOT NULL,
+            person_id INTEGER NOT NULL REFERENCES person("id") ON DELETE RESTRICT
         );
         """,
         # down SQL statement for interests table
