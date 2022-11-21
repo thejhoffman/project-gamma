@@ -9,6 +9,7 @@ from routers import (
     relationships,
     occasions,
     gender,
+    people,
 )
 import os
 
@@ -21,6 +22,7 @@ app.include_router(events.router)
 app.include_router(age_range.router)
 app.include_router(interests.router)
 app.include_router(gender.router)
+app.include_router(people.router)
 
 app.add_middleware(
     CORSMiddleware,

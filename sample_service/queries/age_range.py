@@ -37,7 +37,7 @@ class AgeRangeQueries:
                     ]
         except Exception:
             return ErrorMessage(
-                message="Could get all age ranges",
+                message="Could not get all age ranges",
                 code=500,
             )
 

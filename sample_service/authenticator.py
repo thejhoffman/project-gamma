@@ -1,10 +1,19 @@
 import os
-from fastapi import Depends
-from jwtdown_fastapi.authentication import Authenticator
+from fastapi import Depends, APIRouter
+from jwtdown_fastapi.authentication import Authenticator, Token
 from queries.accounts import AccountQueries, AccountOut, AccountOutWithPassword
 
 
 class ExampleAuthenticator(Authenticator):
+    @property  # override router property in order to set custom tag
+    def router(self):
+        if self._router is None:
+            router = APIRouter(tags=["Accounts"])
+            router.post(f"/{self.path}", response_model=Token)(self.login)
+            router.delete(f"/{self.path}", response_model=bool)(self.logout)
+            self._router = router
+        return self._router
+
     async def get_account_data(
         self,
         email: str,  # you can also call this email based on what your project is

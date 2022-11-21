@@ -2,12 +2,10 @@ from fastapi import APIRouter, Depends, Response
 from typing import List
 from queries.occasions import OccasionIn, OccasionOut, OccasionRepository
 
-router = APIRouter()
+router = APIRouter(tags=["Occasions"])
 
 
-@router.get(
-    "/api/occasions", response_model=List[OccasionOut], tags=["occasions"]
-)
+@router.get("/api/occasions", response_model=List[OccasionOut])
 def get_all(
     repo: OccasionRepository = Depends(),
 ):
@@ -17,7 +15,6 @@ def get_all(
 @router.get(
     "/api/occasions/{occasion_id}",
     response_model=OccasionOut,
-    tags=["occasions"],
 )
 def get_occasion(
     occasion_id: int,
@@ -30,7 +27,7 @@ def get_occasion(
     return occasion
 
 
-@router.post("/api/occasions", response_model=OccasionOut, tags=["occasions"])
+@router.post("/api/occasions", response_model=OccasionOut)
 def create_occasion(
     occasion: OccasionIn,
     repo: OccasionRepository = Depends(),
@@ -41,7 +38,6 @@ def create_occasion(
 @router.put(
     "/api/occasions/{occasion_id}",
     response_model=OccasionOut,
-    tags=["occasions"],
 )
 def update_occasion(
     occasion_id: int,
@@ -58,7 +54,6 @@ def update_occasion(
 @router.delete(
     "/api/occasions/{occasion_id}",
     response_model=bool,
-    tags=["occasions"],
 )
 def delete_occasion(
     occasion_id: int,

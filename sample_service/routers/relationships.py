@@ -7,13 +7,12 @@ from queries.relationships import (
 )
 
 
-router = APIRouter()
+router = APIRouter(tags=["Relationships"])
 
 
 @router.get(
     "/api/relationships",
     response_model=List[RelationshipOut],
-    tags=["relationships"],
 )
 def get_all(
     repo: RelationshipRepository = Depends(),
@@ -24,7 +23,6 @@ def get_all(
 @router.get(
     "/api/relationships/{relationship_id}",
     response_model=RelationshipOut,
-    tags=["relationships"],
 )
 def get_relationship(
     relationship_id: int,
@@ -40,7 +38,6 @@ def get_relationship(
 @router.post(
     "/api/relationships",
     response_model=RelationshipOut,
-    tags=["relationships"],
 )
 def create_relationship(
     relationship: RelationshipIn,
@@ -52,7 +49,6 @@ def create_relationship(
 @router.put(
     "/api/relationships/{relationship_id}",
     response_model=RelationshipOut,
-    tags=["relationships"],
 )
 def update_relationship(
     relationship_id: int,
@@ -69,7 +65,6 @@ def update_relationship(
 @router.delete(
     "/api/relationships/{relationship_id}",
     response_model=bool,
-    tags=["relationships"],
 )
 def delete_relationship(
     relationship_id: int,
