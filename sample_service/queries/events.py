@@ -66,7 +66,7 @@ class EventRepository:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result = db.execute(
+                    db.execute(
                         """
                         INSERT INTO events
                             (name, date, person_id, occasion_id, account_id)
@@ -82,9 +82,9 @@ class EventRepository:
                             event.account_id,
                         ],
                     )
-                    id = result.fetchone()[0]
-                    old_data = event.dict()
-                    return EventOut(id=id, **old_data)
+                id = db.fetchone()[0]
+                old_data = event.dict()
+                return EventOut(id=id, **old_data)
         except Exception:
             return {"message": "Could not create event"}
 
@@ -94,7 +94,7 @@ class EventRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT name, date, person_id, occasion_id, account_id
+                        SELECT id, name, date, person_id, occasion_id, account_id
                         FROM events
                         ORDER BY date;
                         """

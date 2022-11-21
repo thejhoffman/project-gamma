@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends
 from typing import List, Union
 from queries.events import EventIn, EventOut, EventRepository, Error
 
@@ -7,7 +7,8 @@ router = APIRouter(tags=["Events"])
 
 @router.post("/api/events", response_model=EventOut, tags=["events"])
 def create_event(
-    event: EventIn, repo: EventRepository = Depends()
+    event: EventIn,
+    repo: EventRepository = Depends(),
 ) -> EventOut:
     return repo.create_event(event)
 
