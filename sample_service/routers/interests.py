@@ -4,6 +4,7 @@ from queries.interests import (
     InterestsIn,
     InterestsOut,
     InterestsRepository,
+    Error,
 )
 
 router = APIRouter(tags=["Interests"])
@@ -15,3 +16,9 @@ def create_interests(
     repo: InterestsRepository = Depends()
 ):
     return repo.create(interest)
+
+@router.get("/api/interests", response_model=Union[Error, List[InterestsOut]])
+def get_all(
+    repo: InterestsRepository = Depends(),
+):
+    return repo.get_all()
