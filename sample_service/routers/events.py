@@ -39,10 +39,10 @@ async def delete_event(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: EventRepository = Depends(),
 ) -> bool:
-    return repo.delete(event_id)
+    return repo.delete(account_data["id"], event_id)
 
 
-@router.get("/api/events/{event_id}", response_model= Optional[EventOut])
+@router.get("/api/events/{event_id}", response_model=Optional[EventOut])
 async def get_one_event(
     event_id: int,
     response: Response,
