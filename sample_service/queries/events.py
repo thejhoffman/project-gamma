@@ -138,7 +138,7 @@ class EventRepository:
             print(e)
             return False
 
-    def get_one(self, event_id: int) -> Optional[EventOut]:
+    def get_one(self, account_id, event_id: int) -> Optional[EventOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -151,7 +151,7 @@ class EventRepository:
                             , occasion_id
                             , account_id
                         FROM events
-                        WHERE id = %s
+                        WHERE account_id = %s AND id = %s
                         """,
                         [event_id]
                     )
