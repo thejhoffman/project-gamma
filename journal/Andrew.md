@@ -16,3 +16,6 @@ We are moving on the moving into end points. Had issues with docker, spend a big
 
 ### 11/18/2022
 Today I finished up the In point for gender.
+
+### 11/21/2022
+Jonathan and I worked on live share and updated the Events part of the CRUD.

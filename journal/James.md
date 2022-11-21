@@ -25,3 +25,13 @@ Last evening I was able to figured out how to implement the user authentication 
 Once we had our developer branch in a working state we merged the changes into the main branch. Our next steps in our developer branch is start working on our API endpoint by establishing the queries and routers.
 
 We all picked specific endpoint to work on and started to write code for each. I will be creating the endpoint for table "age_range"
+
+### 11/18/2022
+I completed full CRUD functionally for the age range endpoint.
+
+### 11/21/2022
+We continued to finish up our endpoints. The rest of the team completed the endpoints for Gender, Relationships, Interests, and Occasions.
+
+Theresa and I started working on the People endpoint and implemented the full CRUD functionally for that endpoint. Jonathan and Andrew started working the Events endpoint.
+
+I also finished the work on the People endpoint to protect it, allowing only authenticated users the ability to access the endpoints. I also made it so that that endpoints only return data associated with that user. The users ability to update and delete is  also restricted to data linked specifically to them.
