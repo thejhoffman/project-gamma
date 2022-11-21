@@ -5,26 +5,31 @@ from queries.events import EventIn, EventOut, EventRepository, Error
 router = APIRouter(tags=["Events"])
 
 
-@router.post("/api/events", response_model=EventOut, tags=["events"])
-def create_event(event: EventIn):
-    event: EventIn
-    repo: EventRepository = Depends()
-    return repo.create(event)
-
+@router.post(
+    "/api/events",
+    response_model=Union[EventOut, Error],
+)
+def create_event(event: EventIn, repo: EventRepository = Depends(),
+) -> Union[EventOut, Error]:
+    return repo.create_event(event)
 
 @router.get("/api/events", response_model=Union[Error, List[EventOut]])
 def get_all(
-    repo: EventOut = Depends(),
+    repo: EventRepository = Depends(),
 ):
     return repo.get_all()
 
-@router.put("/api/events/{event_id}",response_model = Union[Error, EventOut])
+@router.put(
+    "/api/events/{event_id}",
+    response_model = EventOut,
+)
 def update_event(
     event_id: int,
     event: EventIn,
     repo: EventRepository = Depends(),
-) -> Union[Error, EventOut]:
-    return repo.update(event_id, event)
+):
+    event = repo.update_event(event_id, event)
+    return event
 
 
 @router.delete("/api/events/{event_id}", response_model=bool)
