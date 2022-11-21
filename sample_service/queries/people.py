@@ -42,7 +42,7 @@ class PeopleQueries:
                             , age_range_id
                             , gender_id
                             , account_id
-                            , interest_id,
+                            , interest_id
                             , relationship_id
                         FROM person
                         """

@@ -94,7 +94,7 @@ steps = [
             age_range_id INTEGER NOT NULL REFERENCES age_range("id") ON DELETE RESTRICT,
             gender_id INTEGER REFERENCES gender("id") ON DELETE RESTRICT,
             account_id SERIAL NOT NULL REFERENCES accounts("id") ON DELETE CASCADE,
-            interest_id INTEGER NOT NULL REFERENCES interests("id") ON DELETE RESTRICT,
+            interest_id FOREIGN KEY NOT NULL REFERENCES interests("id") ON DELETE RESTRICT,
             relationship_id INTEGER NOT NULL REFERENCES relationships("id") ON DELETE RESTRICT
         );
         """,
