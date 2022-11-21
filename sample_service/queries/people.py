@@ -12,7 +12,6 @@ class PersonIn(BaseModel):
     name: str
     age_range_id: int
     gender_id: int
-    account_id: int
     interest_id: int
     relationship_id: int
 
@@ -22,7 +21,7 @@ class PersonOut(BaseModel):
     name: str
     age_range_id: int
     gender_id: Optional[int]
-    account_id: int
+    # account_id: int
     interest_id: int
     relationship_id: int
 
@@ -31,13 +30,15 @@ class PeopleQueries:
     # GET ALL PEOPLE
     def get_all(
         self,
+        account_id: int,
     ) -> Union[List[PersonOut], ErrorMessage]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id
+                        SELECT
+                            id
                             , name
                             , age_range_id
                             , gender_id
@@ -45,7 +46,9 @@ class PeopleQueries:
                             , interest_id
                             , relationship_id
                         FROM person
-                        """
+                        WHERE account_id = %s
+                        """,
+                        [account_id],
                     )
                     return [
                         self.record_to_person_out(record) for record in result
@@ -58,15 +61,26 @@ class PeopleQueries:
 
     # CREATE A NEW PERSON
     def create_person(
-        self, person: PersonIn
+        self,
+        account_id: int,
+        person: PersonIn,
     ) -> Union[PersonOut, ErrorMessage]:
+        print("-----------------------")
+        print(account_id)
+        print(person)
+        print("-----------------------")
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
                         INSERT INTO person (
-                            name, age_range_id, gender_id, account_id, interest_id, relationship_id
+                            name
+                            , age_range_id
+                            , gender_id
+                            , account_id
+                            , interest_id
+                            , relationship_id
                         )
                         VALUES (%s, %s, %s, %s, %s, %s)
                         RETURNING id;
@@ -75,7 +89,7 @@ class PeopleQueries:
                             person.name,
                             person.age_range_id,
                             person.gender_id,
-                            person.account_id,
+                            account_id,
                             person.interest_id,
                             person.relationship_id,
                         ],
@@ -84,10 +98,17 @@ class PeopleQueries:
                     id = db.fetchone()[0]
                     return self.person_in_to_out(id, person)
         except Exception:
-            return {"message": "could not create person"}
+            return ErrorMessage(
+                message="Could not create person",
+                code=500,
+            )
 
     # GET DETAIL OF ONE PERSON
-    def get_person(self, person_id: int) -> Union[PersonOut, ErrorMessage]:
+    def get_person(
+        self,
+        account_id: int,
+        person_id: int,
+    ) -> Union[PersonOut, ErrorMessage]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -101,9 +122,9 @@ class PeopleQueries:
                             , interest_id
                             , relationship_id
                         FROM person
-                        WHERE id = %s
+                        WHERE account_id = %s AND id = %s
                         """,
-                        [person_id],
+                        [account_id, person_id],
                     )
                     record = db.fetchone()
                     if record is None:
@@ -113,11 +134,17 @@ class PeopleQueries:
                         )
                     return self.record_to_person_out(record)
         except Exception:
-            return {"message": "could not get that person"}
+            return ErrorMessage(
+                message="Could not get that person",
+                code=404,
+            )
 
     # UPDATE A PERSON
     def update_person(
-        self, person_id, person: PersonIn
+        self,
+        account_id: int,
+        person_id,
+        person: PersonIn,
     ) -> Union[PersonOut, ErrorMessage]:
         try:
             with pool.connection() as conn:
@@ -131,7 +158,7 @@ class PeopleQueries:
                             , account_id = %s
                             , interest_id = %s
                             , relationship_id = %s
-                        WHERE id = %s
+                        WHERE account_id = %s AND id = %s
                         RETURNING id
                                 , name
                                 , age_range_id
@@ -144,9 +171,10 @@ class PeopleQueries:
                             person.name,
                             person.age_range_id,
                             person.gender_id,
-                            person.account_id,
+                            account_id,
                             person.interest_id,
                             person.relationship_id,
+                            account_id,
                             person_id,
                         ],
                     )
@@ -157,19 +185,26 @@ class PeopleQueries:
                         )
                     return self.person_in_to_out(person_id, person)
         except Exception:
-            return {"message": "could not update person"}
+            return ErrorMessage(
+                message="Could not update person",
+                code=404,
+            )
 
     # DELETE A PERSON
-    def delete_person(self, person_id) -> Union[bool, ErrorMessage]:
+    def delete_person(
+        self,
+        account_id: int,
+        person_id,
+    ) -> Union[bool, ErrorMessage]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
                         DELETE from person
-                        WHERE id = %s
+                        WHERE account_id = %s AND id = %s
                         """,
-                        [person_id],
+                        [account_id, person_id],
                     )
                     if db.rowcount == 0:
                         return ErrorMessage(
