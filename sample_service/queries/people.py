@@ -152,7 +152,7 @@ class PeopleQueries:
                     )
                     if db.rowcount == 0:
                         return ErrorMessage(
-                            message="Person ot found",
+                            message="Person not found",
                             code=404,
                         )
                     return self.person_in_to_out(person_id, person)
