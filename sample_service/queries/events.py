@@ -82,9 +82,9 @@ class EventRepository:
                             event.account_id,
                         ],
                     )
-                id = db.fetchone()[0]
-                old_data = event.dict()
-                return EventOut(id=id, **old_data)
+                    id = db.fetchone()[0]
+                    old_data = event.dict()
+                    return EventOut(id=id, **old_data)
         except Exception:
             return {"message": "Could not create event"}
 
