@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Union
+from typing import List, Union, Optional
 from queries.pool import pool
 
 
@@ -13,7 +13,7 @@ class PersonIn(BaseModel):
     age_range_id: int
     gender_id: int
     account_id: int
-    interests_id: int
+    interest_id: int
     relationship_id: int
 
 
@@ -21,9 +21,9 @@ class PersonOut(BaseModel):
     id: int
     name: str
     age_range_id: int
-    gender_id: int
+    gender_id: Optional[int]
     account_id: int
-    interests_id: int
+    interest_id: int
     relationship_id: int
 
 
@@ -31,7 +31,7 @@ class PeopleQueries:
     # GET ALL PEOPLE
     def get_all(
         self,
-    ) -> Union[List[PersonIn], ErrorMessage]:
+    ) -> Union[List[PersonOut], ErrorMessage]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -145,7 +145,7 @@ class PeopleQueries:
                             person.age_range_id,
                             person.gender_id,
                             person.account_id,
-                            person.interests_id,
+                            person.interest_id,
                             person.relationship_id,
                             person_id,
                         ],
