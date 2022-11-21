@@ -4,7 +4,7 @@ from queries.events import EventIn
 router = APIRouter(tags=["Events"])
 
 
-@router.post("/api/events", tags=["events"])
+@router.post("/api/events")
 def create_event(event: EventIn):
     print("event", event)
     return event

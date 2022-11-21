@@ -8,7 +8,7 @@ from queries.gender import (
 )
 
 
-router = APIRouter()
+router = APIRouter(tags=["Gender"])
 
 
 @router.post("/gender", response_model=Union[GenderOut, Error])
