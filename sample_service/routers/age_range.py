@@ -44,7 +44,6 @@ def get_one_age_range(
     repo: AgeRangeQueries = Depends(),
 ) -> Union[AgeRangeOut, ErrorMessage]:
     age_range = repo.get_one(age_range_id)
-    print(age_range)
     response.status_code = set_response_code(age_range)
     return age_range
 
