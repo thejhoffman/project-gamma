@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Depends
-from typing import List, Union
+from fastapi import APIRouter, Depends, Response
+from typing import List, Union, Optional
 from queries.events import EventIn, EventOut, EventRepository, Error
 from authenticator import authenticator
 
@@ -39,4 +39,17 @@ async def delete_event(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: EventRepository = Depends(),
 ) -> bool:
-    return repo.delete(account_data["id"], event_id)
+    return repo.delete(event_id)
+
+
+@router.get("/api/events/{event_id}", response_model= Optional[EventOut])
+async def get_one_event(
+    event_id: int,
+    response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: EventRepository = Depends(),
+) -> EventOut:
+    event = repo.get_one(account_data["id"], event_id)
+    if event is None:
+        response.status_code = 404
+    return event
