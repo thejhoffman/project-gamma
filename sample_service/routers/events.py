@@ -5,7 +5,7 @@ from queries.events import EventIn, EventOut, EventRepository, Error
 router = APIRouter(tags=["Events"])
 
 
-@router.post("/api/events", response_model=EventOut, tags=["events"])
+@router.post("/api/events", response_model=EventOut)
 def create_event(
     event: EventIn,
     repo: EventRepository = Depends(),
