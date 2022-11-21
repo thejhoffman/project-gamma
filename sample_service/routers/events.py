@@ -1,5 +1,6 @@
-from fastapi import APIRouter
-from queries.events import EventIn
+from fastapi import APIRouter, Depends
+from typing import List, Union
+from queries.events import EventIn, EventOut, EventRepository, Error
 
 router = APIRouter(tags=["Events"])
 
