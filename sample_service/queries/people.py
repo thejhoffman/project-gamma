@@ -42,7 +42,7 @@ class PeopleQueries:
                             , age_range_id
                             , gender_id
                             , account_id
-                            , interest_id,
+                            , interests_id,
                             , relationship_id
                         FROM person
                         """
@@ -66,7 +66,7 @@ class PeopleQueries:
                     db.execute(
                         """
                         INSERT INTO person (
-                            name, age_range_id, gender_id, account_id, interest_id, relationship_id
+                            name, age_range_id, gender_id, account_id, interests_id, relationship_id
                         )
                         VALUES (%s, %s, %s, %s, %s, %s)
                         RETURNING id;
@@ -76,7 +76,7 @@ class PeopleQueries:
                             person.age_range_id,
                             person.gender_id,
                             person.account_id,
-                            person.interest_id,
+                            person.interests_id,
                             person.relationship_id,
                         ],
                     )
@@ -98,7 +98,7 @@ class PeopleQueries:
                             , age_range_id
                             , gender_id
                             , account_id
-                            , interest_id
+                            , interests_id
                             , relationship_id
                         FROM person
                         WHERE id = %s
@@ -129,7 +129,7 @@ class PeopleQueries:
                             , age_range_id = %s
                             , gender_id = %s
                             , account_id = %s
-                            , interest_id = %s
+                            , interests_id = %s
                             , relationship_id = %s
                         WHERE id = %s
                         RETURNING id
@@ -137,7 +137,7 @@ class PeopleQueries:
                                 , age_range_id
                                 , gender_id
                                 , account_id
-                                , interest_id
+                                , interests_id
                                 , relationship_id
                         """,
                         [
@@ -152,7 +152,7 @@ class PeopleQueries:
                     )
                     if db.rowcount == 0:
                         return ErrorMessage(
-                            message="Person ot found",
+                            message="Person not found",
                             code=404,
                         )
                     return self.person_in_to_out(person_id, person)
@@ -191,6 +191,6 @@ class PeopleQueries:
             age_range_id=record[2],
             gender_id=record[3],
             account_id=record[4],
-            interest_id=record[5],
+            interests_id=record[5],
             relationship_id=record[6],
         )

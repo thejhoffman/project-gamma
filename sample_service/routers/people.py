@@ -26,7 +26,7 @@ def create_person(
     person: PersonIn,
     repo: PeopleQueries = Depends(),
 ) -> Union[List[PersonOut], ErrorMessage]:
-    return repo.create(person)
+    return repo.create_person(person)
 
 
 # GET DETAIL OF ONE PERSON
@@ -39,7 +39,7 @@ def get_one_person(
     response: Response,
     repo: PeopleQueries = Depends(),
 ) -> Union[PersonOut, ErrorMessage]:
-    person = repo.get_one(person_id)
+    person = repo.get_person()(person_id)
     response.status_code = set_response_code(person)
     return person
 
@@ -55,7 +55,7 @@ def update_person(
     response: Response,
     repo: PeopleQueries = Depends(),
 ) -> Union[PersonOut, ErrorMessage]:
-    person = repo.update(person_id, person)
+    person = repo.update_person()(person_id, person)
     response.status_code = set_response_code(person)
     return person
 
