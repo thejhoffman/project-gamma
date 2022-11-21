@@ -26,7 +26,35 @@ class EventOut(BaseModel):
 
 
 class EventRepository:
-    def create_event(self, event: EventIn) -> EventOut:
+    def update(self, event_id: int, event: EventIn) -> Union[EventOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE events
+                        SET name = %s
+                         , date = %s
+                         , person_id = %s
+                         , occasion_id = %s
+                         , account_id = %s
+                         WHERE id = %s
+                        """,
+                        [
+                            event.name,
+                            event.date,
+                            event.person_id,
+                            event.occasion_id,
+                            event.account_id,
+                            event_id
+                        ]
+                    )
+                    old_data = event.dict()
+                    return EventOut(id-event_id, **old_data)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update event"}
+    def create_event(self, event:EventIn) -> EventOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -76,3 +104,19 @@ class EventRepository:
                     return result
         except Exception:
             return {"message": "Could not get all events"}
+
+    def delete(self, event_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM events
+                        WHERE id = %
+                        """,
+                        [event_id]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
