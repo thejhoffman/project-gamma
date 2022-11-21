@@ -2,21 +2,25 @@ from pydantic import BaseModel
 from typing import List, Union
 from queries.pool import pool
 
+
 class Error(BaseModel):
-    message:str
+    message: str
+
 
 class InterestsIn(BaseModel):
     name: str
+
 
 class InterestsOut(BaseModel):
     id: int
     name: str
 
+
 class InterestsRepository(BaseModel):
     def create(self, interest: InterestsIn) -> InterestsOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
-                result=db.execute(
+                result = db.execute(
                     """
                     INSERT INTO interests
                         (name)
@@ -24,13 +28,12 @@ class InterestsRepository(BaseModel):
                         (%s)
                     RETURNING id;
                     """,
-                [
-                    interest.name
-                ]
+                    [interest.name],
                 )
-                id=result.fetchone()[0]
-                old_data=interest.dict()
+                id = result.fetchone()[0]
+                old_data = interest.dict()
                 return InterestsOut(id=id, **old_data)
+
     def get_all(self) -> Union[Error, List[InterestsOut]]:
         try:
             with pool.connection() as conn:
@@ -42,9 +45,9 @@ class InterestsRepository(BaseModel):
                         ORDER BY id;
                         """
                     )
-                    result=[]
+                    result = []
                     for record in db:
-                        interest=InterestsOut(
+                        interest = InterestsOut(
                             id=record[0],
                             name=record[1],
                         )

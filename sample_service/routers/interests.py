@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends
 from typing import List, Union
 from queries.interests import (
     InterestsIn,
@@ -12,10 +12,10 @@ router = APIRouter(tags=["Interests"])
 
 @router.post("/api/interests", response_model=InterestsOut)
 def create_interests(
-    interest: InterestsIn,
-    repo: InterestsRepository = Depends()
+    interest: InterestsIn, repo: InterestsRepository = Depends()
 ):
     return repo.create(interest)
+
 
 @router.get("/api/interests", response_model=Union[Error, List[InterestsOut]])
 def get_all(

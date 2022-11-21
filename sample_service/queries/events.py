@@ -13,7 +13,7 @@ class EventIn(BaseModel):
     date: date
     person_id: int
     occasion_id: int
-    account_id: int
+    # account_id: int
 
 
 class EventOut(BaseModel):
@@ -22,12 +22,12 @@ class EventOut(BaseModel):
     date: date
     person_id: int
     occasion_id: int
-    account_id: int
+    # account_id: int
 
 
 class EventRepository:
     def update_event(
-        self, event_id: int, event: EventIn
+        self, account_id: int, event_id: int, event: EventIn
     ) -> Union[EventOut, Error]:
         try:
             with pool.connection() as conn:
@@ -40,7 +40,7 @@ class EventRepository:
                          , person_id = %s
                          , occasion_id = %s
                          , account_id = %s
-                         WHERE id = %s
+                         WHERE account_id = %s AND id = %s
                          RETURNING id
                                 , name
                                 , person_id
@@ -52,7 +52,8 @@ class EventRepository:
                             event.date,
                             event.person_id,
                             event.occasion_id,
-                            event.account_id,
+                            account_id,
+                            account_id,
                             event_id,
                         ],
                     )
@@ -62,7 +63,7 @@ class EventRepository:
             print(e)
             return {"message": "Could not update event"}
 
-    def create_event(self, event: EventIn) -> EventOut:
+    def create_event(self, account_id: int, event: EventIn) -> EventOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -79,7 +80,7 @@ class EventRepository:
                             event.date,
                             event.person_id,
                             event.occasion_id,
-                            event.account_id,
+                            account_id,
                         ],
                     )
                     id = db.fetchone()[0]
@@ -88,16 +89,23 @@ class EventRepository:
         except Exception:
             return {"message": "Could not create event"}
 
-    def get_all(self) -> Union[Error, List[EventOut]]:
+    def get_all(self, account_id: int) -> Union[Error, List[EventOut]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, name, date, person_id, occasion_id, account_id
+                        SELECT id
+                            , name
+                            , date
+                            , person_id
+                            , occasion_id
+                            , account_id
                         FROM events
+                        WHERE account_id = %s
                         ORDER BY date;
-                        """
+                        """,
+                        [account_id],
                     )
                     result = []
                     for record in db:
@@ -114,16 +122,16 @@ class EventRepository:
         except Exception:
             return {"message": "Could not get all events"}
 
-    def delete(self, event_id: int) -> bool:
+    def delete(self, account_id: int, event_id: int) -> bool:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
                         DELETE FROM events
-                        WHERE id = %s
+                        WHERE account_id = %s AND id = %s
                         """,
-                        [event_id],
+                        [account_id, event_id],
                     )
                     return True
         except Exception as e:
