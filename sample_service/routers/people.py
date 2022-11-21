@@ -20,13 +20,13 @@ def get_all(
 # CREATE A NEW PERSON
 @router.post(
     "/api/people",
-    response_model=Union[List[PersonOut], ErrorMessage],
+    response_model=Union[PersonOut, ErrorMessage],
 )
 def create_person(
     person: PersonIn,
     repo: PeopleQueries = Depends(),
-) -> Union[List[PersonOut], ErrorMessage]:
-    return repo.create(person)
+) -> Union[PersonOut, ErrorMessage]:
+    return repo.create_person(person)
 
 
 # GET DETAIL OF ONE PERSON
@@ -39,7 +39,7 @@ def get_one_person(
     response: Response,
     repo: PeopleQueries = Depends(),
 ) -> Union[PersonOut, ErrorMessage]:
-    person = repo.get_one(person_id)
+    person = repo.get_person(person_id)
     response.status_code = set_response_code(person)
     return person
 
@@ -55,7 +55,7 @@ def update_person(
     response: Response,
     repo: PeopleQueries = Depends(),
 ) -> Union[PersonOut, ErrorMessage]:
-    person = repo.update(person_id, person)
+    person = repo.update_person(person_id, person)
     response.status_code = set_response_code(person)
     return person
 
@@ -70,7 +70,7 @@ def delete_person(
     response: Response,
     repo: PeopleQueries = Depends(),
 ) -> Union[bool, ErrorMessage]:
-    did_delete = repo.delete(person_id)
+    did_delete = repo.delete_person(person_id)
     response.status_code = set_response_code(did_delete)
     return did_delete
 
