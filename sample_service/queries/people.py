@@ -1,6 +1,11 @@
 from pydantic import BaseModel
 from typing import List, Union, Optional
 from queries.pool import pool
+from queries.age_range import AgeRangeOut
+from queries.gender import GenderOut
+from queries.interests import InterestsOut
+from queries.relationships import RelationshipOut
+from psycopg import cursor
 
 
 class ErrorMessage(BaseModel):
@@ -19,11 +24,10 @@ class PersonIn(BaseModel):
 class PersonOut(BaseModel):
     id: int
     name: str
-    age_range_id: int
-    gender_id: Optional[int]
-    # account_id: int
-    interest_id: int
-    relationship_id: int
+    age_range: AgeRangeOut
+    gender: Optional[GenderOut]
+    interest: InterestsOut
+    relationship: RelationshipOut
 
 
 class PeopleQueries:
@@ -37,15 +41,25 @@ class PeopleQueries:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT
-                            id
-                            , name
-                            , age_range_id
-                            , gender_id
-                            , account_id
-                            , interest_id
-                            , relationship_id
-                        FROM person
+                        SELECT p.id
+                            , p.name
+                            , a.id
+                            , a.age
+                            , g.id
+                            , g.name
+                            , i.id
+                            , i.name
+                            , r.id
+                            , r.type
+                        FROM person as p
+                        LEFT JOIN age_range as a
+                        ON age_range_id = a.id
+                        LEFT JOIN gender as g
+                        ON gender_id = g.id
+                        LEFT JOIN interests as i
+                        ON interest_id = i.id
+                        LEFT JOIN relationships as r
+                        ON relationship_id = r.id
                         WHERE account_id = %s
                         """,
                         [account_id],
@@ -90,9 +104,9 @@ class PeopleQueries:
                             person.relationship_id,
                         ],
                     )
-
                     id = db.fetchone()[0]
-                    return self.person_in_to_out(id, person)
+                    record = self.get_person_record(db, account_id, id)
+                    return self.record_to_person_out(record)
         except Exception:
             return ErrorMessage(
                 message="Could not create person",
@@ -108,30 +122,17 @@ class PeopleQueries:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    db.execute(
-                        """
-                        SELECT id
-                            , name
-                            , age_range_id
-                            , gender_id
-                            , account_id
-                            , interest_id
-                            , relationship_id
-                        FROM person
-                        WHERE account_id = %s AND id = %s
-                        """,
-                        [account_id, person_id],
-                    )
-                    record = db.fetchone()
+                    record = self.get_person_record(db, account_id, person_id)
                     if record is None:
                         return ErrorMessage(
                             message="Person not found",
                             code=404,
                         )
                     return self.record_to_person_out(record)
-        except Exception:
+        except Exception as e:
             return ErrorMessage(
-                message="Could not get that person",
+                # message="Could not get that person",
+                message=str(e),
                 code=404,
             )
 
@@ -139,7 +140,7 @@ class PeopleQueries:
     def update_person(
         self,
         account_id: int,
-        person_id,
+        person_id: int,
         person: PersonIn,
     ) -> Union[PersonOut, ErrorMessage]:
         try:
@@ -179,7 +180,8 @@ class PeopleQueries:
                             message="Person not found",
                             code=404,
                         )
-                    return self.person_in_to_out(person_id, person)
+                    record = self.get_person_record(db, account_id, person_id)
+                    return self.record_to_person_out(record)
         except Exception:
             return ErrorMessage(
                 message="Could not update person",
@@ -190,7 +192,7 @@ class PeopleQueries:
     def delete_person(
         self,
         account_id: int,
-        person_id,
+        person_id: int,
     ) -> Union[bool, ErrorMessage]:
         try:
             with pool.connection() as conn:
@@ -211,17 +213,40 @@ class PeopleQueries:
             return False
 
     # helper methods
-    def person_in_to_out(self, id: int, person: PersonIn):
-        old_data = person.dict()
-        return PersonOut(id=id, **old_data)
+    def get_person_record(self, db: cursor, account_id, person_id):
+        db.execute(
+            """
+            SELECT p.id
+                , p.name
+                , a.id
+                , a.age
+                , g.id
+                , g.name
+                , i.id
+                , i.name
+                , r.id
+                , r.type
+            FROM person as p
+            LEFT JOIN age_range as a
+            ON age_range_id = a.id
+            LEFT JOIN gender as g
+            ON gender_id = g.id
+            LEFT JOIN interests as i
+            ON interest_id = i.id
+            LEFT JOIN relationships as r
+            ON relationship_id = r.id
+            WHERE account_id = %s AND p.id = %s
+            """,
+            [account_id, person_id],
+        )
+        return db.fetchone()
 
     def record_to_person_out(self, record):
         return PersonOut(
             id=record[0],
             name=record[1],
-            age_range_id=record[2],
-            gender_id=record[3],
-            account_id=record[4],
-            interest_id=record[5],
-            relationship_id=record[6],
+            age_range=AgeRangeOut(id=record[2], age=record[3]),
+            gender=GenderOut(id=record[4], name=record[5]),
+            interest=InterestsOut(id=record[6], name=record[7]),
+            relationship=RelationshipOut(id=record[8], type=record[9]),
         )
