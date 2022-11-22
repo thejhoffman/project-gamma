@@ -35,3 +35,7 @@ We continued to finish up our endpoints. The rest of the team completed the endp
 Theresa and I started working on the People endpoint and implemented the full CRUD functionally for that endpoint. Jonathan and Andrew started working the Events endpoint.
 
 I also finished the work on the People endpoint to protect it, allowing only authenticated users the ability to access the endpoints. I also made it so that that endpoints only return data associated with that user. The users ability to update and delete is  also restricted to data linked specifically to them.
+
+
+### 11/22/2022
+I updated the people endpoint to include more details when the endpoints return data. It now shows the the values of the objects linked to them instead of just the associated id.
