@@ -19,3 +19,6 @@ Today I finished up the In point for gender.
 
 ### 11/21/2022
 Jonathan and I worked on live share and updated the Events part of the CRUD.
+
+### 11/22/2022
+Today I signed up with the following API's, Esty, Amazon, Ebay, and RapidAPI, trying to get one to succeed to connect.
