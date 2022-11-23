@@ -1,3 +1,6 @@
+### November 22, 2022 (11/22/2022):
+Today, I learned more about redux. I began the set up for redux in our project and commited those changes. I plan to begin front-end portions tomorrow with React.
+
 ### November 21, 2022 (11/21/2022):
 During the weekend, I completed the Get All API Endpoint for Interests. Today, I worked on the Create Events API Endpoint, and the Update Events API endpoint. I also assisted teammates in any technical issues they faced. Our plan tomorrow is to incorporate redux into the project.
 
