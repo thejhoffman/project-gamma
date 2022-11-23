@@ -45,18 +45,6 @@ steps = [
         """,
     ],
     [
-        """
-        CREATE TABLE person (
-            id SERIAL PRIMARY KEY NOT NULL,
-            name VARCHAR(50) NOT NULL
-        );
-        """,
-        # "down" SQL statement for person table
-        """
-        DROP TABLE person;
-        """,
-    ],
-    [
         # creates interests table
         # "up" SQL statement
         """
@@ -100,15 +88,14 @@ steps = [
     ],
     [
         """
-        CREATE TABLE people (
-            person_id INTEGER NOT NULL,
-            interest_id INTEGER NOT NULL,
-            relationship_id INTEGER NOT NULL,
+        CREATE TABLE person (
+            id SERIAL PRIMARY KEY NOT NULL,
+            name VARCHAR(50) NOT NULL,
             age_range_id INTEGER NOT NULL,
             gender_id INTEGER NOT NULL,
+            interest_id INTEGER NOT NULL,
+            relationship_id INTEGER NOT NULL,
             account_id INTEGER NOT NULL,
-            CONSTRAINT people_pk PRIMARY KEY (interest_id, person_id),
-            CONSTRAINT fk_person FOREIGN KEY (person_id) REFERENCES person(id),
             CONSTRAINT fk_interest FOREIGN KEY (interest_id) REFERENCES interests(id),
             CONSTRAINT fk_relationship FOREIGN KEY (relationship_id) REFERENCES relationships(id),
             CONSTRAINT fk_age_range FOREIGN KEY (age_range_id) REFERENCES age_range(id),
@@ -116,8 +103,9 @@ steps = [
             CONSTRAINT fk_account FOREIGN KEY (account_id) REFERENCES accounts(id)
         );
         """,
+        # "down" SQL statement for person table
         """
-        DROP TABLE people;
+        DROP TABLE person;
         """,
     ],
     [

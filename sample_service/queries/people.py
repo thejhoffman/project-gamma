@@ -74,9 +74,9 @@ class PeopleQueries:
                             name
                             , age_range_id
                             , gender_id
-                            , account_id
                             , interest_id
                             , relationship_id
+                            , account_id
                         )
                         VALUES (%s, %s, %s, %s, %s, %s)
                         RETURNING id;
@@ -85,9 +85,9 @@ class PeopleQueries:
                             person.name,
                             person.age_range_id,
                             person.gender_id,
-                            account_id,
                             person.interest_id,
                             person.relationship_id,
+                            account_id,
                         ],
                     )
 
@@ -221,7 +221,7 @@ class PeopleQueries:
             name=record[1],
             age_range_id=record[2],
             gender_id=record[3],
-            account_id=record[4],
-            interest_id=record[5],
-            relationship_id=record[6],
+            interest_id=record[4],
+            relationship_id=record[5],
+            account_id=record[6],
         )

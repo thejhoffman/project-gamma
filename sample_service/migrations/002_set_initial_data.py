@@ -1,17 +1,5 @@
 steps = [
     [
-        # data for person
-        """
-        INSERT INTO person
-        VALUES
-            (1, 'Theresa'),
-            (2, 'Hello Kitty');
-        """,
-        """
-        DELETE FROM person
-        """,
-    ],
-    [
         # data for age_range
         """
         INSERT INTO age_range
