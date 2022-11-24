@@ -36,6 +36,8 @@ Theresa and I started working on the People endpoint and implemented the full CR
 
 I also finished the work on the People endpoint to protect it, allowing only authenticated users the ability to access the endpoints. I also made it so that that endpoints only return data associated with that user. The users ability to update and delete is  also restricted to data linked specifically to them.
 
-
 ### 11/22/2022
 I updated the people endpoint to include more details when the endpoints return data. It now shows the the values of the objects linked to them instead of just the associated id.
+
+### 11/23/2023
+We started to work on our front end components. I was able to get the nav bar in good spot. I still need to filter certain items base on if the user is logged in or not. We are going to use redux to keep track of the user's auth token. That will likely be the next step. After that, I will start work on the main dashboard component.
