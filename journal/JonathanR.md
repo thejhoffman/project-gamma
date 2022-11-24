@@ -1,3 +1,6 @@
+### November 23, 2022 (11/23/2022):
+Today, I learned about websockets. I will be working on the event form and event list react front-ends. I will be incorporating React hooks for these.
+
 ### November 22, 2022 (11/22/2022):
 Today, I learned more about redux. I began the set up for redux in our project and commited those changes. I plan to begin front-end portions tomorrow with React.
 
