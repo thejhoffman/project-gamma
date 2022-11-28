@@ -23,20 +23,20 @@ function PersonForm() {
     }
 
     useEffect(() => {
-        getData(`gender`, setGenders)
-    }, [])
+        getData(`gender`, setGenders);
+    }, []);
 
     useEffect(() => {
-        getData(`api/age_range`, setAges)
-    })
+        getData(`api/age_range`, setAges);
+    }, []);
 
     useEffect(() => {
-        getData(`api/relationships`, setRelationships)
-    })
+        getData(`api/relationships`, setRelationships);
+    }, []);
 
     useEffect(() => {
-        getData(`api/interests`, setInterests)
-    })
+        getData(`api/interests`, setInterests);
+    }, []);
 
     return (
         <div className="container">
@@ -53,7 +53,7 @@ function PersonForm() {
             </div>
             <div className="mb-3">
                 <label htmlFor="age" className="form-label">Age</label>
-                <select onChange={e =>setAge(e.target.value)} value={age} id="age" className="form-select" aria-label="Age" required>
+                <select onChange={e => setAge(e.target.value)} value={age} id="age" className="form-select" aria-label="Age" required>
                     <option value="">Select age</option>
                     {ages.map(age => <option key={age.id} value={age.id}>{age.age}</option>)}
                 </select>
@@ -84,7 +84,7 @@ function PersonForm() {
                 </div>
             </div> */}
         </div>
-    )
+    );
 }
 
 export default PersonForm;
