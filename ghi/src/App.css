@@ -1,3 +1,13 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
+div.container {
+  height: 100%;
+  width: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -11,4 +21,40 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.container-fluid {
+  padding: 30px;
+}
+
+.col-sm-6.carousel {
+  margin-top: 10px;
+  vertical-align: middle;
+  text-align: center;
+  display: flex;
+  padding: 50px;
+}
+
+.col-sm-6.cards {
+  margin-top: 10px;
+  vertical-align: middle;
+  display: flex;
+  padding: 30px;
+}
+
+.card-img-top {
+  max-width: 100%;
+  height: auto;
+}
+
+/* .img.card-img-top {
+  max-width: 80%;
+} */
+
+.dropdown.mainpage {
+  padding-bottom: 20px;
+}
+
+p.card-text {
+  line-height: 1em;
 }
