@@ -10,8 +10,10 @@ import EventForm from './forms/EventForm';
 import PersonForm from './forms/PersonForm';
 
 function App() {
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Nav />
       <div className="container">
         <Routes>
