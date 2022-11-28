@@ -62,7 +62,6 @@ const AuthButtons = (props) => {
 
 const Nav = () => {
   const { data: tokenData } = useGetTokenQuery();
-  console.log(tokenData);
   return (
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#e3f2fd" }}>
 
