@@ -20,7 +20,7 @@ function Login(props) {
             <BootstrapInput
                 id="email"
                 placeholder="you@example.com"
-                labelText="Login with email address"
+                labelText="Email Login"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 type="email" />
