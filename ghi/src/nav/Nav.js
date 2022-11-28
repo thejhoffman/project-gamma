@@ -1,28 +1,57 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from './logo.png';
+import { useGetTokenQuery, useLogoutAccountMutation } from "../store/tokenApi";
+import { useEffect } from "react";
 
 const DropDown = (props) => {
-  return (
-    <div className={props.margin}>
-      <ul className="navbar-nav">
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/calendar">Calendar</NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/create_person">New person</NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/create_event">New event</NavLink>
-        </li>
-      </ul>
-    </div>
-  );
+  if (props.tokenData !== null) {
+    return (
+      <div className={props.margin}>
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/calendar">Calendar</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/create_person">New person</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/create_event">New event</NavLink>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+  return null;
 };
 
-const AuthButtons = () => {
+const AuthButtons = (props) => {
+  const navigate = useNavigate();
+  const [logoutAccount, result] = useLogoutAccountMutation();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    logoutAccount();
+  };
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      navigate("/");
+      result.isSuccess = false;
+    }
+  }, [navigate, result.isSuccess, result]);
+
+  if (props.tokenData !== null) {
+    return (
+      <div>
+        <button className="btn btn-primary" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+    );
+  }
   return (
     <div>
       <NavLink className="btn btn-primary" style={{ marginRight: '1em' }} to="/signup" > Signup</NavLink>
@@ -32,11 +61,12 @@ const AuthButtons = () => {
 };
 
 const Nav = () => {
+  const { data: tokenData } = useGetTokenQuery();
+  console.log(tokenData);
   return (
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#e3f2fd" }}>
 
       <div className="container-fluid">
-
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
           <svg viewBox="0 0 100 80" width="40" height="40">
             <rect width="100" height="20" rx="10"></rect>
@@ -50,17 +80,15 @@ const Nav = () => {
         </NavLink>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <DropDown />
+          <DropDown tokenData={tokenData} />
         </div>
 
-        <AuthButtons />
-
+        <AuthButtons tokenData={tokenData} />
       </div>
 
       <div className="collapse" id="navbarToggleExternalContent">
-        <DropDown margin="m-4" />
+        <DropDown tokenData={tokenData} margin="m-4" />
       </div>
-
     </nav>
   );
 };
