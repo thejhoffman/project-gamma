@@ -4,7 +4,7 @@ function BootstrapInput(props) {
     const { id, placeholder, labelText, value, onChange, type } = props;
 
     return (
-        <div className="mb-3">
+        <div className="offset-3 col-6">
             <label htmlFor={id} className="form-label">{labelText}</label>
             <input value={value} onChange={onChange} required type={type} className="form-control" id={id} placeholder={placeholder} />
         </div>
@@ -39,7 +39,7 @@ function SignUp(props) {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 type="password" />
-            <button className="btn btn-primary">Submit</button>
+            <button className="btn btn-primary offset-3 col-6">Submit</button>
         </form>
     );
 }
