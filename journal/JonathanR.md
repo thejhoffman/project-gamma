@@ -1,3 +1,6 @@
+### November 29, 2022 (11/29/2022):
+Yesterday, I worked on the EventForm. I used React hooks for this. Today, I will continue to edit the eventform and also create a unit test. Today, we learned about unit tests and how to write our own. I will write a unit test for one nof the endpoints I created.
+
 ### November 23, 2022 (11/23/2022):
 Today, I learned about websockets. I will be working on the event form and event list react front-ends. I will be incorporating React hooks for these.
 
