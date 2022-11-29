@@ -19,32 +19,25 @@ class InterestsRepositoryMock:
 
 
 def test_create_interests():
-    #Arrange
     app.dependency_overrides[InterestsRepository]=InterestsRepositoryMock
     interests={
         "id":1,
         "name":"Example Interest",
     }
 
-    #Act
     response=client.post(
         "/api/interests",
         json.dumps(interests),
     )
 
-    #Assert
     assert response.status_code==200
     assert response.json()["name"]=="Example Interest"
 
 def test_get_all_interests():
-    #Arrange
     app.dependency_overrides[InterestsRepository]=InterestsRepositoryMock
 
-    #Act
     response=client.get("/api/interests")
 
-    #Assert
     assert response.status_code==200
 
-    #Clean
     app.dependency_overrides={}
