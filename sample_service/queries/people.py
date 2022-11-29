@@ -5,7 +5,6 @@ from queries.age_range import AgeRangeOut
 from queries.gender import GenderOut
 from queries.interests import InterestsOut
 from queries.relationships import RelationshipOut
-from queries.products import Product, ProductRepo
 from psycopg import cursor
 
 
@@ -29,7 +28,6 @@ class PersonOut(BaseModel):
     gender: Optional[GenderOut]
     interest: InterestsOut
     relationship: RelationshipOut
-    products: Product
 
 
 class PeopleQueries:
@@ -130,8 +128,7 @@ class PeopleQueries:
                             message="Person not found",
                             code=404,
                         )
-                    products = ProductRepo.get_product(self, record[7], max_price=None)
-                    return self.record_to_person_out(record, products)
+                    return self.record_to_person_out(record)
         except Exception as e:
             return ErrorMessage(
                 # message="Could not get that person",
@@ -244,13 +241,12 @@ class PeopleQueries:
         )
         return db.fetchone()
 
-    def record_to_person_out(self, record, products):
+    def record_to_person_out(self, record):
         return PersonOut(
             id=record[0],
             name=record[1],
             age_range=AgeRangeOut(id=record[2], age=record[3]),
             gender=GenderOut(id=record[4], name=record[5]),
             interest=InterestsOut(id=record[6], name=record[7]),
-            relationship=RelationshipOut(id=record[8], type=record[9]),
-            products=products
+            relationship=RelationshipOut(id=record[8], type=record[9])
         )

@@ -37,7 +37,6 @@ services:
       REACT_APP_SAMPLE_SERVICE_API_HOST: http://localhost:8000
       CHOKIDAR_USEPOLLING: true # create-ui-app <= 5.x
       WATCHPACK_POLLING: true # create-ui-app >= 5.x
-      ETSY_API_KEY: ${ETSY_API_KEY}
 
   db:
     image: postgres:14.5-bullseye
