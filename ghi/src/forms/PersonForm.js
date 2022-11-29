@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useGetTokenQuery } from '../store/tokenApi';
 
-function PersonForm() {
-
+function PersonForm(props) {
+    const { data: token, isLoading: tokenLoading } = useGetTokenQuery();
     const [name, setName] = useState('');
     const [gender, setGender] = useState('');
     const [age, setAge] = useState('');
@@ -12,6 +13,9 @@ function PersonForm() {
     const [ages, setAges] = useState([]);
     const [relationships, setRelationships] = useState([]);
     const [interests, setInterests] = useState([]);
+
+    console.log(token)
+
 
     async function getData(url, setFunction) {
         url = `http://localhost:8000/${url}`;
@@ -38,41 +42,60 @@ function PersonForm() {
         getData(`api/interests`, setInterests);
     }, []);
 
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        const data = { name, gender, age, relationship, interest };
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        };
+        fetch(`http://localhost:8000/api/people`, requestOptions).then(response => response.json())
+    }
+
     return (
-        <div className="container">
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label">Name</label>
-                <input value={name} onChange={e => setName(e.target.value)} required type="text" className="form-control" id="name"></input>
-            </div>
-            <div className="mb-3">
-                <label htmlFor="gender" className="form-label">Gender</label>
-                <select onChange={e => setGender(e.target.value)} value={gender} id="gender" className="form-select" aria-label="Gender">
-                    <option value="">Select gender</option>
-                    {genders.map(gender => <option key={gender.id} value={gender.id}>{gender.name}</option>)}
-                </select>
-            </div>
-            <div className="mb-3">
-                <label htmlFor="age" className="form-label">Age</label>
-                <select onChange={e => setAge(e.target.value)} value={age} id="age" className="form-select" aria-label="Age" required>
-                    <option value="">Select age</option>
-                    {ages.map(age => <option key={age.id} value={age.id}>{age.age}</option>)}
-                </select>
-            </div>
-            <div className="mb-3">
-                <label htmlFor="relationship" className="form-label">Relationship</label>
-                <select onChange={e => setRelationship(e.target.value)} value={relationship} id="relationship" className="form-select" aria-label="Relationship" required>
-                    <option value="">Select relationship</option>
-                    {relationships.map(relationship => <option key={relationship.id} value={relationship.id}>{relationship.type}</option>)}
-                </select>
-            </div>
-            <div className="mb-3">
-                <label htmlFor="interest" className="form-label">Interest</label>
-                <select onChange={e => setInterest(e.target.value)} value={interest} id="interest" className="form-select" aria-label="Interest" required>
-                    <option value="">Select an interest</option>
-                    {interests.map(interest => <option key={interest.id} value={interest.id}>{interest.name}</option>)}
-                </select>
-            </div>
-            {/* <div className="mb-3">
+        <>
+            {tokenLoading ? "please wait" :
+                <form>
+                    <div className="container">
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">Name</label>
+                            <input value={name} onChange={e => setName(e.target.value)} required type="text" className="form-control" id="name"></input>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="gender" className="form-label">Gender</label>
+                            <select onChange={e => setGender(e.target.value)} value={gender} id="gender" className="form-select" aria-label="Gender">
+                                <option value="">Select gender</option>
+                                {genders.map(gender => <option key={gender.id} value={gender.id}>{gender.name}</option>)}
+                            </select>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="age" className="form-label">Age</label>
+                            <select onChange={e => setAge(e.target.value)} value={age} id="age" className="form-select" aria-label="Age" required>
+                                <option value="">Select age</option>
+                                {ages.map(age => <option key={age.id} value={age.id}>{age.age}</option>)}
+                            </select>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="relationship" className="form-label">Relationship</label>
+                            <select onChange={e => setRelationship(e.target.value)} value={relationship} id="relationship" className="form-select" aria-label="Relationship" required>
+                                <option value="">Select relationship</option>
+                                {relationships.map(relationship => <option key={relationship.id} value={relationship.id}>{relationship.type}</option>)}
+                            </select>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="interest" className="form-label">Interest</label>
+                            <select onChange={e => setInterest(e.target.value)} value={interest} id="interest" className="form-select" aria-label="Interest" required>
+                                <option value="">Select an interest</option>
+                                {interests.map(interest => <option key={interest.id} value={interest.id}>{interest.name}</option>)}
+                            </select>
+                        </div>
+                        <button disabled={interests.length === 0} onClick={handleSubmit} type="submit" className="btn btn-primary">Submit</button>
+                        {/* <div className="mb-3">
                 Select an interest
                 <div className="form-check">
                     <input className="form-check-input" type="checkbox" id="interestOptionOne"></input>
@@ -83,7 +106,10 @@ function PersonForm() {
                     <label htmlFor="interestOptionTwo" className="form-check-label">Interest 2</label>
                 </div>
             </div> */}
-        </div>
+                    </div>
+                </form>
+            }
+        </>
     );
 }
 
