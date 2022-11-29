@@ -39,5 +39,6 @@ def test_get_all_interests():
     response=client.get("/api/interests")
 
     assert response.status_code==200
+    assert response.json()=={"name":[]}
 
     app.dependency_overrides={}
