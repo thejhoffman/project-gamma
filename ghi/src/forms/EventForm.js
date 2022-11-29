@@ -11,7 +11,7 @@ function EventForm() {
       const getEventData = async () => {
           const eventResponse = await fetch(
               "http://localhost:8000/api/people/"
-              );
+              , {credentials: 'include'});
               const eventData = await eventResponse.json();
               setPersons(eventData.persons);
           };
@@ -28,7 +28,6 @@ const handleSubmit = async event => {
   if(response.ok){setName(''); setDate(''); setPerson(''); setOccasion('');
 }
 };
-
 const handleNameChange = event => {
   setName(event.target.value);
 };
@@ -59,9 +58,9 @@ return (
           <div className="form-floating mb-3">
             <select onChange={handlePersonChange} value={person_id} required name="person_id" id="person_id" className="form-select" >
             <option value="person_id">Person</option>
-            {persons.map((event) => {
+            {persons?.map((events) => {
                   return (
-                      <option key={event.id} value={event.id}>{event.name}</option>
+                      <option key={events.id} value={events.id}>{events.name}</option>
                   );
               })}
             </select>
