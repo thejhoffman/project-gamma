@@ -11,9 +11,10 @@ function EventForm() {
   useEffect(() => {
       const getEventData = async () => {
           const eventResponse = await fetch(
-              "http://localhost:8000/api/people/");
+              "http://localhost:8000/api/people/",
+              {credentials:'include'});
               const eventData = await eventResponse.json();
-              setPersons(eventData.persons);
+              setPersons(eventData);
           };
           getEventData(); }, []);
 
@@ -23,16 +24,17 @@ function EventForm() {
               "http://localhost:8000/api/occasions/",
               {credentials:'include'});
               const eventData = await eventResponse.json();
-              setOccasions(eventData.occasions);
+              setOccasions(eventData);
           };
           getData(); }, []);
 
 const handleSubmit = async event => {
   event.preventDefault();
   const data = {name, date, person_id, occasion_id};
-  const eventUrl = 'http://localhost:8000/api/events/new/'
+  const eventUrl = 'http://localhost:8000/api/events/'
   const fetchConfig = {
-      method:"post", body:JSON.stringify(data), headers:{'Content-Type':'application/json'},
+      method:"post", body:JSON.stringify(data),
+      headers:{'Content-Type':'application/json'}, credentials:'include',
   };
   const response = await fetch(eventUrl, fetchConfig);
   if(response.ok){setName(''); setDate(''); setPerson(''); setOccasion('');
