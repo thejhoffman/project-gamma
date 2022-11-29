@@ -6,16 +6,26 @@ function EventForm() {
   const[person_id, setPerson] = useState('');
   const[persons, setPersons] = useState([]);
   const[occasion_id, setOccasion] = useState('');
+  const[occasions,setOccasions] = useState([]);
 
   useEffect(() => {
       const getEventData = async () => {
           const eventResponse = await fetch(
-              "http://localhost:8000/api/people/"
-              , {credentials: 'include'});
+              "http://localhost:8000/api/people/");
               const eventData = await eventResponse.json();
               setPersons(eventData.persons);
           };
           getEventData(); }, []);
+
+  useEffect(() => {
+      const getData = async () => {
+          const eventResponse = await fetch(
+              "http://localhost:8000/api/occasions/",
+              {credentials:'include'});
+              const eventData = await eventResponse.json();
+              setOccasions(eventData.occasions);
+          };
+          getData(); }, []);
 
 const handleSubmit = async event => {
   event.preventDefault();
@@ -45,15 +55,15 @@ return (
   <div className="row">
     <div className="offset-3 col-6">
       <div className="shadow p-4 mt-4">
-        <h1>Add a new event</h1>
+        <h1>Add a new event!</h1>
         <form onSubmit={handleSubmit} id="create-event-form">
           <div className="form-floating mb-3">
             <input onChange={handleNameChange} value={name} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Name of event</label>
           </div>
           <div className="form-floating mb-3">
-            <input onChange={handleDateChange} value={date} placeholder="Date" required type="text" name="date" id="date" className="form-control" />
-            <label htmlFor="date">Date</label>
+            <input onChange={handleDateChange} value={date} placeholder="Date" required type="date" name="date" id="date" className="form-control" />
+            <label htmlFor="date">Date of event</label>
           </div>
           <div className="form-floating mb-3">
             <select onChange={handlePersonChange} value={person_id} required name="person_id" id="person_id" className="form-select" >
@@ -66,12 +76,16 @@ return (
             </select>
           </div>
           <div className="form-floating mb-3">
-            <input onChange={handleOccasionChange} value={occasion_id} placeholder="occasion_id" required type="text" name="occasion_id" id="occasion_id" className="form-control" />
-            <label htmlFor="occasion_id">Occasion</label>
+            <select onChange={handleOccasionChange} value={occasion_id} required name="occasion_id" id="occasion_id" className="form-select" >
+            <option value="occasion_id">Occasion</option>
+            {occasions?.map((events) => {
+                  return (
+                      <option key={events.id} value={events.id}>{events.name}</option>
+                  );
+              })}
+            </select>
           </div>
-          <div className="form-floating mb-3">
-            </div>
-          <button className="btn btn-primary">Add</button>
+          <button className="btn btn-primary">Add!</button>
         </form>
       </div>
     </div>
