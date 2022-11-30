@@ -2,11 +2,22 @@ from pydantic import BaseModel
 from datetime import date
 from typing import List, Union
 from queries.pool import pool
+from psycopg import cursor
 
 
 class ErrorMessage(BaseModel):
     message: str
     code: int
+
+
+class PersonOutShort(BaseModel):
+    id: int
+    name: str
+
+
+class OccasionOutShort(BaseModel):
+    id: int
+    name: str
 
 
 class EventIn(BaseModel):
@@ -20,8 +31,8 @@ class EventOut(BaseModel):
     id: int
     name: str
     date: date
-    person_id: int
-    occasion_id: int
+    person: PersonOutShort
+    occasion: OccasionOutShort
 
 
 class EventRepository:
@@ -35,14 +46,19 @@ class EventRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id
-                            , name
-                            , date
-                            , person_id
-                            , occasion_id
-                            , account_id
-                        FROM events
-                        WHERE account_id = %s
+                        SELECT e.id
+                            , e.name
+                            , e.date
+                            , p.id
+                            , p.name
+                            , o.id
+                            , o.name
+                        FROM events as e
+                        LEFT JOIN person as p
+                        ON person_id = p.id
+                        LEFT JOIN occasion as o
+                        ON occasion_id = o.id
+                        WHERE e.account_id = %s
                         ORDER BY date;
                         """,
                         [account_id],
@@ -82,7 +98,8 @@ class EventRepository:
                         ],
                     )
                     id = db.fetchone()[0]
-                    return self.event_in_to_out(id, event)
+                    record = self.get_event_record(db, account_id, id)
+                    return self.record_to_event_out(record)
         except Exception:
             return ErrorMessage(
                 message="Could not create event",
@@ -98,20 +115,7 @@ class EventRepository:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result = db.execute(
-                        """
-                        SELECT id
-                            , name
-                            , date
-                            , person_id
-                            , occasion_id
-                            , account_id
-                        FROM events
-                        WHERE account_id = %s AND id = %s
-                        """,
-                        [account_id, event_id],
-                    )
-                    record = result.fetchone()
+                    record = self.get_event_record(db, account_id, event_id)
                     if record is None:
                         return ErrorMessage(
                             message="Event not found",
@@ -164,7 +168,8 @@ class EventRepository:
                             message="Event not found",
                             code=404,
                         )
-                    return self.event_in_to_out(event_id, event)
+                    record = self.get_event_record(db, account_id, event_id)
+                    return self.record_to_event_out(record)
         except Exception:
             return ErrorMessage(
                 message="Could not update event",
@@ -196,16 +201,34 @@ class EventRepository:
             return False
 
     # helper methods
-    def event_in_to_out(self, id: int, event: EventIn):
-        old_data = event.dict()
-        return EventOut(id=id, **old_data)
+    def get_event_record(self, db: cursor, account_id, event_id):
+        db.execute(
+            """
+            SELECT e.id
+                , e.name
+                , e.date
+                , p.id
+                , p.name
+                , o.id
+                , o.name
+                , e.account_id
+            FROM events as e
+            LEFT JOIN person as p
+            ON person_id = p.id
+            LEFT JOIN occasion as o
+            ON occasion_id = o.id
+            WHERE e.account_id = %s AND e.id = %s
+            ORDER BY date;
+            """,
+            [account_id, event_id],
+        )
+        return db.fetchone()
 
     def record_to_event_out(self, record):
         return EventOut(
             id=record[0],
             name=record[1],
             date=record[2],
-            person_id=record[3],
-            occasion_id=record[4],
-            account_id=record[5],
+            person=PersonOutShort(id=record[3], name=record[4]),
+            occasion=OccasionOutShort(id=record[5], name=record[6]),
         )

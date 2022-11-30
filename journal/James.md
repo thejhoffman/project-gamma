@@ -1,3 +1,4 @@
+## Week 1
 ### 11/14/2022
 Last week was spend working as team to define the wire frame of our application. The general functionally and stretch goals were defined.
 
@@ -29,6 +30,9 @@ We all picked specific endpoint to work on and started to write code for each. I
 ### 11/18/2022
 I completed full CRUD functionally for the age range endpoint.
 
+---
+
+## Week 2
 ### 11/21/2022
 We continued to finish up our endpoints. The rest of the team completed the endpoints for Gender, Relationships, Interests, and Occasions.
 
@@ -42,6 +46,9 @@ I updated the people endpoint to include more details when the endpoints return 
 ### 11/23/2022
 We started to work on our front end components. I was able to get the nav bar in good spot. I still need to filter certain items base on if the user is logged in or not. We are going to use redux to keep track of the user's auth token. That will likely be the next step. After that, I will start work on the main dashboard component.
 
+---
+
+## Week 3
 ### 11/28/2022
 Before moving onto the main dashboard component, I started working on the login/logout functionally. I was able to get the working but did end up running into several hurdles in getting it working.
 
@@ -52,3 +59,15 @@ Once I was able to get the token, I needed to be able to actually log in the use
 I still needed to format the data as FormData instead of normal json in order for the request to be processed correctly now that is is using a different content header. I had to reference [StackOverflow](https://stackoverflow.com/questions/35325370/how-do-i-post-a-x-www-form-urlencoded-request-using-fetch#comment71216981_37562814) to figure out to package the data correctly.
 
 Now that the login feature is complete, I will begin working on the dashboard component proper starting tomorrow.
+
+### 11/29/2022
+Worked on the dashboard today. I was able to get a fair amount of it built. It still needs edit/delete functionally and products cards added to page, but it coming together.
+
+Candice entered our breakout room today to discuss our database design. She suggested that out foreign key tables connecting to the persons tables could have been setup using enum data type. This would make the overall structure of our database simpler. However, after some deliberation, we decided to continue with our current database structure.
+
+While some of the smaller attributes such as gender and age range would probably benefit from being an enum field, we decided to keep the foreign key tables as it is easier to make changes going forward if needed.
+
+Some reading that was used to help guide our decision to keep the FK tables:
+* [Stack Overflow - MySQL ENUM type vs join tables](https://stackoverflow.com/questions/362044/mysql-enum-type-vs-join-tables)
+* [Stack Overflow - SQL: Advantages of an ENUM vs. a one-to-many relationship?](https://stackoverflow.com/questions/4293476/sql-advantages-of-an-enum-vs-a-one-to-many-relationship)
+* [Medium - PostgreSQL: ENUM is no Silver Bullet](https://medium.com/swlh/postgresql-3-ways-to-replace-enum-305861e089bc)

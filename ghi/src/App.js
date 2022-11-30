@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PrivateRoutes from './utils/PrivateRoutes';
 import Nav from './nav/Nav';
 import './App.css';
 import MainPage from './main/MainPage';
@@ -17,16 +18,22 @@ function App() {
       <Nav />
       <div className="container">
         <Routes>
-          {/* Main Routes */}
+          {/* Home Route */}
           <Route path="/" element={<MainPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/calendar" element={<Calendar />} />
           {/* Auth Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {/* Form Routes */}
-          <Route path="/create_event" element={<EventForm />} />
-          <Route path="/create_person" element={<PersonForm />} />
+
+          {/* Restrict access to below routes to only authenticated users */}
+          <Route element={<PrivateRoutes />}>
+            {/* Main Routes */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/calendar" element={<Calendar />} />
+            {/* Form Routes */}
+            <Route path="/create_event" element={<EventForm />} />
+            <Route path="/create_person" element={<PersonForm />} />
+          </Route>
+
         </Routes>
       </div>
     </BrowserRouter>
