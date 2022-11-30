@@ -22,3 +22,9 @@ Jonathan and I worked on live share and updated the Events part of the CRUD.
 
 ### 11/22/2022
 Today I signed up with the following API's, Esty, Amazon, Ebay, and RapidAPI, trying to get one to succeed to connect.
+
+### 11/28/2022
+I finished up Sign Up and login page, with James help we have the authentication working. I spend time working with making a carasol just like to the home page, but struggled with getting it to work.
+
+### 11/29/2022
+Working on getting the post to work with the sign up page. Struggling using hooks and use effect.
