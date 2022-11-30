@@ -67,10 +67,12 @@ const Nav = () => {
 
       <div className="container-fluid">
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-          <svg viewBox="0 0 100 80" width="40" height="40">
-            <rect width="100" height="20" rx="10"></rect>
-            <rect y="30" width="100" height="20" rx="10"></rect>
-            <rect y="60" width="100" height="20" rx="10"></rect>
+          <svg viewBox="0 0 100 80" width="30" height="30">
+            <g color="DodgerBlue" >
+              <rect width="100" height="20" rx="10" fill="currentcolor"></rect>
+              <rect y="30" width="100" height="20" rx="10" fill="currentcolor"></rect>
+              <rect y="60" width="100" height="20" rx="10" fill="currentcolor"></rect>
+            </g>
           </svg>
         </button>
         <NavLink className="navbar-brand mb-0 h1" to="/">
