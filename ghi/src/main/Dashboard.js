@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 const Dashboard = () => {
-  const [person_id, setPerson] = useState();
+  const [person_id, setPerson] = useState("0");
+  const [events_by_person, setEventsByPerson] = useState([]);
   const [people, setPeople] = useState([]);
+  const [events, setEvents] = useState([]);
 
   const handlePersonData = async (e) => {
-    setPerson(prev => (e.target.value));
+    setPerson(e.target.value);
   };
 
   const handleEditPerson = async (e) => {
@@ -18,18 +20,23 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const url = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST + '/api/people';
+    const fetchData = async (endpoint, setState) => {
+      let url = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST + endpoint;
       const response = await fetch(url, {
         credentials: 'include'
       });
       if (response.ok) {
         const fetchedData = await response.json();
-        setPeople(fetchedData);
+        setState(fetchedData);
       }
     };
-    fetchData();
+    fetchData('/api/people', setPeople);
+    fetchData('/api/events', setEvents);
   }, []);
+
+  useEffect(() => {
+    setEventsByPerson(events.filter(singleEvent => singleEvent.person.id.toString() === person_id));
+  }, [person_id, events]);
 
 
   return (
@@ -76,10 +83,33 @@ const Dashboard = () => {
 
       <div className="row">
         <h3>Upcoming events</h3>
+        <div className="offset-1 col-10">
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Occasion</th>
+              </tr>
+            </thead>
+            <tbody>
+              {events_by_person?.map(event => {
+                return (
+                  <tr key={event.id}>
+                    <td>{event.name}</td>
+                    <td>{event.date}</td>
+                    <td>{event.occasion.name}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <hr />
 
+      {/* TODO: Add Cards */}
 
     </div>
   );
