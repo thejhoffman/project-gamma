@@ -95,7 +95,7 @@ function EventForm() {
         </div>
       </div>
     </div>
-  </div>
+
 );
 }
 
