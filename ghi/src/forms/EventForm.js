@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 function EventForm() {
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
-  const [person_id, setPerson] = useState('');
-  const [persons, setPersons] = useState([]);
-  const [occasion_id, setOccasion] = useState('');
+  const[person_id, setPerson] = useState('');
+  const[persons, setPersons] = useState([]);
+  const[occasion_id, setOccasion] = useState('');
   const[occasions,setOccasions] = useState([]);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ return (
             <option value="person_id">Person</option>
             {persons?.map((events) => {
                   return (
-                    <option key={events.id} value={events.id}>{events.name}</option>
+                      <option key={events.id} value={events.id}>{events.name}</option>
                   );
               })}
             </select>
@@ -91,7 +91,8 @@ return (
         </form>
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default EventForm;
