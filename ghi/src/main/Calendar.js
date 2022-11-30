@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useGetTokenQuery } from '../store/tokenApi';
 
 function Calendar() {
+
   const [events, setEvents] = useState([]);
   useEffect(() => {
     const getEventData = async () => {
@@ -12,12 +14,14 @@ function Calendar() {
       };
       getEventData(); }, []);
 
+  const {data:token} = useGetTokenQuery();
   async function handleDelete(id) {
-    const eventsUrl = `http://localhost:8100/api/events/${id}`;
+    const eventsUrl = `http://localhost:8000/api/events/${id}`;
     const fetchConfig = {
       method: "delete",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token.access_token}`,
       },
     };
     const eventResponse = await fetch(eventsUrl, fetchConfig);
