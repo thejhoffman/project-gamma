@@ -75,7 +75,7 @@ function EventForm() {
                 <option value="person_id">Person</option>
                 {persons?.map((events) => {
                   return (
-                    <option key={events.id} value={events.id}>{events.name}</option>
+                      <option key={events.id} value={events.id}>{events.name}</option>
                   );
                 })}
               </select>
@@ -95,7 +95,8 @@ function EventForm() {
         </div>
       </div>
     </div>
-  );
+
+);
 }
 
 export default EventForm;
