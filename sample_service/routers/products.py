@@ -8,12 +8,12 @@ router = APIRouter(tags=["Products"])
 
 @router.get("/api/products", response_model=Product)
 def get_products(
-    interest: Union[str, None] = None,
+    max_price: int = None,
     occasion: Union[str, None] = None,
+    interest: Union[str, None] = None,
     gender: Union[str, None] = None,
     relationship: Union[str, None] = None,
-    max_price: Union[str, None] = None,
     repo: ProductRepo = Depends(),
 ):
-    response = repo.get_product(interest, occasion, gender, relationship, max_price)
+    response = repo.get_product(max_price, occasion, interest, gender, relationship)
     return response

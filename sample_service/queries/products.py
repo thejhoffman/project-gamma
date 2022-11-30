@@ -9,16 +9,28 @@ class Product(BaseModel):
     products: list
 
 class ProductRepo:
-    def get_product(self, interest, occasion, gender, relationship, max_price):
+    def get_product(self, max_price, occasion, interest, gender, relationship):
         params = {
-            "api_key": ETSY_API_KEY,
-            "limit": 4,
-            "method": "GET",
-            "fields": "title,description,url,price",
-            "includes": "MainImage",
-            "keywords": f"${interest},${occasion},${gender},${relationship}",
-            "max_price": {max_price}
+                "api_key": ETSY_API_KEY,
+                "limit": 4,
+                "method": "GET",
+                "fields": "title,description,url,price",
+                "includes": "MainImage",
             }
+        if max_price != None and "None":
+            params["max_price"] = max_price
+        keywords = []
+        if occasion != None:
+            keywords.append(occasion)
+        if interest != None:
+            keywords.append(interest)
+        if gender != None:
+            keywords.append(gender)
+        if relationship != None:
+            keywords.append(relationship)
+        if len(keywords) != 0:
+            params["keywords"] = ",".join(keywords)
+
         url = "https://openapi.etsy.com/v2/listings/active?"
 
         response = requests.get(url, params=params)
