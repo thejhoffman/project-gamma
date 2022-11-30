@@ -3,11 +3,6 @@ html {
   padding: 0;
 }
 
-div.container {
-  height: 100%;
-  width: 100%;
-}
-
 .App {
   text-align: center;
 }
@@ -23,11 +18,13 @@ div.container {
   color: white;
 }
 
-.container-fluid {
-  padding: 30px;
+/* **** MAINPAGE CSS **** */
+
+#mainpage.container-fluid {
+  padding: 10px;
 }
 
-.col-sm-6.carousel {
+.col-lg-6.carousel {
   margin-top: 10px;
   vertical-align: middle;
   text-align: center;
@@ -35,12 +32,13 @@ div.container {
   padding: 50px;
 }
 
-.col-sm-6.cards {
+.col-lg-6.cards {
   margin-top: 10px;
-  vertical-align: middle;
-  display: flex;
-  padding: 30px;
+  /* vertical-align: middle; */
+  /* display: flex; */
+  /* padding: 30px; */
 }
+
 
 .card-img-top {
   max-width: 100%;
@@ -55,6 +53,41 @@ div.container {
   padding-bottom: 20px;
 }
 
+#mainpage-card.col {
+  max-height: fit-content;
+}
+
+div.card.h-100 {
+ max-height: 100%;
+ overflow-y: auto;
+ padding-bottom: 10px;
+}
+
+.card-body {
+  text-align: center;
+}
+
 p.card-text {
   line-height: 1em;
+}
+
+.grid-item {
+  max-width: 26rem;
+  display: inline-block;
+  position:relative;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  /*
+  opacity: 0;
+  transition: opacity ease-in-out 0.25s; */
+}
+
+.img-fluid {
+  width: 100%;
+  height: 15vw;
+  object-fit: contain;
+  overflow: hidden;
 }

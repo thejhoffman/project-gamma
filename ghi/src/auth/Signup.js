@@ -15,6 +15,21 @@ function SignUp(props) {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+
+const handleSubmit = e => {
+    e.preventDefault();
+
+    const data = { email, name, password };
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    };
+    fetch(`http://localhost:8000/api/accounts`, requestOptions).then(response => response.json())
+}
+
     return (
 
         <form>
@@ -39,7 +54,7 @@ function SignUp(props) {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 type="password" />
-            <button className="btn btn-primary offset-3 col-6">Submit</button>
+            <button onClick={handleSubmit} className="btn btn-primary offset-3 col-6">Submit</button>
         </form>
     );
 }
