@@ -30,12 +30,13 @@ export const tokenApi = createApi({
       }),
       invalidatesTags: ['AccountAuth'],
     }),
-    createAccount: builder.mutation ({
+    createAccount: builder.mutation({
       query: data => ({
         url: '/api/accounts',
         body: data,
         method: 'post',
-      })
+      }),
+      invalidatesTags: ['AccountAuth'],
     })
   })
 });

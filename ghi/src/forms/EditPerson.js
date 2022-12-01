@@ -100,9 +100,6 @@ const EditForm = (props) => {
         "Content-type": "application/json"
       },
       body: JSON.stringify(formData),
-      headers: {
-        'Content-Type': 'application/json'
-      },
       credentials: 'include'
     };
 
@@ -111,6 +108,19 @@ const EditForm = (props) => {
       props.setDidUpdate(response.ok);
     }
   };
+
+  if (Object.keys(personDetail).length === 0) {
+    return (
+      <div className="row text-center">
+        <h3>Unable to find person</h3>
+        <div className="col d-flex justify-content-center">
+          <Link to="/dashboard" className="btn btn-primary">
+            Return to dashboard
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
