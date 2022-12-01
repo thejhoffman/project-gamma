@@ -16,8 +16,8 @@ function SignUp(props) {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
-const handleSubmit = e => {
-    e.preventDefault();
+    const handleSubmit = e => {
+        e.preventDefault();
 
     const data = { email, name, password };
     const requestOptions = {
@@ -54,7 +54,7 @@ const handleSubmit = e => {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 type="password" />
-            <button onClick={handleSubmit} className="btn btn-primary offset-3 col-6">Submit</button>
+            <button disabled={password.length === 0} onClick={handleSubmit} className="btn btn-primary offset-3 col-6">Submit</button>
         </form>
     );
 }
