@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom"
+import { useCreateAccountMutation } from "../store/tokenApi";
+import { useEffect } from 'react';
 
 function BootstrapInput(props) {
     const { id, placeholder, labelText, value, onChange, type } = props;
@@ -16,24 +18,19 @@ function SignUp(props) {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const [createAccount, result] = useCreateAccountMutation();
     const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
-
-    const data = { email, name, password };
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    };
-    const response = await fetch(`http://localhost:8000/api/accounts`, requestOptions);
-    if (response.ok) {
-        navigate("/")
+        createAccount({ email, name, password });
     }
-}
+
+    useEffect(() => {
+        if (result.isSuccess) {
+            navigate("/login");
+        }
+    }, [navigate, result.isSuccess]);
 
 
     return (
@@ -60,7 +57,10 @@ function SignUp(props) {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 type="password" />
-            <button disabled={password.length === 0} onClick={handleSubmit} className="btn btn-primary offset-3 col-6">Submit</button>
+            <button
+                disabled={password.length === 0}
+                onClick={handleSubmit}
+                className="btn btn-primary offset-3 col-6">Submit</button>
         </form>
     );
 }

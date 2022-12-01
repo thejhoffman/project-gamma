@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const baseURL = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST;
 
@@ -35,7 +36,7 @@ const FormSelect = (props) => {
   );
 };
 
-const EditPerson = () => {
+const EditForm = (props) => {
   const { personID } = useParams();
   const [personDetail, setPersonDetail] = useState({});
   const [formData, setFormData] = useState({
@@ -95,6 +96,9 @@ const EditPerson = () => {
     e.preventDefault();
     const fetchConfig = {
       method: "PUT",
+      headers: {
+        "Content-type": "application/json"
+      },
       body: JSON.stringify(formData),
       headers: {
         'Content-Type': 'application/json'
@@ -104,76 +108,97 @@ const EditPerson = () => {
 
     const response = await fetch(baseURL + `/api/people/${personID}`, fetchConfig);
     if (response.ok) {
-      return (
-        <p>Person was changed!</p>
-        // TODO: Show better message
-      );
+      props.setDidUpdate(response.ok);
     }
   };
 
   return (
+    <>
+      <h2>Edit person</h2>
+
+      <form onSubmit={handleSubmit}>
+        <div className="container">
+          <div className="form-floating mb-3">
+            <input
+              className="form-control"
+              onChange={handleFormData}
+              name="name"
+              value={formData.name}
+              id="name"
+              type="text"
+              required
+            />
+            <label htmlFor="name" className="form-label">Name</label>
+          </div>
+
+          <FormSelect
+            field="gender_id"
+            label="Gender"
+            handleData={handleFormData}
+            value={formData.gender_id}
+            list={genders}
+            selectLabel="Select a gender"
+          />
+          <FormSelect
+            field="age_range_id"
+            label="Age"
+            handleData={handleFormData}
+            value={formData.age_range_id}
+            list={ages}
+            selectLabel="Select age"
+          />
+          <FormSelect
+            field="relationship_id"
+            label="Relationship"
+            handleData={handleFormData}
+            value={formData.relationship_id}
+            list={relationships}
+            selectLabel="Select relationship"
+          />
+          <FormSelect
+            field="interest_id"
+            label="Interest"
+            handleData={handleFormData}
+            value={formData.interest_id}
+            list={interests}
+            selectLabel="Select an interest"
+          />
+
+          <button
+            className="btn btn-primary"
+            type="submit"
+          >
+            Submit
+          </button>
+
+        </div>
+      </form >
+    </>
+  );
+};
+
+const SuccessMessage = () => {
+  return (
+    <div className="row text-center">
+      <h3>Person successfully updated</h3>
+      <div className="col d-flex justify-content-center">
+        <Link to="/dashboard" className="btn btn-primary">
+          Return to dashboard
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+const EditPerson = () => {
+  const [didUpdate, setDidUpdate] = useState(false);
+  return (
     <div className="container mt-2 offset-3 col-6">
       <div className="shadow p-4 mt-4">
-        <h2>Edit person</h2>
-
-        <form onSubmit={handleSubmit}>
-          <div className="container">
-            <div className="form-floating mb-3">
-              <input
-                className="form-control"
-                onChange={handleFormData}
-                name="name"
-                value={formData.name}
-                id="name"
-                type="text"
-                required
-              />
-              <label htmlFor="name" className="form-label">Name</label>
-            </div>
-
-            <FormSelect
-              field="gender_id"
-              label="Gender"
-              handleData={handleFormData}
-              value={formData.gender_id}
-              list={genders}
-              selectLabel="Select a gender"
-            />
-            <FormSelect
-              field="age_range_id"
-              label="Age"
-              handleData={handleFormData}
-              value={formData.age_range_id}
-              list={ages}
-              selectLabel="Select age"
-            />
-            <FormSelect
-              field="relationship_id"
-              label="Relationship"
-              handleData={handleFormData}
-              value={formData.relationship_id}
-              list={relationships}
-              selectLabel="Select relationship"
-            />
-            <FormSelect
-              field="interest_id"
-              label="Interest"
-              handleData={handleFormData}
-              value={formData.interest_id}
-              list={interests}
-              selectLabel="Select an interest"
-            />
-
-            <button
-              className="btn btn-primary"
-              type="submit"
-            >
-              Submit
-            </button>
-
-          </div>
-        </form >
-
+        {didUpdate
+          ? <SuccessMessage />
+          : <EditForm setDidUpdate={setDidUpdate} />
+        }
       </div>
     </div>
   );
