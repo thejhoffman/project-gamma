@@ -142,7 +142,7 @@ const PersonDropdown = (props) => {
               Edit
             </Link>
             <Link
-              to="/delete_person"
+              to={"/delete_person/" + (props.person_id)}
               className={"btn btn-danger" + ((+props.person_id === 0) ? " disabled" : "")}
             >
               Delete

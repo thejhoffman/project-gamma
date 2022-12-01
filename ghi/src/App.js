@@ -10,6 +10,8 @@ import Signup from './auth/Signup';
 import EventForm from './forms/EventForm';
 import PersonForm from './forms/PersonForm';
 import EditPerson from './forms/EditPerson';
+import DeletePerson from './forms/DeletePerson';
+
 
 function App() {
   const domain = /https:\/\/[^/]+/;
@@ -33,6 +35,7 @@ function App() {
           <Route path="/create_event" element={<EventForm />} />
           <Route path="/create_person" element={<PersonForm />} />
           <Route path="/edit_person/:personID" element={<EditPerson />} />
+          <Route path="/delete_person/:personID" element={<DeletePerson />} />
         </Route>
 
       </Routes>
