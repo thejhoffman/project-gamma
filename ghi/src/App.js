@@ -11,6 +11,7 @@ import EventForm from './forms/EventForm';
 import PersonForm from './forms/PersonForm';
 import EditPerson from './forms/EditPerson';
 import DeletePerson from './forms/DeletePerson';
+import EditEvent from './forms/EditEvent';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/create_event" element={<EventForm />} />
           <Route path="/create_person" element={<PersonForm />} />
           <Route path="/edit_person/:personID" element={<EditPerson />} />
+          <Route path="/edit_event/:event_id" element={<EditEvent/>}/>
           <Route path="/delete_person/:personID" element={<DeletePerson />} />
         </Route>
 

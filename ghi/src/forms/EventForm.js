@@ -31,6 +31,7 @@ function EventForm() {
   }, []);
 
   const handleSubmit = async event => {
+    window.location.replace("http://localhost:3000/calendar");
     event.preventDefault();
     const data = { name, date, person_id, occasion_id };
     const eventUrl = 'http://localhost:8000/api/events/'

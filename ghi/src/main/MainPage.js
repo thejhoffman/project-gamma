@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useGetTokenQuery } from "../store/tokenApi";
 
 function ProductColumn(props) {
     return (
@@ -7,6 +9,7 @@ function ProductColumn(props) {
                 return (
                     <div className="col mb-4" id="mainpage-card" key={product.MainImage.listing_id}>
                         <div className="card h-100" onClick={() => { window.open(`${product.url}`) }}>
+                            <div className="onhover">click here</div>
                             <img src={product.MainImage.url_170x135} className="card-img-top" alt="..." />
                             <div className="card-body h-100">
                                 <div className="card-title">{product.title}</div>
@@ -27,6 +30,9 @@ function MainPage() {
     const [occasions, setOccasions] = useState([]);
     const [occasion, setOccasion] = useState('');
     const [price, setPrice] = useState('');
+    const [offset, setOffset] = useState(4);
+    const navigate = useNavigate();
+    const { data: token } = useGetTokenQuery();
 
     async function getCards(keywords) {
         const url = `http://localhost:8000/api/products?${keywords}`;
@@ -87,6 +93,21 @@ function MainPage() {
         getCards(data);
     }, [occasion, price])
 
+    function randomize() {
+        const data = objToQueryString({ offset: offset })
+        getCards(data)
+        setOffset(offset+4)
+    }
+
+    function signUp() {
+        navigate("/signup")
+    }
+
+    var signUpButton = "btn btn-primary"
+    if (token !== null) {
+        signUpButton = "btn btn-primary d-none"
+    }
+
 
     return (
         <div className="container-fluid" id="mainpage">
@@ -118,7 +139,7 @@ function MainPage() {
                             <span className="visually-hidden">Next</span>
                         </button>
                         <br />
-                        <button type="submit" className="btn btn-primary">Sign Up</button>
+                        <button onClick={signUp}type="submit" className={signUpButton}>Sign Up</button>
                     </div>
                 </div>
                 <div className="col-lg-6 cards">
@@ -139,7 +160,7 @@ function MainPage() {
                             </select>
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
-                            <button type="submit" className="btn btn-outline-danger">Randomize</button>
+                            <button onClick={randomize} type="submit" className="btn btn-outline-danger">Randomize</button>
                         </div>
                     </div>
 
