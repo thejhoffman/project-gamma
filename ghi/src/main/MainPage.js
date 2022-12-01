@@ -27,6 +27,7 @@ function MainPage() {
     const [occasions, setOccasions] = useState([]);
     const [occasion, setOccasion] = useState('');
     const [price, setPrice] = useState('');
+    const [submitted, setSubmitted] = useState(false);
 
     async function getCards(keywords) {
         const url = `http://localhost:8000/api/products?${keywords}`;
@@ -85,9 +86,12 @@ function MainPage() {
             obj["occasion"] = occasion
         }
         const data = objToQueryString(obj);
-        setProductColumns([[], []]);
         getCards(data);
+        console.log(obj)
+        setProductColumns([[], []]);
+        // setSubmitted(true)
     }
+
 
     return (
         <div className="container-fluid" id="mainpage">
