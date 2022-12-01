@@ -9,6 +9,7 @@ import Login from './auth/Login';
 import Signup from './auth/Signup';
 import EventForm from './forms/EventForm';
 import PersonForm from './forms/PersonForm';
+import EditPerson from './forms/EditPerson';
 
 function App() {
   const domain = /https:\/\/[^/]+/;
@@ -16,26 +17,25 @@ function App() {
   return (
     <BrowserRouter basename={basename}>
       <Nav />
-      <div className="container">
-        <Routes>
-          {/* Home Route */}
-          <Route path="/" element={<MainPage />} />
-          {/* Auth Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+      <Routes>
+        {/* Home Route */}
+        <Route path="/" element={<MainPage />} />
+        {/* Auth Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
-          {/* Restrict access to below routes to only authenticated users */}
-          <Route element={<PrivateRoutes />}>
-            {/* Main Routes */}
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/calendar" element={<Calendar />} />
-            {/* Form Routes */}
-            <Route path="/create_event" element={<EventForm />} />
-            <Route path="/create_person" element={<PersonForm />} />
-          </Route>
+        {/* Restrict access to below routes to only authenticated users */}
+        <Route element={<PrivateRoutes />}>
+          {/* Main Routes */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/calendar" element={<Calendar />} />
+          {/* Form Routes */}
+          <Route path="/create_event" element={<EventForm />} />
+          <Route path="/create_person" element={<PersonForm />} />
+          <Route path="/edit_person/:personID" element={<EditPerson />} />
+        </Route>
 
-        </Routes>
-      </div>
+      </Routes>
     </BrowserRouter>
   );
 }

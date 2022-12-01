@@ -71,3 +71,10 @@ Some reading that was used to help guide our decision to keep the FK tables:
 * [Stack Overflow - MySQL ENUM type vs join tables](https://stackoverflow.com/questions/362044/mysql-enum-type-vs-join-tables)
 * [Stack Overflow - SQL: Advantages of an ENUM vs. a one-to-many relationship?](https://stackoverflow.com/questions/4293476/sql-advantages-of-an-enum-vs-a-one-to-many-relationship)
 * [Medium - PostgreSQL: ENUM is no Silver Bullet](https://medium.com/swlh/postgresql-3-ways-to-replace-enum-305861e089bc)
+
+### 11/30/2022
+Today I worked on completing more features for the dashboard. I added some placeholder cards for products and a table that includes the three most recent upcoming events for a specific person. I also started and completed an edit person form. I did run into a significant blocker regarding the form
+
+I had everything working on the edit form except for the PUT request to update the record in the database through the API. I kept getting a `422 Unprocessable Entity` error when trying to complete the request. I tried several things to no avail. I did however figure out what it was in the end.
+
+I wrongly assumed that the `content-type` header was already set to `application/json`. I needed to manually set that header in my fetch before the request would work correctly. It took awhile to figure this out since even when the header was excluded, the dev tools in Chrome still showed the request as having a `content-type` set to `application/json`

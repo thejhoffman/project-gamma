@@ -5,13 +5,12 @@ function ProductColumn(props) {
         <>
             {props.list.map(product => {
                 return (
-                    <div className="col mb-4" id="mainpage-card">
-                        <div className="card h-100" key={product.url} onClick={() => { window.open(`${product.url}`) }}>
+                    <div className="col mb-4" id="mainpage-card" key={product.MainImage.listing_id}>
+                        <div className="card h-100" onClick={() => { window.open(`${product.url}`) }}>
                             <img src={product.MainImage.url_170x135} className="card-img-top" alt="..." />
                             <div className="card-body h-100">
                                 <div className="card-title">{product.title}</div>
                                 <p className="card-subtitle mb-2 text-muted">${product.price}</p>
-                                {/* <p className="card-text"><small></small></p> */}
                             </div>
                         </div>
                     </div>
@@ -28,31 +27,33 @@ function MainPage() {
     const [occasions, setOccasions] = useState([]);
     const [occasion, setOccasion] = useState('');
     const [price, setPrice] = useState('');
+    const [submitted, setSubmitted] = useState(false);
+
+    async function getCards(keywords) {
+        const url = `http://localhost:8000/api/products?${keywords}`;
+        const response = await fetch(url);
+        if (response.ok) {
+            const data = await response.json();
+            const requests = [];
+            for (let product of data.products) {
+                requests.push(product);
+            }
+            const productColumns = [[], []];
+
+            let i = 0;
+            for (const request of requests) {
+                productColumns[i].push(request)
+                i = i + 1;
+                if (i > 1) {
+                    i = 0;
+                }
+            }
+            setProductColumns(productColumns)
+        }
+    }
 
     useEffect(() => {
-        async function getCards() {
-            const url = `http://localhost:8000/api/products`;
-            const response = await fetch(url, { credentials: 'include' });
-            if (response.ok) {
-                const data = await response.json();
-                const requests = [];
-                for (let product of data.products) {
-                    requests.push(product);
-                }
-                const productColumns = [[], []];
-
-                let i = 0;
-                for (const request of requests) {
-                    productColumns[i].push(request)
-                    i = i + 1;
-                    if (i > 1) {
-                        i = 0;
-                    }
-                }
-                setProductColumns(productColumns)
-            }
-        }
-        getCards();
+        getCards('');
     }, [])
 
     useEffect(() => {
@@ -66,6 +67,31 @@ function MainPage() {
         }
         getOccasions();
     }, [])
+
+    function objToQueryString(obj) {
+        const keyValuePairs = [];
+        for (const key in obj) {
+            keyValuePairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+        }
+        return keyValuePairs.join('&')
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const obj = {}
+        if (price !== '') {
+            obj["max_price"] = price
+        }
+        if (occasion !== '') {
+            obj["occasion"] = occasion
+        }
+        const data = objToQueryString(obj);
+        getCards(data);
+        console.log(obj)
+        setProductColumns([[], []]);
+        // setSubmitted(true)
+    }
+
 
     return (
         <div className="container-fluid" id="mainpage">
@@ -104,21 +130,21 @@ function MainPage() {
                     <div className="row pb-3">
                         <div className="col-md-4 d-flex justify-content-center">
                             <select onChange={e => setOccasion(e.target.value)} value={occasion} id="occasion" className="form-select btn-outline-danger" aria-label="Occasion">
-                                <option>Occasion</option>
+                                <option value="">Occasion</option>
                                 {occasions.map(occasion => <option key={occasion.id} value={occasion.name}>{occasion.name}</option>)}
                             </select>
                         </div>
                         <div className="col-md-4 d-flex justify-content-center">
                             <select onChange={e => setPrice(e.target.value)} value={price} id="price" className="form-select btn-outline-danger" aria-label="Price">
-                                <option>Max Price</option>
-                                <option value="25">$25</option>
+                                <option value="">Max Price</option>
+                                <option value="25">$20</option>
                                 <option value="50">$50</option>
-                                <option value="75">$75</option>
                                 <option value="100">$100</option>
+                                <option value="150">$150</option>
                             </select>
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
-                            <button type="submit" className="btn btn-outline-danger">Randomize</button>
+                            <button onClick={handleSubmit} type="submit" className="btn btn-outline-danger">Randomize</button>
                         </div>
                     </div>
 
