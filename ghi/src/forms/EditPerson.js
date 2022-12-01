@@ -109,6 +109,19 @@ const EditForm = (props) => {
     }
   };
 
+  if (Object.keys(personDetail).length === 0) {
+    return (
+      <div className="row text-center">
+        <h3>Unable to find person</h3>
+        <div className="col d-flex justify-content-center">
+          <Link to="/dashboard" className="btn btn-primary">
+            Return to dashboard
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <h2>Edit person</h2>
