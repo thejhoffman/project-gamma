@@ -1,3 +1,6 @@
+### November 30, 2022 (11/30/2022):
+I am working on the edit button for the calendar page to allow a logged-in user to edit the event that was created. I also plan to look into more front-end design ideas to improve the calendar and events form page.
+
 ### November 29, 2022 (11/29/2022):
 Morning: Yesterday, I worked on the EventForm. I used React hooks for this. Today, I will continue to edit the eventform and also create a unit test. Today, we learned about unit tests and how to write our own. I will write a unit test for one of the endpoints I created.
 Evening: I finished creating the EventForm, I utilized react hooks and learned how to use authorization to ensure the logged-in users can only see the people they added. I also assisted in editing the events queries to incorporate Person name/id and Occasion name/id. This involved editing the SQL tables and functions. I also completed the Calendar list, which will show the upcoming events for the logged-in users. This also included working with authorization to make sure the logged-in users only see the events they created. I also finished creating the unit tests for the interests endpoints.
