@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from "react-router-dom";
+import htmlDecode from '../utils/htmlDecode';
 
 const fetchData = async (endpoint, setState) => {
   let url = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST + endpoint;
@@ -13,14 +14,22 @@ const fetchData = async (endpoint, setState) => {
   }
 };
 
+const CreateColumn = (props) => {
+  return (
+    <div className="col">
+      {props.columnList.map((product, index) => <ProductCard key={index} product={product} />)}
+    </div>
+  );
+};
+
 const ProductCard = (props) => {
   return (
-    <div className="card mb-4" style={{ width: '18rem' }}>
-      <img src="..." className="card-img-top" alt="..." />
+    <div className="card mb-3 shadow" style={{ width: '18rem' }}>
+      <img src={props.product.MainImage.url_170x135} className="card-img-top" alt="product" />
       <div className="card-body">
-        <h5 className="card-title">Card title</h5>
-        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <Link to="/" className="btn btn-primary">Go somewhere</Link>
+        <div className="card-title">{htmlDecode(props.product.title)}</div>
+        <p className="card-subtitle mb-2 text-muted">${props.product.price}</p>
+        <a href={props.product.url} className="btn btn-primary">View on Etsy</a>
       </div>
     </div >
   );
@@ -68,18 +77,11 @@ const TableAndCards = (props) => {
           </div>
         </div>
         <hr />
-        <div className="row">
-          <div className="col d-flex justify-content-center">
-            <ProductCard />
-          </div>
-          <div className="col d-flex justify-content-center">
-            <ProductCard />
-          </div>
-          <div className="col d-flex justify-content-center">
-            <ProductCard />
-          </div>
-          <div className="col d-flex justify-content-center">
-            <ProductCard />
+        <div className='container-flex'>
+          <div className="row">
+            {props.productColumns.map((columnList, index) => {
+              return <CreateColumn key={index} columnList={columnList} />;
+            })}
           </div>
         </div>
       </>
@@ -169,6 +171,30 @@ const PersonDropdown = (props) => {
 
 const Dashboard = () => {
   const [person_id, setPerson] = useState("0");
+  const [productColumns, setProductColumns] = useState([[], [], [], []]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const url = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST + `/api/products`;
+
+      // TODO: Get back list of 12 products that are more unique to the current person
+
+      const response = await fetch(url);
+      if (response.ok) {
+        const data = await response.json();
+        const dataForProductColumns = [[], [], [], []];
+        let index = 0;
+        data.products.forEach((product) => {
+          dataForProductColumns[index].push(product);
+          index++;
+          if (index > 4)
+            index = 0;
+        });
+        setProductColumns(dataForProductColumns);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const handlePersonData = async (e) => {
     setPerson(e.target.value);
@@ -184,6 +210,7 @@ const Dashboard = () => {
       {+person_id !== 0 &&
         <TableAndCards
           person_id={person_id}
+          productColumns={productColumns}
         />
       }
     </div >
