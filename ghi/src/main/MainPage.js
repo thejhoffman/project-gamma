@@ -9,7 +9,6 @@ function ProductColumn(props) {
                 return (
                     <div className="col mb-4" id="mainpage-card" key={product.MainImage.listing_id}>
                         <div className="card h-100" onClick={() => { window.open(`${product.url}`) }}>
-                            <div className="onhover">click here</div>
                             <img src={product.MainImage.url_170x135} className="card-img-top" alt="..." />
                             <div className="card-body h-100">
                                 <div className="card-title">{product.title}</div>
