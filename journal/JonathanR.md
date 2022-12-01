@@ -1,3 +1,6 @@
+### December 01, 2022 (12/01/2022):
+Today, I completed adding the edit button to the calendar page. I created an EditEvent form with PUT method so that the button leads to this. I also added the create event button to the calendar page to link the create event form. Furthermore, I added redirects to the create event and edit event forms so that the user will be redirected to the calendar view to see the events. I plan to add error handling if a user attempts to create an event without already having a person added. I also plan on looking into more front-end design concepts to make each of our group's pages more cohesive.
+
 ### November 30, 2022 (11/30/2022):
 I am working on the edit button for the calendar page to allow a logged-in user to edit the event that was created. I also plan to look into more front-end design ideas to improve the calendar and events form page.
 

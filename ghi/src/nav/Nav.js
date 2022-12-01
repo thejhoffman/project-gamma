@@ -18,7 +18,7 @@ const DropDown = (props) => {
             <NavLink className="nav-link" to="/create_person">New person</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/create_event">New event</NavLink>
+            <NavLink className="nav-link" to="/create_event">Add event</NavLink>
           </li>
         </ul>
       </div>
@@ -46,7 +46,7 @@ const AuthButtons = (props) => {
   if (props.tokenData !== null) {
     return (
       <div>
-        <button className="btn btn-primary" onClick={handleLogout}>
+        <button className="btn btn-outline-danger" onClick={handleLogout}>
           Logout
         </button>
       </div>
