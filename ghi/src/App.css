@@ -91,3 +91,16 @@ p.card-text {
   object-fit: contain;
   overflow: hidden;
 }
+
+.mainpage-hover {
+  opacity: 1;
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #FF8040;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity ease-in-out 0.25s;
+}
