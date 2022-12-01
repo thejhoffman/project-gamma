@@ -27,7 +27,6 @@ function MainPage() {
     const [occasions, setOccasions] = useState([]);
     const [occasion, setOccasion] = useState('');
     const [price, setPrice] = useState('');
-    const [submitted, setSubmitted] = useState(false);
 
     async function getCards(keywords) {
         const url = `http://localhost:8000/api/products?${keywords}`;
@@ -76,8 +75,7 @@ function MainPage() {
         return keyValuePairs.join('&')
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    useEffect(() => {
         const obj = {}
         if (price !== '') {
             obj["max_price"] = price
@@ -87,10 +85,7 @@ function MainPage() {
         }
         const data = objToQueryString(obj);
         getCards(data);
-        console.log(obj)
-        setProductColumns([[], []]);
-        // setSubmitted(true)
-    }
+    }, [occasion, price])
 
 
     return (
@@ -137,14 +132,14 @@ function MainPage() {
                         <div className="col-md-4 d-flex justify-content-center">
                             <select onChange={e => setPrice(e.target.value)} value={price} id="price" className="form-select btn-outline-danger" aria-label="Price">
                                 <option value="">Max Price</option>
-                                <option value="25">$20</option>
+                                <option value="20">$20</option>
                                 <option value="50">$50</option>
                                 <option value="100">$100</option>
                                 <option value="150">$150</option>
                             </select>
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
-                            <button onClick={handleSubmit} type="submit" className="btn btn-outline-danger">Randomize</button>
+                            <button type="submit" className="btn btn-outline-danger">Randomize</button>
                         </div>
                     </div>
 

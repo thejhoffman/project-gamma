@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function BootstrapInput(props) {
     const { id, placeholder, labelText, value, onChange, type } = props;
@@ -15,8 +16,9 @@ function SignUp(props) {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
 
     const data = { email, name, password };
@@ -27,8 +29,12 @@ function SignUp(props) {
         },
         body: JSON.stringify(data)
     };
-    fetch(`http://localhost:8000/api/accounts`, requestOptions).then(response => response.json())
+    const response = await fetch(`http://localhost:8000/api/accounts`, requestOptions);
+    if (response.ok) {
+        navigate("/")
+    }
 }
+
 
     return (
 

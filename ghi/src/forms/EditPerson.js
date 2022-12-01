@@ -96,6 +96,9 @@ const EditPerson = () => {
     const fetchConfig = {
       method: "PUT",
       body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json'
+      },
       credentials: 'include'
     };
 
