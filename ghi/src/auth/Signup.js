@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom"
-import { useCreateAccountMutation } from "../store/tokenApi";
+import { useNavigate } from "react-router-dom";
+import { useGetTokenQuery, useCreateAccountMutation } from "../store/tokenApi";
 import { useEffect } from 'react';
 
 function BootstrapInput(props) {
@@ -19,18 +19,19 @@ function SignUp(props) {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [createAccount, result] = useCreateAccountMutation();
+    const { data: tokenData } = useGetTokenQuery();
     const navigate = useNavigate();
 
     const handleSubmit = e => {
         e.preventDefault();
         createAccount({ email, name, password });
-    }
+    };
 
     useEffect(() => {
-        if (result.isSuccess) {
-            navigate("/login");
+        if (result.isSuccess && tokenData !== null) {
+            navigate("/dashboard");
         }
-    }, [navigate, result.isSuccess]);
+    }, [navigate, result.isSuccess, tokenData]);
 
     return (
 
