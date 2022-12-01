@@ -61,6 +61,7 @@ class PeopleQueries:
                         LEFT JOIN relationships as r
                         ON relationship_id = r.id
                         WHERE account_id = %s
+                        ORDER BY p.name ASC;
                         """,
                         [account_id],
                     )
@@ -248,5 +249,5 @@ class PeopleQueries:
             age_range=AgeRangeOut(id=record[2], age=record[3]),
             gender=GenderOut(id=record[4], name=record[5]),
             interest=InterestsOut(id=record[6], name=record[7]),
-            relationship=RelationshipOut(id=record[8], type=record[9])
+            relationship=RelationshipOut(id=record[8], type=record[9]),
         )
