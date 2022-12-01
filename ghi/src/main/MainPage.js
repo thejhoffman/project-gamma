@@ -1,26 +1,33 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetTokenQuery } from "../store/tokenApi";
+import htmlDecode from '../utils/htmlDecode';
 
 function ProductColumn(props) {
     return (
         <>
             {props.list.map(product => {
+                if (product === undefined) {
+                    // Attempting to catch error when etsy give a bad result
+                    console.log("Etsy returned an undefined product.");
+                    return null;
+                }
+
                 return (
                     <div className="col mb-4" id="mainpage-card" key={product.MainImage.listing_id}>
-                        <div className="card h-100" onClick={() => { window.open(`${product.url}`) }}>
+                        <div className="card h-100" onClick={() => { window.open(`${product.url}`); }}>
                             <div className="onhover">click here</div>
                             <img src={product.MainImage.url_170x135} className="card-img-top" alt="..." />
                             <div className="card-body h-100">
-                                <div className="card-title">{product.title}</div>
+                                <div className="card-title">{htmlDecode(product.title)}</div>
                                 <p className="card-subtitle mb-2 text-muted">${product.price}</p>
                             </div>
                         </div>
                     </div>
-                )
+                );
             })}
         </>
-    )
+    );
 }
 
 
@@ -47,19 +54,19 @@ function MainPage() {
 
             let i = 0;
             for (const request of requests) {
-                productColumns[i].push(request)
+                productColumns[i].push(request);
                 i = i + 1;
                 if (i > 1) {
                     i = 0;
                 }
             }
-            setProductColumns(productColumns)
+            setProductColumns(productColumns);
         }
     }
 
     useEffect(() => {
         getCards('');
-    }, [])
+    }, []);
 
     useEffect(() => {
         async function getOccasions() {
@@ -67,45 +74,45 @@ function MainPage() {
             const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
-                setOccasions(data)
+                setOccasions(data);
             }
         }
         getOccasions();
-    }, [])
+    }, []);
 
     function objToQueryString(obj) {
         const keyValuePairs = [];
         for (const key in obj) {
             keyValuePairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
         }
-        return keyValuePairs.join('&')
+        return keyValuePairs.join('&');
     }
 
     useEffect(() => {
-        const obj = {}
+        const obj = {};
         if (price !== '') {
-            obj["max_price"] = price
+            obj["max_price"] = price;
         }
         if (occasion !== '') {
-            obj["occasion"] = occasion
+            obj["occasion"] = occasion;
         }
         const data = objToQueryString(obj);
         getCards(data);
-    }, [occasion, price])
+    }, [occasion, price]);
 
     function randomize() {
-        const data = objToQueryString({ offset: offset })
-        getCards(data)
-        setOffset(offset+4)
+        const data = objToQueryString({ offset: offset });
+        getCards(data);
+        setOffset(offset + 4);
     }
 
     function signUp() {
-        navigate("/signup")
+        navigate("/signup");
     }
 
-    var signUpButton = "btn btn-primary"
+    var signUpButton = "btn btn-primary";
     if (token !== null) {
-        signUpButton = "btn btn-primary d-none"
+        signUpButton = "btn btn-primary d-none";
     }
 
 
@@ -139,7 +146,7 @@ function MainPage() {
                             <span className="visually-hidden">Next</span>
                         </button>
                         <br />
-                        <button onClick={signUp}type="submit" className={signUpButton}>Sign Up</button>
+                        <button onClick={signUp} type="submit" className={signUpButton}>Sign Up</button>
                     </div>
                 </div>
                 <div className="col-lg-6 cards">
@@ -168,13 +175,13 @@ function MainPage() {
                         {productColumns.map((productList, index) => {
                             return (
                                 <ProductColumn key={index} list={productList} />
-                            )
+                            );
                         })}
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default MainPage;
