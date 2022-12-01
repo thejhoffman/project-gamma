@@ -100,6 +100,9 @@ const EditForm = (props) => {
         "Content-type": "application/json"
       },
       body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json'
+      },
       credentials: 'include'
     };
 

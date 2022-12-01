@@ -22,7 +22,7 @@ function SignUp(props) {
     const { data: tokenData } = useGetTokenQuery();
     const navigate = useNavigate();
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         createAccount({ email, name, password });
     };
@@ -32,6 +32,7 @@ function SignUp(props) {
             navigate("/dashboard");
         }
     }, [navigate, result.isSuccess, tokenData]);
+
 
     return (
 
