@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useGetTokenQuery } from '../store/tokenApi';
+import { Link } from "react-router-dom";
 
 function Calendar() {
 
@@ -32,23 +33,23 @@ function Calendar() {
       throw new Error ("Error");
     }
   };
-  async function handleUpdate_Event(id) {
-    const eventsUrl = `http://localhost:8000/api/events/${id}`;
-    const fetchConfig = {
-      method: "edit",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token.access_token}`,
-      },
-    };
-    const eventResponse = await fetch(eventsUrl, fetchConfig);
-    if (eventResponse.ok) {
-      setEvents(events.filter(event => event.id !== id))
-    }
-    else {
-      throw new Error ("Error");
-    }
-  };
+  // async function handleUpdate_Event(id) {
+  //   const eventsUrl = `http://localhost:8000/api/events/${id}`;
+  //   const fetchConfig = {
+  //     method: "PUT",
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token.access_token}`,
+  //     },
+  //   };
+  //   const eventResponse = await fetch(eventsUrl, fetchConfig);
+  //   if (eventResponse.ok) {
+  //     setEvents(events.filter(event => event.id !== id))
+  //   }
+  //   else {
+  //     throw new Error ("Error");
+  //   }
+  // };
 
   return (
     <div className="row">
@@ -72,8 +73,12 @@ function Calendar() {
                                   <td>{event.date}</td>
                                   <td>{event.person.name}</td>
                                   <td>{event.occasion.name}</td>
+                                  <Link
+                                  to={"/EditEvent/" + (event.id)}
+                                  className={"btn btn"+((event.id===0))}>
+                                  Edit
+                                  </Link>
                                   <td><button className="btn btn-danger" onClick={() => handleDelete(event.id)}>Delete</button></td>
-                                  <td><button className="btn btn-danger" onClick={() => handleUpdate_Event(event.id)}>Edit</button></td>
                               </tr>
                           );
                       })}
