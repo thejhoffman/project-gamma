@@ -1,7 +1,17 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { useParams } from 'react-router-dom';
+
+const fetchData = async (endpoint, setState) => {
+  let url = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST + endpoint;
+  const response = await fetch(url, {
+    credentials: 'include'
+  });
+  if (response.ok) {
+    const fetchedData = await response.json();
+    setState(fetchedData);
+  }
+};
 
 const ProductCard = (props) => {
   return (
@@ -17,7 +27,18 @@ const ProductCard = (props) => {
 };
 
 const TableAndCards = (props) => {
-  if (props.eventsByPerson.length > 0) {
+  const [eventsByPerson, setEventsByPerson] = useState([]);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    fetchData('/api/events', setEvents);
+  }, []);
+
+  useEffect(() => {
+    setEventsByPerson(events.filter(singleEvent => singleEvent.person.id.toString() === props.person_id));
+  }, [props.person_id, events]);
+
+  if (eventsByPerson.length > 0) {
     return (
       <>
         <hr />
@@ -33,7 +54,7 @@ const TableAndCards = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {props.eventsByPerson.slice(0, 3).map(event => {
+                {eventsByPerson.slice(0, 3).map(event => {
                   return (
                     <tr key={event.id}>
                       <td>{event.name}</td>
@@ -82,7 +103,13 @@ const TableAndCards = (props) => {
 };
 
 const PersonDropdown = (props) => {
-  if (props.people.length > 0) {
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    fetchData('/api/people', setPeople);
+  }, []);
+
+  if (people.length > 0) {
     return (
       <>
         <div className="row">
@@ -96,7 +123,7 @@ const PersonDropdown = (props) => {
               name="person_id"
             >
               <option value="0">Choose a person</option>
-              {props.people.map(person => {
+              {people.map(person => {
                 return (
                   <option key={person.id} value={person.id}>
                     {`${person.name}`}
@@ -142,43 +169,22 @@ const PersonDropdown = (props) => {
 
 const Dashboard = () => {
   const [person_id, setPerson] = useState("0");
-  const [eventsByPerson, setEventsByPerson] = useState([]);
-  const [people, setPeople] = useState([]);
-  const [events, setEvents] = useState([]);
 
   const handlePersonData = async (e) => {
     setPerson(e.target.value);
   };
 
-  useEffect(() => {
-    const fetchData = async (endpoint, setState) => {
-      let url = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST + endpoint;
-      const response = await fetch(url, {
-        credentials: 'include'
-      });
-      if (response.ok) {
-        const fetchedData = await response.json();
-        setState(fetchedData);
-      }
-    };
-    fetchData('/api/people', setPeople);
-    fetchData('/api/events', setEvents);
-  }, []);
-
-  useEffect(() => {
-    setEventsByPerson(events.filter(singleEvent => singleEvent.person.id.toString() === person_id));
-  }, [person_id, events]);
-
   return (
     <div className="container mt-2 shadow p-4 mt-4">
       <PersonDropdown
-        people={people}
         person_id={person_id}
         handlePersonData={handlePersonData}
       />
 
       {+person_id !== 0 &&
-        <TableAndCards eventsByPerson={eventsByPerson} />
+        <TableAndCards
+          person_id={person_id}
+        />
       }
     </div >
   );
