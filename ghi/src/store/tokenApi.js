@@ -29,6 +29,13 @@ export const tokenApi = createApi({
         method: 'delete'
       }),
       invalidatesTags: ['AccountAuth'],
+    }),
+    createAccount: builder.mutation ({
+      query: data => ({
+        url: '/api/accounts',
+        body: data,
+        method: 'post',
+      })
     })
   })
 });
@@ -37,4 +44,5 @@ export const {
   useGetTokenQuery,
   useLoginAccountMutation,
   useLogoutAccountMutation,
+  useCreateAccountMutation,
 } = tokenApi;
