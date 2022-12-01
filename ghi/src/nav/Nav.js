@@ -18,7 +18,7 @@ const DropDown = (props) => {
             <NavLink className="nav-link" to="/create_person">New person</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/create_event">Add event</NavLink>
+            <NavLink className="nav-link" to="/create_event">New event</NavLink>
           </li>
         </ul>
       </div>
