@@ -92,15 +92,23 @@ p.card-text {
   overflow: hidden;
 }
 
-.mainpage-hover {
-  opacity: 1;
+.mainpage-link .mainpage-hover {
   display: flex;
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #FF8040;
+  background: #8080C0;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: opacity ease-in-out 0.25s;
+}
+
+.mainpage-hover-content {
+  font-size: 1.25 rem;
+  color: white;
+}
+
+.mainpage-link:hover .mainpage-hover {
+  opacity: 0.5;
 }
