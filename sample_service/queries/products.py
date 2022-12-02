@@ -9,10 +9,10 @@ class Product(BaseModel):
     products: list
 
 class ProductRepo:
-    def get_product(self, max_price, offset, occasion, taxonomy_id, gender, relationship):
+    def get_product(self, limit, max_price, offset, occasion, taxonomy_id, gender, relationship):
         params = {
                 "api_key": ETSY_API_KEY,
-                "limit": 4,
+                "limit": limit,
                 "method": "GET",
                 "fields": "title,description,url,price",
                 "includes": "MainImage",

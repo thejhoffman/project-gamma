@@ -45,7 +45,6 @@ function MainPage() {
         const response = await fetch(url);
         if (response.ok) {
             const data = await response.json();
-            console.log(data)
             const requests = [];
             for (let product of data.products) {
                 requests.push(product);
