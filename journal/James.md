@@ -80,6 +80,10 @@ I had everything working on the edit form except for the PUT request to update t
 I wrongly assumed that the `content-type` header was already set to `application/json`. I needed to manually set that header in my fetch before the request would work correctly. It took awhile to figure this out since even when the header was excluded, the dev tools in Chrome still showed the request as having a `content-type` set to `application/json`
 
 ### 12/1/2022
-Today, I continued to work on the dashboard. I completed the functionally to delete a user.
+Today, I continued to work on the dashboard. I completed the functionally to delete a user and other minor things across the repo.
 
 ### 12/2/2022
+Spent more time today working on the dashboard. I am now getting specialized results back from Etsy that are more unique to the person. I have the cards formatted in a way that I am happy with. I still need to work on a few more features for the dashboard:
+* Showing person details
+* Adding dropdown to filter by price
+* Allowing the user the highlight an event to show gifts based of that event

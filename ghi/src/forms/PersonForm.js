@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useGetTokenQuery } from '../store/tokenApi';
+import { useNavigate } from 'react-router-dom';
 
 function PersonForm() {
     const { data: token, isLoading: tokenLoading } = useGetTokenQuery();
@@ -8,6 +9,7 @@ function PersonForm() {
     const [ages, setAges] = useState([]);
     const [relationships, setRelationships] = useState([]);
     const [interests, setInterests] = useState([]);
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         name: '',
@@ -49,6 +51,7 @@ function PersonForm() {
 
     const handleSubmit = e => {
         e.preventDefault();
+        navigate('/dashboard');
         console.log(e)
 
         const data = { ...formData };

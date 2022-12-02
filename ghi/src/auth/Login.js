@@ -55,9 +55,11 @@ function Login(props) {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 type="password" />
-        <div className="form-floating mb-3">
-            <button className="btn btn-primary offset-3 col-6">Submit</button>
-        </div>
+            <div className="form-floating mb-3">
+                <button
+                    disabled={password.length === 0}
+                    className="btn btn-primary offset-3 col-6">Submit</button>
+            </div>
         </form>
     );
 }

@@ -31,3 +31,6 @@ Working on getting the post to work with the sign up page. Struggling using hook
 
 ### 11/30/2022
 Today I struggled with making the making the Sign up page work. It does function now, but trying to get the cleared, redirect and or success message is defeating me
+
+### 12/01/2022
+Today we layed out what final touch ups need to be done for our site, and what stretch goals we have in priority. today im adding catch errors and redirects.
