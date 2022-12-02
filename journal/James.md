@@ -78,3 +78,8 @@ Today I worked on completing more features for the dashboard. I added some place
 I had everything working on the edit form except for the PUT request to update the record in the database through the API. I kept getting a `422 Unprocessable Entity` error when trying to complete the request. I tried several things to no avail. I did however figure out what it was in the end.
 
 I wrongly assumed that the `content-type` header was already set to `application/json`. I needed to manually set that header in my fetch before the request would work correctly. It took awhile to figure this out since even when the header was excluded, the dev tools in Chrome still showed the request as having a `content-type` set to `application/json`
+
+### 12/1/2022
+Today, I continued to work on the dashboard. I completed the functionally to delete a user.
+
+### 12/2/2022
