@@ -14,17 +14,29 @@ const fetchData = async (endpoint, setState) => {
   }
 };
 
-const CreateColumn = (props) => {
+const CreateRow = (props) => {
   return (
-    <div className="col">
-      {props.columnList.map((product, index) => <ProductCard key={index} product={product} />)}
+    <div className="row row-cols-2 row-cols-lg-4">
+      <div className='col'>
+        <ProductCard key={0} product={props.rowList[0]} />
+      </div>
+      <div className='col'>
+        <ProductCard key={1} product={props.rowList[1]} />
+      </div>
+      <div className='col'>
+        <ProductCard key={2} product={props.rowList[2]} />
+      </div>
+      <div className='col'>
+        <ProductCard key={3} product={props.rowList[3]} />
+      </div>
     </div>
   );
 };
 
 const ProductCard = (props) => {
   return (
-    <div className="card mb-3 shadow" style={{ width: '18rem' }}>
+    <div className="card mb-3 shadow" >
+      {/* style={{ width: '18rem' }} */}
       <img src={props.product.MainImage.url_170x135} className="card-img-top" alt="product" />
       <div className="card-body">
         <div className="card-title">{htmlDecode(props.product.title)}</div>
@@ -67,11 +79,9 @@ const TableAndCards = (props) => {
         </div>
         <hr />
         <div className='container-flex'>
-          <div className="row">
-            {props.productColumns.map((columnList, index) => {
-              return <CreateColumn key={index} columnList={columnList} />;
-            })}
-          </div>
+          {props.productRows.map((rowList, index) => {
+            return <CreateRow key={index} rowList={rowList} />;
+          })}
         </div>
       </>
     );
@@ -161,7 +171,7 @@ const Dashboard = () => {
 
   const [eventsByPerson, setEventsByPerson] = useState([]);
 
-  const [productColumns, setProductColumns] = useState([[], [], [], []]);
+  const [productRows, setProductRows] = useState([]);
 
   useEffect(() => {
     fetchData('/api/people', setPeople);
@@ -179,11 +189,10 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const params = {
-        limit: 12,
+        limit: 24,
         occasion: eventsByPerson[0].name,
         taxonomy_id: personDetail.interest.id,
-        // gender: personDetail.gender.name,
-        gender: "for women",
+        gender: personDetail.gender.name,
         relationship: personDetail.relationship.type
 
       };
@@ -196,19 +205,18 @@ const Dashboard = () => {
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
-
-        // console.log(data);
-        console.log(data.products.length);
-
-        const dataForProductColumns = [[], [], [], []];
-        let index = 0;
+        const dataForProductRows = Array.from(Array(Math.ceil(data.products.length / 4)), () => []);
+        let [row, count] = [0, 0];
         data.products.forEach((product) => {
-          dataForProductColumns[index].push(product);
-          index++;
-          if (index > 3)
-            index = 0;
+          dataForProductRows[row].push(product);
+          count++;
+          if (count > 3) {
+            row++;
+            count = 0;
+          }
         });
-        setProductColumns(dataForProductColumns);
+        console.log(data.products);
+        setProductRows(dataForProductRows);
       }
     };
 
@@ -233,7 +241,7 @@ const Dashboard = () => {
         <TableAndCards
           person_id={person_id}
           eventsByPerson={eventsByPerson}
-          productColumns={productColumns}
+          productRows={productRows}
         />
       }
     </div >
