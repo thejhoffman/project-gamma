@@ -58,10 +58,12 @@ function SignUp(props) {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 type="password" />
+        <div className="form-floating mb-3">
             <button
                 disabled={password.length === 0}
                 onClick={handleSubmit}
                 className="btn btn-primary offset-3 col-6">Submit</button>
+        </div>
         </form>
     );
 }
