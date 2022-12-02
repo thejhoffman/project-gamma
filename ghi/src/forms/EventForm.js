@@ -30,6 +30,7 @@ function EventForm() {
     getData();
   }, []);
 
+
   const handleSubmit = async event => {
     window.location.replace("http://localhost:3000/calendar");
     event.preventDefault();
@@ -57,6 +58,7 @@ function EventForm() {
     setOccasion(event.target.value);
   };
 
+  if (persons.length>0) {
   return (
     <div className="row">
       <div className="offset-3 col-6">
@@ -99,5 +101,17 @@ function EventForm() {
 
 );
 }
+  else {
+    return (
+      <div className="row text-center">
+        <div className="container mt-2 shadow p-4 mt-4">
+        <h3>No people found</h3>
+        <div className="col d-flex justify-content-center">
+          <td><button className="btn btn-primary"><a href = {"/create_person/"} class="text-decoration-none"><font color="white">Add a new person</font></a></button></td>
+          </div>
+        </div>
+      </div>
+    );
+  }}
 
 export default EventForm;
