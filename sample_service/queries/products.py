@@ -5,30 +5,41 @@ import os
 
 ETSY_API_KEY = os.environ["ETSY_API_KEY"]
 
+
 class Product(BaseModel):
     products: list
 
+
 class ProductRepo:
-    def get_product(self, max_price, offset, occasion, taxonomy_id, gender, relationship):
+    def get_product(
+        self,
+        max_price,
+        offset,
+        limit,
+        occasion,
+        taxonomy_id,
+        gender,
+        relationship,
+    ):
         params = {
-                "api_key": ETSY_API_KEY,
-                "limit": 4,
-                "method": "GET",
-                "fields": "title,description,url,price",
-                "includes": "MainImage",
-            }
-        if max_price != None and "None":
+            "api_key": ETSY_API_KEY,
+            "limit": limit,
+            "method": "GET",
+            "fields": "title,description,url,price",
+            "includes": "MainImage",
+        }
+        if max_price is not None and "None":
             params["max_price"] = max_price
-        if offset != None and "None":
+        if offset is not None and "None":
             params["offset"] = offset
-        if taxonomy_id != None and "None":
+        if taxonomy_id is not None and "None":
             params["taxonomy_id"] = taxonomy_id
         keywords = []
-        if occasion != None:
+        if occasion is not None:
             keywords.append(occasion)
-        if gender != None:
+        if gender is not None:
             keywords.append(gender)
-        if relationship != None:
+        if relationship is not None:
             keywords.append(relationship)
         if len(keywords) != 0:
             params["keywords"] = ",".join(keywords)
