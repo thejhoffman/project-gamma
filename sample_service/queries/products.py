@@ -56,6 +56,8 @@ class ProductRepo:
         response = requests.get(url, params=params)
         content = json.loads(response.content)
 
+        print(params)
+
         products = []
         for item in content["results"]:
             products.append(item)
