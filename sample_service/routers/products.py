@@ -3,8 +3,8 @@ from typing import Union
 from queries.products import Product, ProductRepo
 
 
-
 router = APIRouter(tags=["Products"])
+
 
 @router.get("/api/products", response_model=Product)
 def get_products(
@@ -17,5 +17,13 @@ def get_products(
     relationship: Union[str, None] = None,
     repo: ProductRepo = Depends(),
 ):
-    response = repo.get_product(limit, max_price, offset, occasion, taxonomy_id, gender, relationship)
+    response = repo.get_product(
+        limit,
+        max_price,
+        offset,
+        occasion,
+        taxonomy_id,
+        gender,
+        relationship,
+    )
     return response
