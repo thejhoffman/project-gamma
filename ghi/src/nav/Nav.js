@@ -46,7 +46,7 @@ const AuthButtons = (props) => {
   if (props.tokenData !== null) {
     return (
       <div>
-        <button className="btn btn-primary" onClick={handleLogout}>
+        <button className="btn btn-outline-danger" onClick={handleLogout}>
           Logout
         </button>
       </div>
