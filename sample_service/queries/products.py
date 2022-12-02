@@ -25,8 +25,9 @@ class ProductRepo:
             "api_key": ETSY_API_KEY,
             "limit": limit,
             "method": "GET",
-            "fields": "title,description,url,price",
+            "fields": "title,description,url,price,currency_code",
             "includes": "MainImage",
+            "sort_on": "score",
         }
         if max_price is not None and "None":
             params["max_price"] = max_price

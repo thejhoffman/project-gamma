@@ -33,12 +33,12 @@ function Calendar() {
   };
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
+    <div className="row text-center">
+      <div className="container mt-2 shadow p-4 mt-4">
         <h1>Calendar</h1>
-        <td><button className="btn btn-success"><a href = {"/create_event/"} class="text-decoration-none"><font color="white">Add event</font></a></button></td>
-              <table className="table table-striped">
+        <div className="col d-flex justify-content-center">
+          <td><button className="btn btn-primary"><a href = {"/create_event/"} class="text-decoration-none"><font color="white">Add event</font></a></button></td>
+              </div><table className="table table-striped">
                   <thead>
                   <tr>
                       <th>Event</th>
@@ -55,7 +55,7 @@ function Calendar() {
                                   <td>{event.date}</td>
                                   <td>{event.person.name}</td>
                                   <td>{event.occasion.name}</td>
-                                  <td><button className="btn btn-primary"><a href = {"/edit_event/"+(event.id)} class="text-decoration-none"><font color="white">Edit</font></a></button></td>
+                                  <td><button className="btn btn-success"><a href = {"/edit_event/"+(event.id)} class="text-decoration-none"><font color="white">Edit</font></a></button></td>
                                   <td><button className="btn btn-danger" onClick={() => handleDelete(event.id)}>Delete</button></td>
                               </tr>
                           );
@@ -64,7 +64,6 @@ function Calendar() {
               </table>
               </div>
           </div>
-      </div>
       );
                   }
 

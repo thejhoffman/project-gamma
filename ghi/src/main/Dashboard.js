@@ -14,21 +14,33 @@ const fetchData = async (endpoint, setState) => {
   }
 };
 
-const CreateColumn = (props) => {
+const CreateRow = (props) => {
   return (
-    <div className="col">
-      {props.columnList.map((product, index) => <ProductCard key={index} product={product} />)}
+    <div className="row row-cols-2 row-cols-lg-4">
+      <div className='col'>
+        <ProductCard key={0} product={props.rowList[0]} />
+      </div>
+      <div className='col'>
+        <ProductCard key={1} product={props.rowList[1]} />
+      </div>
+      <div className='col'>
+        <ProductCard key={2} product={props.rowList[2]} />
+      </div>
+      <div className='col'>
+        <ProductCard key={3} product={props.rowList[3]} />
+      </div>
     </div>
   );
 };
 
 const ProductCard = (props) => {
   return (
-    <div className="card mb-3 shadow" style={{ width: '18rem' }}>
+    <div className="card mb-3 shadow" >
+      {/* style={{ width: '18rem' }} */}
       <img src={props.product.MainImage.url_170x135} className="card-img-top" alt="product" />
       <div className="card-body">
         <div className="card-title">{htmlDecode(props.product.title)}</div>
-        <p className="card-subtitle mb-2 text-muted">${props.product.price}</p>
+        <p className="card-subtitle mb-2 text-muted">${props.product.price} {props.product.currency_code}</p>
         <a href={props.product.url} className="btn btn-primary">View on Etsy</a>
       </div>
     </div >
@@ -36,18 +48,7 @@ const ProductCard = (props) => {
 };
 
 const TableAndCards = (props) => {
-  const [eventsByPerson, setEventsByPerson] = useState([]);
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    fetchData('/api/events', setEvents);
-  }, []);
-
-  useEffect(() => {
-    setEventsByPerson(events.filter(singleEvent => singleEvent.person.id.toString() === props.person_id));
-  }, [props.person_id, events]);
-
-  if (eventsByPerson.length > 0) {
+  if (props.eventsByPerson.length > 0) {
     return (
       <>
         <hr />
@@ -63,7 +64,7 @@ const TableAndCards = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {eventsByPerson.slice(0, 3).map(event => {
+                {props.eventsByPerson.slice(0, 3).map(event => {
                   return (
                     <tr key={event.id}>
                       <td>{event.name}</td>
@@ -78,11 +79,9 @@ const TableAndCards = (props) => {
         </div>
         <hr />
         <div className='container-flex'>
-          <div className="row">
-            {props.productColumns.map((columnList, index) => {
-              return <CreateColumn key={index} columnList={columnList} />;
-            })}
-          </div>
+          {props.productRows.map((rowList, index) => {
+            return <CreateRow key={index} rowList={rowList} />;
+          })}
         </div>
       </>
     );
@@ -105,13 +104,7 @@ const TableAndCards = (props) => {
 };
 
 const PersonDropdown = (props) => {
-  const [people, setPeople] = useState([]);
-
-  useEffect(() => {
-    fetchData('/api/people', setPeople);
-  }, []);
-
-  if (people.length > 0) {
+  if (props.people.length > 0) {
     return (
       <>
         <div className="row">
@@ -125,7 +118,7 @@ const PersonDropdown = (props) => {
               name="person_id"
             >
               <option value="0">Choose a person</option>
-              {people.map(person => {
+              {props.people.map(person => {
                 return (
                   <option key={person.id} value={person.id}>
                     {`${person.name}`}
@@ -170,31 +163,67 @@ const PersonDropdown = (props) => {
 
 
 const Dashboard = () => {
+  const [people, setPeople] = useState([]);
+  const [events, setEvents] = useState([]);
+
   const [person_id, setPerson] = useState("0");
-  const [productColumns, setProductColumns] = useState([[], [], [], []]);
+  const [personDetail, setPersonDetail] = useState({});
+
+  const [eventsByPerson, setEventsByPerson] = useState([]);
+
+  const [productRows, setProductRows] = useState([]);
+
+  useEffect(() => {
+    fetchData('/api/people', setPeople);
+    fetchData('/api/events', setEvents);
+  }, []);
+
+  useEffect(() => {
+    setEventsByPerson(events.filter(singleEvent => singleEvent.person.id === +person_id));
+  }, [person_id, events]);
+
+  useEffect(() => {
+    setPersonDetail(people.filter(person => person.id === +person_id)[0]);
+  }, [people, person_id]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST + `/api/products`;
+      const params = {
+        limit: 24,
+        occasion: eventsByPerson[0].name,
+        taxonomy_id: personDetail.interest.id,
+        gender: personDetail.gender.name,
+        relationship: personDetail.relationship.type
 
-      // TODO: Get back list of 12 products that are more unique to the current person
+      };
+      const paramsString = Object.keys(params).map((key) => {
+        return [key, params[key]].join("=");
+      }).join("&");
+
+      const url = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST + `/api/products?${paramsString}`;
 
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
-        const dataForProductColumns = [[], [], [], []];
-        let index = 0;
+        const dataForProductRows = Array.from(Array(Math.ceil(data.products.length / 4)), () => []);
+        let [row, count] = [0, 0];
         data.products.forEach((product) => {
-          dataForProductColumns[index].push(product);
-          index++;
-          if (index > 4)
-            index = 0;
+          dataForProductRows[row].push(product);
+          count++;
+          if (count > 3) {
+            row++;
+            count = 0;
+          }
         });
-        setProductColumns(dataForProductColumns);
+        console.log(data.products);
+        setProductRows(dataForProductRows);
       }
     };
-    fetchProducts();
-  }, []);
+
+    if (eventsByPerson.length > 0)
+      fetchProducts();
+
+  }, [eventsByPerson, personDetail]);
 
   const handlePersonData = async (e) => {
     setPerson(e.target.value);
@@ -203,6 +232,7 @@ const Dashboard = () => {
   return (
     <div className="container mt-2 shadow p-4 mt-4">
       <PersonDropdown
+        people={people}
         person_id={person_id}
         handlePersonData={handlePersonData}
       />
@@ -210,7 +240,8 @@ const Dashboard = () => {
       {+person_id !== 0 &&
         <TableAndCards
           person_id={person_id}
-          productColumns={productColumns}
+          eventsByPerson={eventsByPerson}
+          productRows={productRows}
         />
       }
     </div >
