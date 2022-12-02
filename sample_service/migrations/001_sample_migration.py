@@ -49,7 +49,7 @@ steps = [
         # "up" SQL statement
         """
         CREATE TABLE interests (
-            id SERIAL PRIMARY KEY NOT NULL,
+            id INTEGER PRIMARY KEY NOT NULL,
             name VARCHAR(100) NOT NULL
         );
         """,

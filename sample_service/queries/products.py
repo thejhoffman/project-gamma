@@ -9,7 +9,7 @@ class Product(BaseModel):
     products: list
 
 class ProductRepo:
-    def get_product(self, max_price, offset, occasion, interest, gender, relationship):
+    def get_product(self, max_price, offset, occasion, taxonomy_id, gender, relationship):
         params = {
                 "api_key": ETSY_API_KEY,
                 "limit": 4,
@@ -21,11 +21,11 @@ class ProductRepo:
             params["max_price"] = max_price
         if offset != None and "None":
             params["offset"] = offset
+        if taxonomy_id != None and "None":
+            params["taxonomy_id"] = taxonomy_id
         keywords = []
         if occasion != None:
             keywords.append(occasion)
-        if interest != None:
-            keywords.append(interest)
         if gender != None:
             keywords.append(gender)
         if relationship != None:
