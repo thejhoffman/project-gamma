@@ -39,12 +39,13 @@ class ProductRepo:
         if occasion is not None:
             keywords.append(occasion)
         if gender is not None:
-            if gender == "male":
-                gender = "mens"
-            elif gender == "female":
-                gender = "womens"
+            print(gender)
+            if gender == "Male":
+                gender = "men"
+            elif gender == "Female":
+                gender = "women"
             else:
-                gender = "unisex"
+                gender = ""
             keywords.append(gender)
         if relationship is not None:
             keywords.append(relationship)
