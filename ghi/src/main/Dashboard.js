@@ -34,17 +34,18 @@ const CreateRow = (props) => {
 };
 
 const ProductCard = (props) => {
-  return (
-    <div className="card mb-3 shadow" >
-      {/* style={{ width: '18rem' }} */}
-      <img src={props.product.MainImage.url_170x135} className="card-img-top" alt="product" />
-      <div className="card-body">
-        <div className="card-title">{htmlDecode(props.product.title)}</div>
-        <p className="card-subtitle mb-2 text-muted">${props.product.price} {props.product.currency_code}</p>
-        <a href={props.product.url} className="btn btn-primary">View on Etsy</a>
-      </div>
-    </div >
-  );
+  if (props.product !== undefined) {
+    return (
+      <div className="card mb-3 shadow" >
+        <img src={props.product.MainImage.url_170x135} className="card-img-top" alt="product" />
+        <div className="card-body">
+          <div className="card-title">{htmlDecode(props.product.title)}</div>
+          <p className="card-subtitle mb-2 text-muted">${props.product.price} {props.product.currency_code}</p>
+          <a href={props.product.url} className="btn btn-primary">View on Etsy</a>
+        </div>
+      </div >
+    );
+  }
 };
 
 const TableAndCards = (props) => {
@@ -79,9 +80,14 @@ const TableAndCards = (props) => {
         </div>
         <hr />
         <div className='container-flex'>
-          {props.productRows.map((rowList, index) => {
-            return <CreateRow key={index} rowList={rowList} />;
-          })}
+          {props.productRows > 0
+            ?
+            <h1 className="text-center">No products found</h1>
+            :
+            props.productRows.map((rowList, index) => {
+              return <CreateRow key={index} rowList={rowList} />;
+            })
+          }
         </div>
       </>
     );
@@ -190,12 +196,12 @@ const Dashboard = () => {
     const fetchProducts = async () => {
       const params = {
         limit: 24,
-        occasion: eventsByPerson[0].name,
+        occasion: eventsByPerson[0].occasion.name,
         taxonomy_id: personDetail.interest.id,
         gender: personDetail.gender.name,
         relationship: personDetail.relationship.type
-
       };
+
       const paramsString = Object.keys(params).map((key) => {
         return [key, params[key]].join("=");
       }).join("&");
