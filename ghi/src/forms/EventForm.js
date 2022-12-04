@@ -35,7 +35,7 @@ function EventForm() {
     window.location.replace("http://localhost:3000/calendar");
     event.preventDefault();
     const data = { name, date, person_id, occasion_id };
-    const eventUrl = 'http://localhost:8000/api/events/'
+    const eventUrl = 'http://localhost:8000/api/events/';
     const fetchConfig = {
       method: "post", body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' }, credentials: 'include',
@@ -58,12 +58,11 @@ function EventForm() {
     setOccasion(event.target.value);
   };
 
-  if (persons.length>0) {
-  return (
-    <div className="row">
-      <div className="offset-3 col-6">
+  if (persons.length > 0) {
+    return (
+      <div className="container offset-3 col-6">
         <div className="shadow p-4 mt-4">
-          <h1>Add a new event!</h1>
+          <h1>Add a new event</h1>
           <form onSubmit={handleSubmit} id="create-event-form">
             <div className="form-floating mb-3">
               <input onChange={handleNameChange} value={name} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
@@ -73,19 +72,21 @@ function EventForm() {
               <input onChange={handleDateChange} value={date} placeholder="Date" required type="date" name="date" id="date" className="form-control" />
               <label htmlFor="date">Date of event</label>
             </div>
-            <div className="form-floating mb-3">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="person_id">Person</label>
               <select onChange={handlePersonChange} value={person_id} required name="person_id" id="person_id" className="form-select" >
-                <option value="person_id">Person</option>
+                <option value="person_id">Select a person</option>
                 {persons?.map((events) => {
                   return (
-                      <option key={events.id} value={events.id}>{events.name}</option>
+                    <option key={events.id} value={events.id}>{events.name}</option>
                   );
                 })}
               </select>
             </div>
-            <div className="form-floating mb-3">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="occasion_id">Occasion</label>
               <select onChange={handleOccasionChange} value={occasion_id} required name="occasion_id" id="occasion_id" className="form-select" >
-                <option value="occasion_id">Occasion</option>
+                <option value="occasion_id">Select an occasion</option>
                 {occasions?.map((events) => {
                   return (
                     <option key={events.id} value={events.id}>{events.name}</option>
@@ -97,21 +98,20 @@ function EventForm() {
           </form>
         </div>
       </div>
-    </div>
-
-);
-}
+    );
+  }
   else {
     return (
       <div className="row text-center">
         <div className="container mt-2 shadow p-4 mt-4">
-        <h3>No people found</h3>
-        <div className="col d-flex justify-content-center">
-          <td><button className="btn btn-primary"><a href = {"/create_person/"} class="text-decoration-none"><font color="white">Add a new person</font></a></button></td>
+          <h3>No people found</h3>
+          <div className="col d-flex justify-content-center">
+            <td><button className="btn btn-primary"><a href={"/create_person/"} class="text-decoration-none"><font color="white">Add a new person</font></a></button></td>
           </div>
         </div>
       </div>
     );
-  }}
+  }
+}
 
 export default EventForm;
