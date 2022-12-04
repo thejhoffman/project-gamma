@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function EventForm() {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const [person_id, setPerson] = useState('');
@@ -32,7 +34,6 @@ function EventForm() {
 
 
   const handleSubmit = async event => {
-    window.location.replace("http://localhost:3000/calendar");
     event.preventDefault();
     const data = { name, date, person_id, occasion_id };
     const eventUrl = 'http://localhost:8000/api/events/';
@@ -42,7 +43,8 @@ function EventForm() {
     };
     const response = await fetch(eventUrl, fetchConfig);
     if (response.ok) {
-      setName(''); setDate(''); setPerson(''); setOccasion('');
+      // setName(''); setDate(''); setPerson(''); setOccasion('');
+      navigate("/calendar");
     }
   };
   const handleNameChange = event => {
@@ -94,7 +96,7 @@ function EventForm() {
                 })}
               </select>
             </div>
-            <button className="btn btn-primary">Add!</button>
+            <button className="btn btn-primary">Add</button>
           </form>
         </div>
       </div>
@@ -106,7 +108,7 @@ function EventForm() {
         <div className="shadow p-4 mt-4 text-center">
           <h3>No people found</h3>
           <div className="col d-flex justify-content-center">
-            <td><button className="btn btn-primary"><a href={"/create_person/"} class="text-decoration-none"><font color="white">Add a new person</font></a></button></td>
+            <button className="btn btn-primary"><a href={"/create_person/"} className="text-decoration-none"><font color="white">Add a new person</font></a></button>
           </div>
         </div>
       </div >
