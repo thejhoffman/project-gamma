@@ -215,7 +215,6 @@ const Dashboard = () => {
             count = 0;
           }
         });
-        console.log(data.products);
         setProductRows(dataForProductRows);
       }
     };
