@@ -24,7 +24,7 @@ function ProductColumn(props) {
               </a>
               <div className="card-body h-100">
                 <div className="card-title">{htmlDecode(product.title)}</div>
-                <p className="card-subtitle mb-2 text-muted">${product.price}</p>
+                <p className="card-subtitle mb-2 text-muted">${product.price} {product.currency_code}</p>
               </div>
             </div>
           </div>
