@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useGetTokenQuery } from '../store/tokenApi';
+import { Link } from "react-router-dom";
 
 function Calendar() {
   const [events, setEvents] = useState([]);
@@ -38,7 +39,7 @@ function Calendar() {
       <div className="row text-center">
         <h1>Calendar</h1>
         <div className="col d-flex justify-content-center">
-          <td><button className="btn btn-primary"><a href={"/create_event/"} class="text-decoration-none"><font color="white">Add event</font></a></button></td>
+          <Link to="/create_event" className="btn btn-primary">Add event</Link>
         </div><table className="table table-striped">
           <thead>
             <tr>
@@ -56,7 +57,7 @@ function Calendar() {
                   <td>{event.date}</td>
                   <td>{event.person.name}</td>
                   <td>{event.occasion.name}</td>
-                  <td><button className="btn btn-success"><a href={"/edit_event/" + (event.id)} class="text-decoration-none"><font color="white">Edit</font></a></button></td>
+                  <td><Link to={"/edit_event/" + (event.id)} className="btn btn-success">Edit</Link></td>
                   <td><button className="btn btn-danger" onClick={() => handleDelete(event.id)}>Delete</button></td>
                 </tr>
               );
