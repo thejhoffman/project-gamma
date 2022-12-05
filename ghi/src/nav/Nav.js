@@ -4,7 +4,8 @@ import { useGetTokenQuery, useLogoutAccountMutation } from "../store/tokenApi";
 import { useEffect } from "react";
 
 const DropDown = (props) => {
-  if (props.tokenData !== null) {
+  let auth = props.tokenData !== null && props.isSuccess;
+  if (auth) {
     return (
       <div className={props.margin}>
         <ul className="navbar-nav">
@@ -43,7 +44,8 @@ const AuthButtons = (props) => {
     }
   }, [navigate, result.isSuccess, result]);
 
-  if (props.tokenData !== null) {
+  let auth = props.tokenData !== null && props.isSuccess;
+  if (auth) {
     return (
       <div>
         <button className="btn btn-outline-danger" onClick={handleLogout}>
@@ -61,7 +63,7 @@ const AuthButtons = (props) => {
 };
 
 const Nav = () => {
-  const { data: tokenData } = useGetTokenQuery();
+  const { data: tokenData, isSuccess } = useGetTokenQuery();
   return (
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#e3f2fd" }}>
 
@@ -81,14 +83,14 @@ const Nav = () => {
         </NavLink>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <DropDown tokenData={tokenData} />
+          <DropDown tokenData={tokenData} isSuccess={isSuccess} />
         </div>
 
-        <AuthButtons tokenData={tokenData} />
+        <AuthButtons tokenData={tokenData} isSuccess={isSuccess} />
       </div>
 
       <div className="collapse" id="navbarToggleExternalContent">
-        <DropDown tokenData={tokenData} margin="m-4" />
+        <DropDown tokenData={tokenData} isSuccess={isSuccess} margin="m-4" />
       </div>
     </nav>
   );
