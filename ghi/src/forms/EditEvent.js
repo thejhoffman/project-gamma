@@ -14,8 +14,6 @@ const EditEvent = () => {
     person_id: '',
     occasion_id: '',
   });
-  const [name, setName] = useState('');
-  const [date, setDate] = useState('');
   const [persons, setPersons] = useState([]);
   const [occasions, setOccasions] = useState([]);
 
