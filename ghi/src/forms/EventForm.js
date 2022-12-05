@@ -79,7 +79,7 @@ function EventForm() {
             <div className="mb-3">
               <label className="form-label" htmlFor="person_id">Person</label>
               <select onChange={handlePersonChange} value={person_id} required name="person_id" id="person_id" className="form-select" >
-                <option value="">Select person</option>
+                <option value="person_id">Select person</option>
                 {persons?.map((events) => {
                   return (
                     <option key={events.id} value={events.id}>{events.name}</option>
@@ -90,7 +90,7 @@ function EventForm() {
             <div className="mb-3">
               <label className="form-label" htmlFor="occasion_id">Occasion</label>
               <select onChange={handleOccasionChange} value={occasion_id} required name="occasion_id" id="occasion_id" className="form-select" >
-                <option value="">Select occasion</option>
+                <option value="occasion_id">Select occasion</option>
                 {occasions?.map((events) => {
                   return (
                     <option key={events.id} value={events.id}>{events.name}</option>
@@ -98,10 +98,10 @@ function EventForm() {
                 })}
               </select>
             </div>
-            <button disabled={person_id === "" || occasion_id === ""} className="btn btn-primary">Add</button>
+            <button disabled={person_id === "" || occasion_id === ""} className="btn btn-primary">Submit</button>
           </form>
-        </div>
-      </div>
+        </div >
+      </div >
     );
   }
   else {
