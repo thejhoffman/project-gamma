@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const baseURL = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST;
 
@@ -110,7 +111,9 @@ function EventForm() {
         <div className="shadow p-4 mt-4 text-center">
           <h3>No people found</h3>
           <div className="col d-flex justify-content-center">
-            <button className="btn btn-primary"><a href={"/create_person/"} className="text-decoration-none"><font color="white">Add a new person</font></a></button>
+            <Link to ="/create_person" className="btn btn-primary">
+              Create a new person
+            </Link>
           </div>
         </div>
       </div >
