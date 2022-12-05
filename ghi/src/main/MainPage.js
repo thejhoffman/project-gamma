@@ -128,7 +128,7 @@ function MainPage() {
       <div className="row align-items-center mainpage row-cols-1 row-cols-lg-2">
         <div className="col-lg-6 carousel">
           <div className="carousel slide carousel-fade" data-bs-ride="carousel" id="carousel">
-            <h2 >Gift shopping made easier</h2>
+            <h2>Gift shopping made easier</h2>
             <p>
               Never lose track of a special occasion again
               <br />Receive personalized gift suggestions

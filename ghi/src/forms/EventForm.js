@@ -46,7 +46,6 @@ function EventForm() {
     };
     const response = await fetch(eventUrl, fetchConfig);
     if (response.ok) {
-      // setName(''); setDate(''); setPerson(''); setOccasion('');
       navigate("/calendar");
     }
   };

@@ -61,7 +61,6 @@ const EditEvent = () => {
     };
     const response = await fetch(baseURL + `/api/events/${event_id}`, fetchConfig);
     if (response.ok) {
-      // setName(''); setDate(''); setPersons(''); setOccasions('');
       navigate("/calendar");
     }
   };
