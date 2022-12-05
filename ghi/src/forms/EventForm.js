@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const baseURL = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST;
+
 function EventForm() {
   const navigate = useNavigate();
   const [name, setName] = useState('');
@@ -13,7 +15,7 @@ function EventForm() {
   useEffect(() => {
     const getEventData = async () => {
       const eventResponse = await fetch(
-        "http://localhost:8000/api/people/",
+        baseURL + "/api/people/",
         { credentials: 'include' });
       const eventData = await eventResponse.json();
       setPersons(eventData);
@@ -24,7 +26,7 @@ function EventForm() {
   useEffect(() => {
     const getData = async () => {
       const eventResponse = await fetch(
-        "http://localhost:8000/api/occasions/",
+        baseURL + "/api/occasions/",
         { credentials: 'include' });
       const eventData = await eventResponse.json();
       setOccasions(eventData);
@@ -36,7 +38,7 @@ function EventForm() {
   const handleSubmit = async event => {
     event.preventDefault();
     const data = { name, date, person_id, occasion_id };
-    const eventUrl = 'http://localhost:8000/api/events/';
+    const eventUrl = baseURL + '/api/events/';
     const fetchConfig = {
       method: "post", body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' }, credentials: 'include',

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useGetTokenQuery } from '../store/tokenApi';
 import { Link } from "react-router-dom";
 
+const baseURL = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST;
+
 function Calendar() {
   const [events, setEvents] = useState([]);
   useEffect(() => {
     const getEventData = async () => {
       const eventResponse = await fetch(
-        "http://localhost:8000/api/events/",
+        baseURL + "/api/events/",
         { credentials: 'include' });
       const eventData = await eventResponse.json();
       setEvents(eventData);
@@ -17,7 +19,7 @@ function Calendar() {
 
   const { data: token } = useGetTokenQuery();
   async function handleDelete(id) {
-    const eventsUrl = `http://localhost:8000/api/events/${id}`;
+    const eventsUrl = baseURL + `/api/events/${id}`;
     const fetchConfig = {
       method: "delete",
       headers: {

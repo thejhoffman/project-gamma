@@ -106,3 +106,16 @@ p.card-text {
 .mainpage-link:hover .mainpage-hover {
   opacity: 0.5;
 }
+
+/* Shrink and center dropdowns when screen size is small*/
+.shrink-when-sm{
+  width: 50%;
+  margin-bottom: 1rem;
+}
+
+@media (min-width:576px) {
+  .shrink-when-sm{
+    width: 100%;
+  }
+}
+/*------------------------------------------------------*/

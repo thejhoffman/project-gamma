@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useGetTokenQuery } from '../store/tokenApi';
 import { useNavigate } from 'react-router-dom';
 
+const baseURL = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST;
+
 function PersonForm() {
   const { data: token, isLoading: tokenLoading } = useGetTokenQuery();
   const [genders, setGenders] = useState([]);
@@ -25,7 +27,7 @@ function PersonForm() {
 
 
   async function getData(url, setFunction) {
-    url = `http://localhost:8000/${url}`;
+    url = baseURL + `/${url}`;
     const response = await fetch(url, { credentials: 'include' });
     if (response.ok) {
       const data = await response.json();
@@ -63,7 +65,7 @@ function PersonForm() {
       },
       body: JSON.stringify(data)
     };
-    fetch(`http://localhost:8000/api/people`, requestOptions).then(response => response.json());
+    fetch(baseURL + `/api/people`, requestOptions).then(response => response.json());
     resetForm();
   };
 

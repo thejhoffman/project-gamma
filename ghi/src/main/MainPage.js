@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useGetTokenQuery } from "../store/tokenApi";
 import htmlDecode from '../utils/htmlDecode';
 
+const baseURL = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST;
+
 function ProductColumn(props) {
   return (
     <>
@@ -46,7 +48,7 @@ function MainPage() {
   const { data: token } = useGetTokenQuery();
 
   async function getCards(keywords) {
-    const url = `http://localhost:8000/api/products?${keywords}`;
+    const url = baseURL + `/api/products?${keywords}`;
     const response = await fetch(url);
     if (response.ok) {
       const data = await response.json();
@@ -74,7 +76,7 @@ function MainPage() {
 
   useEffect(() => {
     async function getOccasions() {
-      const url = `http://localhost:8000/api/occasions`;
+      const url = baseURL + `/api/occasions`;
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
@@ -156,15 +158,15 @@ function MainPage() {
         </div>
         <div className="col-lg-6 cards">
 
-          <div className="row pb-3">
+          <div className="row row-cols-1 row-cols-sm-3 pb-3">
             <div className="col-md-4 d-flex justify-content-center">
-              <select onChange={e => setOccasion(e.target.value)} value={occasion} id="occasion" className="form-select btn-outline-danger" aria-label="Occasion">
+              <select onChange={e => setOccasion(e.target.value)} value={occasion} id="occasion" className="form-select btn-outline-danger shrink-when-sm" aria-label="Occasion">
                 <option value="">Occasion</option>
                 {occasions.map(occasion => <option key={occasion.id} value={occasion.name}>{occasion.name}</option>)}
               </select>
             </div>
             <div className="col-md-4 d-flex justify-content-center">
-              <select onChange={e => setPrice(e.target.value)} value={price} id="price" className="form-select btn-outline-danger" aria-label="Price">
+              <select onChange={e => setPrice(e.target.value)} value={price} id="price" className="form-select btn-outline-danger shrink-when-sm" aria-label="Price">
                 <option value="">Max Price</option>
                 <option value="20">$20</option>
                 <option value="50">$50</option>
@@ -172,12 +174,12 @@ function MainPage() {
                 <option value="150">$150</option>
               </select>
             </div>
-            <div className="col-md-4 d-flex justify-content-end">
-              <button onClick={randomize} type="submit" className="btn btn-outline-danger">Randomize</button>
+            <div className="col-md-4 d-flex justify-content-center">
+              <button onClick={randomize} type="submit" className="btn btn-outline-danger shrink-when-sm">Randomize</button>
             </div>
           </div>
 
-          <div className="row row-cols-1 row-cols-md-2 cards">
+          <div className="row row-cols-2 cards">
             {productColumns.map((productList, index) => {
               return (
                 <ProductColumn key={index} list={productList} />
