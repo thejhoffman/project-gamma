@@ -68,9 +68,10 @@ function EventForm() {
         <div className="shadow p-4 mt-4">
           <h1>Add a new event</h1>
           <form onSubmit={handleSubmit} id="create-event-form">
+            <div className="container">
             <div className="mb-3">
             <label className="form-label" htmlFor="name">Name of event</label>
-              <input onChange={handleNameChange} value={name} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
+              <input onChange={handleNameChange} value={name} placeholder="" required type="text" name="name" id="name" className="form-control" />
             </div>
             <div className="mb-3">
             <label className="form-label" htmlFor="date">Date</label>
@@ -98,7 +99,8 @@ function EventForm() {
                 })}
               </select>
             </div>
-            <button className="btn btn-primary">Add</button>
+            <button className="btn btn-primary">Submit</button>
+            </div>
           </form>
         </div>
       </div>
