@@ -125,7 +125,7 @@ function MainPage() {
 
   return (
     <div className="container mt-2" id="mainpage">
-      <div className="row align-items-center mainpage row-cols-1 row-cols-lg-2">
+      <div className="row justify-content-center">
         <div className="col-lg-6 carousel">
           <div className="carousel slide carousel-fade" data-bs-ride="carousel" id="carousel">
             <h2>Gift shopping made easier</h2>
@@ -156,8 +156,10 @@ function MainPage() {
             <button onClick={signUp} type="submit" className={signUpButton}>Sign Up</button>
           </div>
         </div>
-        <div className="col-lg-6 cards">
+      </div>
 
+      <div className="row justify-content-center">
+        <div className="col cards fluid">
           <div className="row row-cols-1 row-cols-sm-3 pb-3">
             <div className="col-md-4 d-flex justify-content-center">
               <select onChange={e => setOccasion(e.target.value)} value={occasion} id="occasion" className="form-select btn-outline-danger shrink-when-sm" aria-label="Occasion">
@@ -179,16 +181,16 @@ function MainPage() {
             </div>
           </div>
 
-          <div className="row row-cols-2 cards">
+          <div className="row row-cols-2 row-cols-lg-4 cards">
             {productColumns.map((productList, index) => {
               return (
                 <ProductColumn key={index} list={productList} />
               );
             })}
           </div>
-
         </div>
       </div>
+
     </div>
   );
 }
