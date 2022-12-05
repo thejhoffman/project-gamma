@@ -89,9 +89,7 @@ def test_get_one_age_range():
     id = 1
 
     # Act
-    response = client.get(
-        f"/api/age_range/{id}",
-    )
+    response = client.get(f"/api/age_range/{id}")
 
     # Assert
     assert response.status_code == 200
@@ -131,9 +129,7 @@ def test_delete_age_range():
     id = 1
 
     # Act
-    response = client.delete(
-        f"/api/age_range/{id}",
-    )
+    response = client.delete(f"/api/age_range/{id}")
 
     # Assert
     assert response.status_code == 200
