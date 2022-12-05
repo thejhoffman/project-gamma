@@ -1,3 +1,6 @@
+### December 02, 2022 (12/02/2022):
+Today, I completed  the New Event form to handle situations when a user attempts to create an event without first adding a person. A person needs to be added so that the user can choose who is associated with the event. I learned about to use the if/else for the return statements so that if there are no people added, then it will display a message stating that the user needs to add a person first. Then, I added a button to link to the add person form. For next week, I plan on editing the readme, making sure the front end looks cohesive, then looking at the stretch goals.
+
 ### December 01, 2022 (12/01/2022):
 Today, I completed adding the edit button to the calendar page. I created an EditEvent form with PUT method so that the button leads to this. I also added the create event button to the calendar page to link the create event form. Furthermore, I added redirects to the create event and edit event forms so that the user will be redirected to the calendar view to see the events. I plan to add error handling if a user attempts to create an event without already having a person added. I also plan on looking into more front-end design concepts to make each of our group's pages more cohesive.
 

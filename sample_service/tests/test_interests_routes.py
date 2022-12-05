@@ -3,13 +3,14 @@ from main import app
 from routers.interests import InterestsRepository
 import json
 
-client=TestClient(app)
+client = TestClient(app)
+
 
 class InterestsRepositoryMock:
     def create(self, interests):
-        response={
-            "id":1,
-            "name":"Example Interest",
+        response = {
+            "id": 1,
+            "name": "Example Interest",
         }
         response.update(interests)
         return response
@@ -19,26 +20,27 @@ class InterestsRepositoryMock:
 
 
 def test_create_interests():
-    app.dependency_overrides[InterestsRepository]=InterestsRepositoryMock
-    interests={
-        "id":1,
-        "name":"Example Interest",
+    app.dependency_overrides[InterestsRepository] = InterestsRepositoryMock
+    interests = {
+        "id": 1,
+        "name": "Example Interest",
     }
 
-    response=client.post(
+    response = client.post(
         "/api/interests",
         json.dumps(interests),
     )
 
-    assert response.status_code==200
-    assert response.json()["name"]=="Example Interest"
+    assert response.status_code == 200
+    assert response.json()["name"] == "Example Interest"
+
 
 def test_get_all_interests():
-    app.dependency_overrides[InterestsRepository]=InterestsRepositoryMock
+    app.dependency_overrides[InterestsRepository] = InterestsRepositoryMock
 
-    response=client.get("/api/interests")
+    response = client.get("/api/interests")
 
-    assert response.status_code==200
-    assert response.json()=={"name":[]}
+    assert response.status_code == 200
+    assert response.json() == {"name": []}
 
-    app.dependency_overrides={}
+    app.dependency_overrides = {}
