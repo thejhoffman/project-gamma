@@ -40,6 +40,7 @@ function Calendar() {
     <div className="container mt-2 shadow p-4 mt-4">
       <div className="row text-center">
         <h1>Calendar</h1>
+        <p> A list of your upcoming events.</p>
         <div className="col d-flex justify-content-center">
           <Link to="/create_event" className="btn btn-primary">Add event</Link>
         </div><table className="table table-striped">

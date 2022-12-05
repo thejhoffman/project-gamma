@@ -157,6 +157,7 @@ const PersonDropdown = (props) => {
     return (
       <div className="row text-center">
         <h3>No people found</h3>
+        <p> A person must be added to access the dashboard.</p>
         <div className="col d-flex justify-content-center">
           <Link to="/create_person" className="btn btn-primary">
             Add a new person

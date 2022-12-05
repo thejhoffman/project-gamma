@@ -125,7 +125,7 @@ function MainPage() {
 
   return (
     <div className="container mt-2" id="mainpage">
-      <div className="row align-items-center mainpage row-cols-1 row-cols-lg-2">
+      <div className="row justify-content-center">
         <div className="col-lg-6 carousel">
           <div className="carousel slide carousel-fade" data-bs-ride="carousel" id="carousel">
             <h2>Gift shopping made easier</h2>
@@ -135,13 +135,13 @@ function MainPage() {
             </p>
             <div className="carousel-inner">
               <div className="carousel-item active" data-bs-interval="3000">
-                <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" className="d-block w-100" alt="..."></img>
+                <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" className="d-block w-100" alt="colorfully wrapped gifts with ribbons"></img>
               </div>
               <div className="carousel-item" data-bs-interval="3000">
-                <img src="https://images.unsplash.com/photo-1608755728617-aefab37d2edd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" className="d-block w-100" alt="..."></img>
+                <img src="https://images.unsplash.com/photo-1608755728617-aefab37d2edd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" className="d-block w-100" alt="multiple wrapped gifts with string ribbons"></img>
               </div>
               <div className="carousel-item" data-bs-interval="3000">
-                <img src="https://images.unsplash.com/photo-1607469256872-48074e807b0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" className="d-block w-100" alt="..."></img>
+                <img src="https://images.unsplash.com/photo-1607469256872-48074e807b0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" className="d-block w-100" alt="wrapped gifts with red ribbons and green ribbons"></img>
               </div>
             </div>
             <button className="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
@@ -156,8 +156,10 @@ function MainPage() {
             <button onClick={signUp} type="submit" className={signUpButton}>Sign Up</button>
           </div>
         </div>
-        <div className="col-lg-6 cards">
+      </div>
 
+      <div className="row justify-content-center">
+        <div className="col cards fluid">
           <div className="row row-cols-1 row-cols-sm-3 pb-3">
             <div className="col-md-4 d-flex justify-content-center">
               <select onChange={e => setOccasion(e.target.value)} value={occasion} id="occasion" className="form-select btn-outline-danger shrink-when-sm" aria-label="Occasion">
@@ -179,16 +181,16 @@ function MainPage() {
             </div>
           </div>
 
-          <div className="row row-cols-2 cards">
+          <div className="row row-cols-2 row-cols-lg-4 cards">
             {productColumns.map((productList, index) => {
               return (
                 <ProductColumn key={index} list={productList} />
               );
             })}
           </div>
-
         </div>
       </div>
+
     </div>
   );
 }
