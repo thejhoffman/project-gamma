@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginAccountMutation } from "../store/tokenApi";
+import ErrorMessage from '../utils/ErrorMessage';
 
 function BootstrapInput(props) {
   const { id, placeholder, labelText, value, onChange, type } = props;
@@ -19,6 +20,10 @@ function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginAccount, result] = useLoginAccountMutation();
+  const [alert, setAlert] = useState({
+    isShown: false,
+    message: ""
+  });
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -36,7 +41,10 @@ function Login(props) {
     if (result.isSuccess) {
       navigate("/");
     }
-  }, [navigate, result.isSuccess]);
+    else if (result.error) {
+      setAlert({ isShown: true, message: result.error.data.detail });
+    }
+  }, [navigate, result]);
 
   return (
     <div className="container mt-2">
@@ -58,6 +66,7 @@ function Login(props) {
               value={password}
               onChange={e => setPassword(e.target.value)}
               type="password" />
+            <ErrorMessage isShown={alert.isShown} message={alert.message} />
             <div className="form-floating mb-3">
               <button
                 disabled={password.length === 0}
