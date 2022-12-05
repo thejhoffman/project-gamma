@@ -87,3 +87,37 @@ Spent more time today working on the dashboard. I am now getting specialized res
 * Showing person details
 * Adding dropdown to filter by price
 * Allowing the user the highlight an event to show gifts based of that event
+
+---
+
+## Weekend Bonus
+### 12/3/2022
+I spent some time on Saturday taking care of some small housekeeping items. I made some small adjustments to elements using bootstrap classes to make the look of the site more consistent across the board.
+
+### 12/4/2022
+The site was in a good spot and so I merged our development branch into the main branch. I wanted to test out the pipeline and see if I could get the site live on render and gitlab pages. I cleaned up every use of localhost in fetches to use an environment variable instead.
+
+I updated any code that was causing the lint test to fail. The unit tests still have not been completed yet by the entire team, so that aspect is still commented out on the gitlab yml file for now.
+
+Speaking of the unit tests, I did complete a test that checks all the endpoints for the age range, which was the endpoint that I solo wrote from earlier.
+
+After all that, I attempted to get the deployment working. The gitlab page was building and deploying correctly, which was good. However the render side was failing to build and deploy.
+
+Here is a list of issues that I came across before I got the deployment to render fully working:
+
+* ISSUE: ModuleNotFoundError: No module named 'authenticator'
+* FIX: I needed to update the production Dockerfile to copy all the needed contents inside the 'sample_service' folder, this included authenticator.py
+<br><br>
+* ISSUE: KeyError: 'DATABASE_URL'
+* FIX: The environment variable for the database was not configured. For our development environment, this was setup via the yml file and thus did not exist when render was using the production Dockerfile to build. To get this working, the fastapi that is hosted on render needed a way to connect to a database. Render also offers [databases to setup and use](https://render.com/docs/databases). I setup a postgreSQL database through render and added a DATABASE_URL environment variable on Render's dashboard for our fastapi service using the internal database url provided by render.
+<br><br>
+* ISSUE: KeyError: 'SIGNING_KEY'
+* FIX: This was another environment variable that needed set in the render dashboard for the authenticator to work. I also made sure to include any 3rd party keys at this stage as well.
+<br><br>
+* ISSUE: Render was deploying, but when using the site, I was running into CORS errors.
+* FIX: I needed to set the CORS_HOST environment variable to the hostname of our ghi gitlab page.
+
+---
+
+## Week 4
+### 12/5/2022
