@@ -25,36 +25,25 @@ function PersonForm() {
     setFormData({ ...formData, name: '', gender_id: '', age_range_id: '', relationship_id: '', interest_id: '' });
   };
 
-
-  async function getData(url, setFunction) {
-    url = baseURL + `/${url}`;
-    const response = await fetch(url, { credentials: 'include' });
-    if (response.ok) {
-      const data = await response.json();
-      setFunction(data);
+  useEffect(() => {
+    async function getData(url, setFunction) {
+      url = baseURL + `/${url}`;
+      const response = await fetch(url, { credentials: 'include' });
+      if (response.ok) {
+        const data = await response.json();
+        setFunction(data);
+      }
     }
-  }
 
-  useEffect(() => {
     getData(`gender`, setGenders);
-  }, []);
-
-  useEffect(() => {
     getData(`api/age_range`, setAges);
-  }, []);
-
-  useEffect(() => {
     getData(`api/relationships`, setRelationships);
-  }, []);
-
-  useEffect(() => {
     getData(`api/interests`, setInterests);
   }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
     navigate('/dashboard');
-    console.log(e);
 
     const data = { ...formData };
     const requestOptions = {
@@ -108,7 +97,7 @@ function PersonForm() {
                   {interests.map(interest => <option key={interest.id} value={interest.id}>{interest.name}</option>)}
                 </select>
               </div>
-              <button disabled={interests.length === 0} onClick={handleSubmit} type="submit" className="btn btn-primary">Submit</button>
+              <button disabled={Object.values(formData).includes('')} onClick={handleSubmit} type="submit" className="btn btn-primary">Submit</button>
             </div>
           </form>
         }
