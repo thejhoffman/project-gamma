@@ -68,18 +68,18 @@ function EventForm() {
         <div className="shadow p-4 mt-4">
           <h1>Add a new event</h1>
           <form onSubmit={handleSubmit} id="create-event-form">
-            <div className="form-floating mb-3">
+            <div className="mb-3">
+            <label className="form-label" htmlFor="name">Name of event</label>
               <input onChange={handleNameChange} value={name} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
-              <label htmlFor="name">Name of event</label>
             </div>
-            <div className="form-floating mb-3">
+            <div className="mb-3">
+            <label className="form-label" htmlFor="date">Date</label>
               <input onChange={handleDateChange} value={date} placeholder="Date" required type="date" name="date" id="date" className="form-control" />
-              <label htmlFor="date">Date of event</label>
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="person_id">Person</label>
               <select onChange={handlePersonChange} value={person_id} required name="person_id" id="person_id" className="form-select" >
-                <option value="person_id">Select a person</option>
+                <option value="person_id">Select person</option>
                 {persons?.map((events) => {
                   return (
                     <option key={events.id} value={events.id}>{events.name}</option>
@@ -90,7 +90,7 @@ function EventForm() {
             <div className="mb-3">
               <label className="form-label" htmlFor="occasion_id">Occasion</label>
               <select onChange={handleOccasionChange} value={occasion_id} required name="occasion_id" id="occasion_id" className="form-select" >
-                <option value="occasion_id">Select an occasion</option>
+                <option value="occasion_id">Select occasion</option>
                 {occasions?.map((events) => {
                   return (
                     <option key={events.id} value={events.id}>{events.name}</option>
