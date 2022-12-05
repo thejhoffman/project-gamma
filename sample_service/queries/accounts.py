@@ -70,4 +70,4 @@ class AccountQueries:
                         id=id, hashed_password=hashed_password, **old_data
                     )
         except Exception:
-            return {"message": "Create did not work"}
+            raise DuplicateAccountError
