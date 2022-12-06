@@ -1,3 +1,6 @@
+### December 05, 2022 (12/05/2022):
+Today, I noticed an error with the unit test for interests. I looked at the CLI from Docker to identify where the issue was. Then, I edited the code at the location of the error and was able to resolve it. Now the unit tests I wrote all work. I also made some edits to the format of the application in order to help with consistency. I also added descriptions to the pages to assist users in understanding what needs to be done. I also added alt texts to the images on the main page. I learned that alt text is important for ensuring accessibility in the images.
+
 ### December 02, 2022 (12/02/2022):
 Today, I completed  the New Event form to handle situations when a user attempts to create an event without first adding a person. A person needs to be added so that the user can choose who is associated with the event. I learned about to use the if/else for the return statements so that if there are no people added, then it will display a message stating that the user needs to add a person first. Then, I added a button to link to the add person form. For next week, I plan on editing the readme, making sure the front end looks cohesive, then looking at the stretch goals.
 

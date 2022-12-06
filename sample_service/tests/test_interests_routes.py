@@ -9,9 +9,10 @@ client = TestClient(app)
 class InterestsRepositoryMock:
     def create(self, interests):
         response = {
-            "id": 1,
-            "name": "Example Interest",
+            "id": 0,
+            "name": "string",
         }
+        response.update({"id":1})
         response.update(interests)
         return response
 
@@ -22,8 +23,7 @@ class InterestsRepositoryMock:
 def test_create_interests():
     app.dependency_overrides[InterestsRepository] = InterestsRepositoryMock
     interests = {
-        "id": 1,
-        "name": "Example Interest",
+        "name": "Art",
     }
 
     response = client.post(
@@ -32,8 +32,10 @@ def test_create_interests():
     )
 
     assert response.status_code == 200
-    assert response.json()["name"] == "Example Interest"
+    assert response.json()["id"] == 1
+    assert response.json()["name"] == "Art"
 
+    app.dependency_overrides = {}
 
 def test_get_all_interests():
     app.dependency_overrides[InterestsRepository] = InterestsRepositoryMock
