@@ -49,7 +49,7 @@ function Login(props) {
   return (
     <div className="container mt-2">
       <div className='offset-3 col-6'>
-        <div className="shadow p-4 mt-4">
+        <div className="box shadow p-4 mt-4">
           <h1>Login</h1>
           <form onSubmit={handleLogin}>
             <BootstrapInput

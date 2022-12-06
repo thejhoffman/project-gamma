@@ -65,7 +65,7 @@ const AuthButtons = (props) => {
 const Nav = () => {
   const { data: tokenData, isSuccess } = useGetTokenQuery();
   return (
-    <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#e3f2fd" }}>
+    <nav className="navbar navbar-expand-lg">
 
       <div className="container-fluid">
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">

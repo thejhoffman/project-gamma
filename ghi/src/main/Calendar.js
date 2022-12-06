@@ -37,13 +37,13 @@ function Calendar() {
   };
 
   return (
-    <div className="container mt-2 shadow p-4 mt-4">
-      <div className="row text-center">
+    <div className="container">
+      <div className="box row text-center mt-2 shadow p-4 mt-4">
         <h1>Calendar</h1>
         <p> A list of your upcoming events.</p>
         <div className="col d-flex justify-content-center">
           <Link to="/create_event" className="btn btn-primary">Add event</Link>
-        </div><table className="table table-striped">
+        </div><table className="table table-hover">
           <thead>
             <tr>
               <th>Event</th>

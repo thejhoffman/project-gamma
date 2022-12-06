@@ -93,7 +93,7 @@ const DeletePerson = () => {
 
   return (
     <div className="container mt-2 offset-3 col-6">
-      <div className="shadow p-4 mt-4">
+      <div className="box shadow p-4 mt-4">
         {didDelete
           ? <SuccessMessage />
           : <DeleteForm setDidDelete={setDidDelete} />

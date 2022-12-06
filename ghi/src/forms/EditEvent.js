@@ -68,7 +68,7 @@ const EditEvent = () => {
   return (
     <div className="row">
       <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
+        <div className="box shadow p-4 mt-4">
           <h1>Edit an event</h1>
           <form onSubmit={handleSubmit} id="edit-event-form">
             <div className="form-floating mb-3">

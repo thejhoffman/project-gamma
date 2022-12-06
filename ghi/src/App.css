@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
 .App {
   text-align: center;
 }
@@ -13,38 +15,54 @@
   color: white;
 }
 
-/* **** MAINPAGE CSS **** */
-
-#mainpage.container-fluid {
-  padding: 10px;
+[data-reactroot] {
+  height: 100vh !important;
 }
 
+body {
+  background-color: #c9f0ff;
+}
+
+/* **** MAINPAGE CSS **** */
+
 .col-lg-6.carousel {
-  margin-top: 10px;
+  margin: 2rem 0 2rem 0;
   vertical-align: middle;
   text-align: center;
   display: flex;
-  /* padding: 50px; */
+  padding: 1rem;
+  background-color: white;
 }
 
-.col-lg-6.cards {
-  margin-top: 10px;
-  /* vertical-align: middle; */
-  /* display: flex; */
-  /* padding: 30px; */
+.col.cards {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: white;
+
+}
+
+.box {
+  border: #d5cad6;
+  border-style: solid;
+  border-width: medium;
+  border-radius: 1em;
+  background-color: white;
+}
+
+.navbar-brand {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  color: #393644
+}
+
+.nav-link {
+  font-size: 1rem;
+  font-style: italic;
 }
 
 .card-img-top {
   max-width: 100%;
   height: auto;
-}
-
-/* .img.card-img-top {
-  max-width: 80%;
-} */
-
-.dropdown.mainpage {
-  padding-bottom: 20px;
 }
 
 #mainpage-card.col {
@@ -54,7 +72,6 @@
 div.card.h-100 {
   max-height: 100%;
   overflow-y: auto;
-  padding-bottom: 10px;
 }
 
 .card-body {
@@ -73,10 +90,6 @@ p.card-text {
   height: 100%;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  /*
-  opacity: 0;
-  transition: opacity ease-in-out 0.25s; */
 }
 
 .img-fluid {

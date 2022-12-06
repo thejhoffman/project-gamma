@@ -236,7 +236,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container mt-2 shadow p-4 mt-4">
+    <div className="container box mt-2 shadow p-4 mt-4">
       <PersonDropdown
         people={people}
         person_id={person_id}

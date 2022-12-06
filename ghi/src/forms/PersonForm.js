@@ -60,7 +60,7 @@ function PersonForm() {
 
   return (
     <div className="container offset-3 col-6">
-      <div className="shadow p-4 mt-4">
+      <div className="box shadow p-4 mt-4">
         <h1>Add a new person</h1>
         {tokenLoading ? "please wait" :
           <form>
