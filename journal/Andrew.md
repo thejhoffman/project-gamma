@@ -19,3 +19,18 @@ Today I finished up the In point for gender.
 
 ### 11/21/2022
 Jonathan and I worked on live share and updated the Events part of the CRUD.
+
+### 11/22/2022
+Today I signed up with the following API's, Etsy, Amazon, Ebay, and RapidAPI, trying to get one to succeed to connect.
+
+### 11/28/2022
+I finished up Sign Up and login page, with James help we have the authentication working. I spend time working with making a carousel just like to the home page, but struggled with getting it to work.
+
+### 11/29/2022
+Working on getting the post to work with the sign up page. Struggling using hooks and use effect.
+
+### 11/30/2022
+Today I struggled with making the making the Sign up page work. It does function now, but trying to get the cleared, redirect and or success message is defeating me
+
+### 12/01/2022
+Today we layed out what final touch ups need to be done for our site, and what stretch goals we have in priority. today im adding catch errors and redirects.

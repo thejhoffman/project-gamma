@@ -12,3 +12,110 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+/* ------- **** MAINPAGE CSS **** ------- */
+
+#mainpage.container-fluid {
+  padding: 10px;
+}
+
+.col-lg-6.carousel {
+  margin-top: 10px;
+  vertical-align: middle;
+  text-align: center;
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.col-lg-6.cards {
+  margin-top: 10px;
+  /* vertical-align: middle; */
+  /* display: flex; */
+  /* padding: 30px; */
+}
+
+.card-img-top {
+  max-width: 100%;
+  height: auto;
+}
+
+/* .img.card-img-top {
+  max-width: 80%;
+} */
+
+.dropdown.mainpage {
+  padding-bottom: 20px;
+}
+
+#mainpage-card.col {
+  max-height: fit-content;
+}
+
+div.card.h-100 {
+  max-height: 100%;
+  overflow-y: auto;
+  padding-bottom: 10px;
+}
+
+.card-body {
+  text-align: center;
+}
+
+div.card-title {
+  line-height: 1.3em;
+}
+
+.grid-item {
+  max-width: 26rem;
+  display: inline-block;
+  position:relative;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  /*
+  opacity: 0;
+  transition: opacity ease-in-out 0.25s; */
+}
+
+.img-fluid {
+  width: 100%;
+  height: 15vw;
+  object-fit: contain;
+  overflow: hidden;
+}
+
+.mainpage-link .mainpage-hover {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #8080C0;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity ease-in-out 0.25s;
+}
+
+.mainpage-hover-content {
+  font-size: 1.25 rem;
+  color: white;
+}
+
+.mainpage-link:hover .mainpage-hover {
+  opacity: 0.5;
+}
+
+/* Shrink and center dropdowns when screen size is small*/
+.shrink-when-sm{
+  width: 50%;
+  margin-bottom: 1rem;
+}
+
+@media (min-width:576px) {
+  .shrink-when-sm{
+    width: 100%;
+  }
+}
+/*------------------------------------------------------*/

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 from queries.pool import pool
 from datetime import date
 
@@ -12,7 +12,7 @@ class OccasionIn(BaseModel):
 class OccasionOut(BaseModel):
     id: int
     name: str
-    date: date
+    date: Optional[date]
 
 
 class OccasionRepository:

@@ -3,11 +3,12 @@ steps = [
         # data for age_range
         """
         INSERT INTO age_range
+            (age)
         VALUES
-            (1, 'Children (under 14)'),
-            (2, 'Youth (15-24)'),
-            (3, 'Adults (25-64)'),
-            (4, 'Seniors (over 65)');
+            ('Children (under 14)'),
+            ('Youth (15-24)'),
+            ('Adults (25-64)'),
+            ('Seniors (over 65)');
         """,
         # delete data from age_range
         """
@@ -18,11 +19,21 @@ steps = [
         # data for relationships
         """
         INSERT INTO relationships
+            (type)
         VALUES
-            (1, 'Spouse'),
-            (2, 'Mother'),
-            (3, 'Father'),
-            (4, 'Colleague');
+            ('Boyfriend'),
+            ('Brother'),
+            ('Colleague'),
+            ('Daughter'),
+            ('Father'),
+            ('Friend'),
+            ('Girlfriend'),
+            ('Husband'),
+            ('Mother'),
+            ('Relative'),
+            ('Sister'),
+            ('Son'),
+            ('Wife');
         """,
         # delete data from relationships
         """
@@ -33,10 +44,19 @@ steps = [
         # data for occasions
         """
         INSERT INTO occasion
+            (name, date)
         VALUES
-            (1, 'Christmas', '2022-12-25'),
-            (2, 'Valentines', '2023-02-14'),
-            (3, 'Hanukkah', '2022-12-18');
+            ('Anniversary', NULL),
+            ('Baby Shower', NULL),
+            ('Baptism', NULL),
+            ('Birthday', NULL),
+            ('Bridal Shower', NULL),
+            ('Christmas', '2022-12-25'),
+            ('Engagement', NULL),
+            ('Graduation', NULL),
+            ('Hanukkah', '2022-12-18'),
+            ('Valentines', '2023-02-14'),
+            ('Wedding', NULL)
         """,
         # delete data from occasions
         """
@@ -48,8 +68,19 @@ steps = [
         """
         INSERT INTO interests
         VALUES
-            (1, 'Movies'),
-            (2, 'Sports');
+            (66, 'Art'),
+            (324, 'Books'),
+            (930, 'Foodies'),
+            (1553, 'Games & Puzzles'),
+            (355, 'Movies'),
+            (356, 'Music'),
+            (115, 'Photography'),
+            (1560, 'Sports & Outdoors'),
+            (875, 'Tech'),
+            (1580, 'Toys'),
+            (168, 'Travel'),
+            (890, 'Video Games'),
+            (316, 'Wellness');
         """,
         # delete data from interests
         """
@@ -60,10 +91,11 @@ steps = [
         # data for gender
         """
         INSERT INTO gender
+            (name)
         VALUES
-            (1, 'Male'),
-            (2, 'Female'),
-            (3, 'Neutral');
+            ('Male'),
+            ('Female'),
+            ('Neutral');
         """,
         # delete data from occasions
         """

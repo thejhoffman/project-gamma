@@ -16,7 +16,7 @@ class ExampleAuthenticator(Authenticator):
 
     async def get_account_data(
         self,
-        email: str,  # you can also call this email based on what your project is
+        email: str,  # can be called email based on whatproject uses
         accounts: AccountQueries,
     ):
         # Use your repo to get the account based on the

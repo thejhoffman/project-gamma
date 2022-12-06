@@ -17,6 +17,7 @@ services:
       SIGNING_KEY: ${SIGNING_KEY}
       WAIT_BEFORE: 5
       WAIT_TIMEOUT: 60
+      ETSY_API_KEY: ${ETSY_API_KEY}
     volumes:
       - ./sample_service:/app
 
