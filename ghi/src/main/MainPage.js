@@ -17,14 +17,14 @@ function ProductColumn(props) {
 
         return (
           <div className="col mb-4" id="mainpage-card" key={product.MainImage.listing_id}>
-            <div className="card mb-3 shadow">
+            <div className="card h-100 mb-3 shadow">
               <a href={product.url} className="mainpage-link">
                 <div className="mainpage-hover">
                   <div className="mainpage-hover-content"><i className="fas fa-cart-shopping fa-3x"></i></div>
                 </div>
                 <img src={product.MainImage.url_170x135} className="card-img-top" alt="..." />
               </a>
-              <div className="card-body h-100">
+              <div className="card-body">
                 <div className="card-title">{htmlDecode(product.title)}</div>
                 <p className="card-subtitle mb-2 text-muted">${product.price} {product.currency_code}</p>
               </div>
