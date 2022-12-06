@@ -8,6 +8,7 @@ class Error(BaseModel):
 
 
 class InterestsIn(BaseModel):
+    id: int
     name: str
 
 
@@ -20,19 +21,17 @@ class InterestsRepository(BaseModel):
     def create(self, interest: InterestsIn) -> InterestsOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
-                result = db.execute(
+                db.execute(
                     """
                     INSERT INTO interests
-                        (name)
+                        (id, name)
                     VALUES
-                        (%s)
-                    RETURNING id;
+                        (%s, %s)
                     """,
-                    [interest.name],
+                    [interest.id, interest.name],
                 )
-                id = result.fetchone()[0]
                 old_data = interest.dict()
-                return InterestsOut(id=id, **old_data)
+                return InterestsOut(**old_data)
 
     def get_all(self) -> Union[Error, List[InterestsOut]]:
         try:
