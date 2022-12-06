@@ -27,7 +27,7 @@ def test_create_gender():
     }
 
     response = client.post(
-        "/api/gender",
+        "/gender",
         json.dumps(gender),
     )
 
@@ -39,9 +39,9 @@ def test_create_gender():
 
 
 def test_get_all_gender():
-    app.dependency_overrides[GenderRepository] = GenderRepository
+    app.dependency_overrides[GenderRepository] = GenderRepositoryMock
 
-    response = client.get("/api/gender")
+    response = client.get("/gender")
 
     assert response.status_code == 200
     assert response.json() == []
