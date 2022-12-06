@@ -12,7 +12,7 @@ class OccasionRepositoryMock:
     def create_occasion(self, occasion):
         response = {
             "id": 1,
-            "name": "Christmas",
+            "name": "string",
             "date": "2022-12-05"
         }
         response.update(occasion)
@@ -39,7 +39,7 @@ class OccasionRepositoryMock:
     def delete_occasion(self, id):
         response = {
             "id": 1,
-            "name": "Christmas",
+            "name": "string",
             "date": "2022-12-25"
         }
         if response.get("id") == id:

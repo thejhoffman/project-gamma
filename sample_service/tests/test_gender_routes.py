@@ -12,28 +12,27 @@ class GenderRepositoryMock:
 
     def create(self, gender):
         response = {
-            "id": 0,
+            "id": 1,
             "name": "string",
         }
-        response.update({"id": 1})
         response.update(gender)
         return response
 
 
-def test_create_gender():
+def test_create():
     app.dependency_overrides[GenderRepository] = GenderRepositoryMock
     gender = {
-        "name": "Gender Male",
+        "name": "male",
     }
 
     response = client.post(
         "/gender",
-        json.dumps(gender),
+        json.dumps(gender)
     )
 
     assert response.status_code == 200
     assert response.json()["id"] == 1
-    assert response.json()["name"] == "Gender male"
+    assert response.json()["name"] == "male"
 
     app.dependency_overrides = {}
 

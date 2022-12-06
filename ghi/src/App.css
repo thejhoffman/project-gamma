@@ -78,8 +78,8 @@ div.card.h-100 {
   text-align: center;
 }
 
-p.card-text {
-  line-height: 1em;
+div.card-title {
+  line-height: 1.3em;
 }
 
 .grid-item {
