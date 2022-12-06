@@ -23,7 +23,7 @@ class GenderRepositoryMock:
 def test_create_gender():
     app.dependency_overrides[GenderRepository] = GenderRepositoryMock
     gender = {
-        "name": "Gender Male",
+        "name": "male",
     }
 
     response = client.post(
@@ -33,7 +33,7 @@ def test_create_gender():
 
     assert response.status_code == 200
     assert response.json()["id"] == 1
-    assert response.json()["name"] == "Gender male"
+    assert response.json()["name"] == "male"
 
     app.dependency_overrides = {}
 

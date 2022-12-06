@@ -17,7 +17,7 @@ def create_gender(
     response: Response,
     repo: GenderRepository = Depends(),
 ):
-    response.status_code = 400
+    # response.status_code = 400
     return repo.create(gender)
 
 
