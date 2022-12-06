@@ -1,5 +1,67 @@
 # People API
 ---
+### Get token
+* Endpoint path: /token
+* Endpoint method: 'GET'
+* Response: Account information, token
+* Response shape (JSON):
+    ```json
+    {
+      "access_token": string,
+      "token_type": string,
+      "account": {
+        "id": int,
+        "email": string,
+        "name": string
+      }
+    }
+    ```
+
+### Login
+* Endpoint path: /token
+* Endpoint method: POST
+* Request shape (form):
+  * username: string
+  * password: string
+* Response: token
+* Response shape (JSON):
+    ```json
+    {
+      "access_token": string,
+      "token_type": string
+    }
+
+### Logout
+* Endpoint path: /token
+* Endpoint method: DELETE
+* Headers:
+  * Authorization: Bearer token
+* Response: true
+* Response shape (JSON):
+    ```json
+    true
+    ```
+
+### Create account
+* Endpoint path: /api/accounts
+* Endpoint method: POST
+* Request shape (form):
+  * email: string,
+  * password: string,
+  * name: string
+* Response: account information, token
+* Response shape (JSON):
+    ```json
+    {
+      "access_token": string,
+      "token_type": string,
+      "account": {
+        "id": int,
+        "email": strinng,
+        "name": string
+      }
+    }
+
 ### Get list of all people
 * Endpoint path: `/api/people/`
 * Endpoint method: `GET`
