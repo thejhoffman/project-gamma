@@ -12,7 +12,6 @@ class InterestsRepositoryMock:
             "id": 0,
             "name": "string",
         }
-        response.update({"id":1})
         response.update(interests)
         return response
 
@@ -23,6 +22,7 @@ class InterestsRepositoryMock:
 def test_create_interests():
     app.dependency_overrides[InterestsRepository] = InterestsRepositoryMock
     interests = {
+        "id": 1,
         "name": "Art",
     }
 
@@ -36,6 +36,7 @@ def test_create_interests():
     assert response.json()["name"] == "Art"
 
     app.dependency_overrides = {}
+
 
 def test_get_all_interests():
     app.dependency_overrides[InterestsRepository] = InterestsRepositoryMock
