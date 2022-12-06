@@ -22,7 +22,7 @@ class GenderRepositoryMock:
 def test_create():
     app.dependency_overrides[GenderRepository] = GenderRepositoryMock
     gender = {
-        "name": "male"
+        "name": "male",
     }
 
     response = client.post(
