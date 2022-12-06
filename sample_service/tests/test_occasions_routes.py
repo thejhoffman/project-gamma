@@ -5,6 +5,7 @@ import json
 
 client = TestClient(app)
 
+
 class OccasionRepositoryMock:
     def get_all(self):
         return []
@@ -60,6 +61,7 @@ def test_get_all():
 
     app.dependency_overrides = {}
 
+
 def test_create_occasion():
     # Arrange
     app.dependency_overrides[OccasionRepository] = OccasionRepositoryMock
@@ -78,6 +80,7 @@ def test_create_occasion():
     assert response.json()["date"] == "2022-12-25"
 
     app.dependency_overrides = {}
+
 
 def test_get_occasion():
     # Arrange
@@ -115,6 +118,7 @@ def test_update_occasion():
     assert response.json()["date"] == "2022-12-25"
 
     app.dependency_overrides = {}
+
 
 def test_delete_occasion():
     # Arrange
