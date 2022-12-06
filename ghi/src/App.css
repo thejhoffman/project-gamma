@@ -24,7 +24,7 @@
   vertical-align: middle;
   text-align: center;
   display: flex;
-  /* padding: 50px; */
+  padding-bottom: 20px;
 }
 
 .col-lg-6.cards {
