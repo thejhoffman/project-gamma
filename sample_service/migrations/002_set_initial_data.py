@@ -3,11 +3,12 @@ steps = [
         # data for age_range
         """
         INSERT INTO age_range
+            (age)
         VALUES
-            (1, 'Children (under 14)'),
-            (2, 'Youth (15-24)'),
-            (3, 'Adults (25-64)'),
-            (4, 'Seniors (over 65)');
+            ('Children (under 14)'),
+            ('Youth (15-24)'),
+            ('Adults (25-64)'),
+            ('Seniors (over 65)');
         """,
         # delete data from age_range
         """
@@ -18,20 +19,21 @@ steps = [
         # data for relationships
         """
         INSERT INTO relationships
+            (type)
         VALUES
-            (1, 'Boyfriend'),
-            (2, 'Brother'),
-            (3, 'Colleague'),
-            (4, 'Daughter'),
-            (5, 'Father'),
-            (6, 'Friend'),
-            (7, 'Girlfriend'),
-            (8, 'Husband'),
-            (9, 'Mother'),
-            (10, 'Relative'),
-            (11, 'Sister'),
-            (12, 'Son'),
-            (13, 'Wife');
+            ('Boyfriend'),
+            ('Brother'),
+            ('Colleague'),
+            ('Daughter'),
+            ('Father'),
+            ('Friend'),
+            ('Girlfriend'),
+            ('Husband'),
+            ('Mother'),
+            ('Relative'),
+            ('Sister'),
+            ('Son'),
+            ('Wife');
         """,
         # delete data from relationships
         """
@@ -42,18 +44,19 @@ steps = [
         # data for occasions
         """
         INSERT INTO occasion
+            (name, date)
         VALUES
-            (1, 'Anniversary', NULL),
-            (2, 'Baby Shower', NULL),
-            (3, 'Baptism', NULL),
-            (4, 'Birthday', NULL),
-            (5, 'Bridal Shower', NULL),
-            (6, 'Christmas', '2022-12-25'),
-            (7, 'Engagement', NULL),
-            (8, 'Graduation', NULL),
-            (9, 'Hanukkah', '2022-12-18'),
-            (10, 'Valentines', '2023-02-14'),
-            (11, 'Wedding', NULL)
+            ('Anniversary', NULL),
+            ('Baby Shower', NULL),
+            ('Baptism', NULL),
+            ('Birthday', NULL),
+            ('Bridal Shower', NULL),
+            ('Christmas', '2022-12-25'),
+            ('Engagement', NULL),
+            ('Graduation', NULL),
+            ('Hanukkah', '2022-12-18'),
+            ('Valentines', '2023-02-14'),
+            ('Wedding', NULL)
         """,
         # delete data from occasions
         """
@@ -88,10 +91,11 @@ steps = [
         # data for gender
         """
         INSERT INTO gender
+            (name)
         VALUES
-            (1, 'Male'),
-            (2, 'Female'),
-            (3, 'Neutral');
+            ('Male'),
+            ('Female'),
+            ('Neutral');
         """,
         # delete data from occasions
         """
