@@ -47,3 +47,10 @@ To fully enjoy this application on your local machine, please make sure to follo
 5. Run `docker compose up`
 6. Sign up for your own Etsy API key at `https://www.etsy.com/developers/register`
 7. Once approved, insert the key in a .env file with the variable name "ETSY_API_KEY" to enjoy the functionality of our app!
+
+## Unit Tests
+
+- Andrew Collins - Gender
+- James Hoffman - Age_range
+- Jonathan Roman - Interests
+- Theresa Villa - Occasions & Relationships
