@@ -39,7 +39,7 @@ def test_create():
 
 
 def test_get_all_gender():
-    app.dependency_overrides[GenderRepository] = GenderRepository
+    app.dependency_overrides[GenderRepository] = GenderRepositoryMock
 
     response = client.get("/gender")
 
