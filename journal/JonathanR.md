@@ -1,3 +1,6 @@
+### December 06, 2022 (12/06/2022):
+Today, I added some edits to the mainpage style before deploying the application. I am excited to begin researching how to implement new stretch goals for our application.
+
 ### December 05, 2022 (12/05/2022):
 Today, I noticed an error with the unit test for interests. I looked at the CLI from Docker to identify where the issue was. Then, I edited the code at the location of the error and was able to resolve it. Now the unit tests I wrote all work. I also made some edits to the format of the application in order to help with consistency. I also added descriptions to the pages to assist users in understanding what needs to be done. I also added alt texts to the images on the main page. I learned that alt text is important for ensuring accessibility in the images.
 
