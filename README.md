@@ -1,5 +1,5 @@
 # Largesseance
-![Largesseance](/uploads/3a77c604b49e430c337022d67f226319/Untitled_design_largesseance.jpg)
+![Largesseance](/uploads/d23681a5822944f856c4f1767895d6a6/ezgif.com-gif-maker.gif)
 
 - Andrew Collins
 - James Hoffman
