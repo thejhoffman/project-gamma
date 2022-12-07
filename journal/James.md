@@ -121,3 +121,9 @@ Here is a list of issues that I came across before I got the deployment to rende
 
 ## Week 4
 ### 12/5/2022
+I worked on adding validation to all of our forms in the app. I was able to add a few alert messages to certain forms and also made it so that the submit button for forms are disabled until the form is valid. We identified another stretch goal, and that would be implement [bootstrap's method of validation](https://getbootstrap.com/docs/5.2/forms/validation/).
+
+### 12/6/2022
+Today, I spent some time on styling the site a little more CSS, asking for input from the rest of the team along the way. Right now, the site is looking better than it was before.
+
+### 12/7/2022
