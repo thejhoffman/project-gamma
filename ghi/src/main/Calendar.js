@@ -7,21 +7,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 const baseURL = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST;
 
-function Calendar_f() {
-  // const [events, setEvents] = useState([]);
-  // useEffect(() => {
-  //   const getEventData = async () => {
-  //     const eventResponse = await fetch(
-  //       baseURL + "/api/events/",
-  //       { credentials: 'include' });
-  //     const eventData = await eventResponse.json();
-  //     setEvents(eventData);
-  //   };
-  //   getEventData();
-  // }, []);
-
-  const [dateList, setDateList] = useState([])
-  const [eventNameList, setEventNameList] = useState([])
+function CalendarPage() {
   const [events, setEvents] = useState([]);
   useEffect(() => {
     const getEventData = async () => {
@@ -29,15 +15,6 @@ function Calendar_f() {
         baseURL + "/api/events/",
         { credentials: 'include' });
       const eventData = await eventResponse.json();
-
-      let list_dates = []
-      let list_eventNames = []
-      for (let item of eventData) {
-        list_dates.push(item.date)
-        list_eventNames.push(item.name)
-      }
-      setDateList(list_dates)
-      setEventNameList(list_eventNames)
       setEvents(eventData);
     };
     getEventData();
@@ -108,4 +85,4 @@ function Calendar_f() {
   );
 }
 
-export default Calendar_f;
+export default CalendarPage;
