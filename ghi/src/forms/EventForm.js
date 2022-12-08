@@ -65,7 +65,7 @@ function EventForm() {
   if (persons.length > 0) {
     return (
       <div className="container offset-3 col-6">
-        <div className="shadow p-4 mt-4">
+        <div className="box shadow p-4 mt-4">
           <h1>Add a new event</h1>
           <form onSubmit={handleSubmit} id="create-event-form">
             <div className="mb-3">
@@ -107,7 +107,7 @@ function EventForm() {
   else {
     return (
       <div className="container offset-3 col-6">
-        <div className="shadow p-4 mt-4 text-center">
+        <div className="box shadow p-4 mt-4 text-center">
           <h3>No people found</h3>
           <p> A person must be added to create an event.</p>
           <div className="col d-flex justify-content-center">

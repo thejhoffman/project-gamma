@@ -5,6 +5,7 @@ import json
 
 client = TestClient(app)
 
+
 class RelationshipRepositoryMock:
     def get_all(self):
         return []
@@ -47,7 +48,9 @@ class RelationshipRepositoryMock:
 
 def test_get_all():
     # Arrange
-    app.dependency_overrides[RelationshipRepository] = RelationshipRepositoryMock
+    app.dependency_overrides[
+        RelationshipRepository
+    ] = RelationshipRepositoryMock
 
     # Act
     response = client.get('/api/relationships')
@@ -58,9 +61,12 @@ def test_get_all():
 
     app.dependency_overrides = {}
 
+
 def test_create_relationship():
     # Arrange
-    app.dependency_overrides[RelationshipRepository] = RelationshipRepositoryMock
+    app.dependency_overrides[
+        RelationshipRepository
+    ] = RelationshipRepositoryMock
     relationship = {
         "type": "Husband"
     }
@@ -75,9 +81,12 @@ def test_create_relationship():
 
     app.dependency_overrides = {}
 
+
 def test_get_relationship():
     # Arrange
-    app.dependency_overrides[RelationshipRepository] = RelationshipRepositoryMock
+    app.dependency_overrides[
+        RelationshipRepository
+    ] = RelationshipRepositoryMock
     id = 1
 
     # Act
@@ -90,9 +99,12 @@ def test_get_relationship():
 
     app.dependency_overrides = {}
 
+
 def test_update_relationship():
     # Arrange
-    app.dependency_overrides[RelationshipRepository] = RelationshipRepositoryMock
+    app.dependency_overrides[
+        RelationshipRepository
+    ] = RelationshipRepositoryMock
     id = 1
     relationship = {
         "type": "Wife"
@@ -108,9 +120,12 @@ def test_update_relationship():
 
     app.dependency_overrides = {}
 
+
 def test_delete_relationship():
     # Arrange
-    app.dependency_overrides[RelationshipRepository] = RelationshipRepositoryMock
+    app.dependency_overrides[
+        RelationshipRepository
+    ] = RelationshipRepositoryMock
     id = 1
 
     # Act

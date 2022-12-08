@@ -1,4 +1,8 @@
 import os
 from psycopg_pool import ConnectionPool
 
-pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
+db_url = os.environ.get("DATABASE_URL")
+if db_url is not None:
+    pool = ConnectionPool(conninfo=db_url)
+else:
+    pool = None

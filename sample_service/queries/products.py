@@ -3,7 +3,7 @@ import requests
 from pydantic import BaseModel
 import os
 
-ETSY_API_KEY = os.environ["ETSY_API_KEY"]
+ETSY_API_KEY = os.environ.get("ETSY_API_KEY")
 
 
 class Product(BaseModel):

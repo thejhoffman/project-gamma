@@ -34,3 +34,15 @@ Today I struggled with making the making the Sign up page work. It does function
 
 ### 12/01/2022
 Today we layed out what final touch ups need to be done for our site, and what stretch goals we have in priority. today im adding catch errors and redirects.
+
+### 12/02/2022
+Today I wrote a test for testing the gender create and get all endpoint that I had created, but the test fails.
+
+### 12/05/2022
+Today we layed out what final touch ups need to be done for our site, and what stretch goals we have in priority. today im adding catch errors and redirects.
+
+### 12/06/2022
+Today I with the help of my team I have fixed my test, and it worked! It was failing due to an error on the endpoint I had wrote with the error response code.
+
+### 12/07/2022
+Today the team is doing a great job with stretch goals, the team has added a calender and dashboard filters for the API

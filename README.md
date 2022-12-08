@@ -1,4 +1,5 @@
 # Largesseance
+![Largesseance](/uploads/2a20566b081b5dfda9fb37b6015d9eb7/ezgif.com-gif-maker__1_.gif)
 
 - Andrew Collins
 - James Hoffman
@@ -43,7 +44,14 @@ To fully enjoy this application on your local machine, please make sure to follo
 1. Clone the repository down to your local machine
 2. CD into the new project directory
 3. Run `docker volume create api-gft-data`
-4. Run `docker compose build`
+4. Run `docker compose build` or for M1 `DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build`
 5. Run `docker compose up`
 6. Sign up for your own Etsy API key at `https://www.etsy.com/developers/register`
 7. Once approved, insert the key in a .env file with the variable name "ETSY_API_KEY" to enjoy the functionality of our app!
+
+## Unit Tests
+
+- Andrew Collins - Gender
+- James Hoffman - Age_range
+- Jonathan Roman - Interests
+- Theresa Villa - Occasions & Relationships

@@ -49,14 +49,84 @@ const ProductCard = (props) => {
 };
 
 const TableAndCards = (props) => {
-  if (props.eventsByPerson.length > 0) {
+  const [events, setEvents] = useState([]);
+  const [eventsByPerson, setEventsByPerson] = useState([]);
+  const [activeEventID, setActiveEventID] = useState("0");
+  const [includeOccasion, setIncludeOccasion] = useState(true);
+  const [includeGender, setIncludeGender] = useState(true);
+  const [includeRelationship, setIncludeRelationship] = useState(true);
+  const [productRows, setProductRows] = useState([]);
+
+  useEffect(() => {
+    fetchData('/api/events', setEvents);
+  }, []);
+
+  useEffect(() => {
+    setEventsByPerson(events.filter(singleEvent => singleEvent.person.id === +props.person_id));
+  }, [props.person_id, events]);
+
+  useEffect(() => {
+    if (eventsByPerson.length > 0)
+      setActiveEventID(eventsByPerson[0].id);
+  }, [eventsByPerson]);
+
+  const handleActiveEvent = (e) => {
+    setActiveEventID(e.target.value);
+  };
+
+  const handleFilterToggle = (e, currentState, toggleState) => {
+    console.log(e);
+    toggleState(!currentState);
+  };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const activeEvent = eventsByPerson.filter(event => event.id === +activeEventID)[0];
+      const params = {
+        limit: 24,
+        occasion: activeEvent.occasion.name,
+      };
+      if (includeOccasion)
+        params.taxonomy_id = props.personDetail.interest.id;
+      if (includeGender)
+        params.gender = props.personDetail.gender.name;
+      if (includeRelationship)
+        params.relationship = props.personDetail.relationship.type;
+
+      const paramsString = Object.keys(params).map((key) => {
+        return [key, params[key]].join("=");
+      }).join("&");
+
+      const url = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST + `/api/products?${paramsString}`;
+      const response = await fetch(url);
+      if (response.ok) {
+        const data = await response.json();
+        const dataForProductRows = Array.from(Array(Math.ceil(data.products.length / 4)), () => []);
+        let [row, count] = [0, 0];
+        data.products.forEach((product) => {
+          dataForProductRows[row].push(product);
+          count++;
+          if (count > 3) {
+            row++;
+            count = 0;
+          }
+        });
+        setProductRows(dataForProductRows);
+      }
+    };
+
+    if (eventsByPerson.length > 0 && +activeEventID !== 0)
+      fetchProducts();
+  }, [eventsByPerson, props.personDetail, activeEventID, includeOccasion, includeGender, includeRelationship]);
+
+  if (eventsByPerson.length > 0) {
     return (
       <>
         <hr />
         <div className="row">
           <h3>Upcoming events</h3>
           <div className="offset-1 col-10">
-            <table className="table table-striped">
+            <table className="table table-hover text-center">
               <thead>
                 <tr>
                   <th>Event</th>
@@ -65,26 +135,71 @@ const TableAndCards = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {props.eventsByPerson.slice(0, 3).map(event => {
+                {eventsByPerson.slice(0, 3).map(event => {
                   return (
                     <tr key={event.id}>
                       <td>{event.name}</td>
                       <td>{event.date}</td>
                       <td>{event.occasion.name}</td>
+                      <td>
+                        <button
+                          className='btn btn-primary'
+                          disabled={event.id === +activeEventID}
+                          value={event.id}
+                          onClick={handleActiveEvent}
+                        >
+                          View products
+                        </button>
+                      </td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
+            <h3 className='text-center'>Filters</h3>
+            <h3 className='text-center'>
+              <button
+                className={"btn" + (
+                  includeOccasion
+                    ? " btn-primary"
+                    : " btn-outline-secondary"
+                )}
+                onClick={(e) => handleFilterToggle(e, includeOccasion, setIncludeOccasion)}
+                style={{ marginRight: '1em' }}
+              >
+                {props.personDetail.interest.name}
+              </button>
+              <button
+                className={"btn" + (
+                  includeGender
+                    ? " btn-primary"
+                    : " btn-outline-secondary"
+                )}
+                onClick={(e) => handleFilterToggle(e, includeGender, setIncludeGender)}
+                style={{ marginRight: '1em' }}
+              >
+                {props.personDetail.gender.name}
+              </button>
+              <button
+                className={"btn" + (
+                  includeRelationship
+                    ? " btn-primary"
+                    : " btn-outline-secondary"
+                )}
+                onClick={(e) => handleFilterToggle(e, includeRelationship, setIncludeRelationship)}
+              >
+                {props.personDetail.relationship.type}
+              </button>
+            </h3>
           </div>
         </div>
         <hr />
         <div className='container-flex'>
-          {props.productRows > 0
+          {productRows > 0
             ?
             <h1 className="text-center">No products found</h1>
             :
-            props.productRows.map((rowList, index) => {
+            productRows.map((rowList, index) => {
               return <CreateRow key={index} rowList={rowList} />;
             })
           }
@@ -171,72 +286,23 @@ const PersonDropdown = (props) => {
 
 const Dashboard = () => {
   const [people, setPeople] = useState([]);
-  const [events, setEvents] = useState([]);
-
   const [person_id, setPerson] = useState("0");
   const [personDetail, setPersonDetail] = useState({});
 
-  const [eventsByPerson, setEventsByPerson] = useState([]);
-
-  const [productRows, setProductRows] = useState([]);
-
   useEffect(() => {
     fetchData('/api/people', setPeople);
-    fetchData('/api/events', setEvents);
   }, []);
-
-  useEffect(() => {
-    setEventsByPerson(events.filter(singleEvent => singleEvent.person.id === +person_id));
-  }, [person_id, events]);
 
   useEffect(() => {
     setPersonDetail(people.filter(person => person.id === +person_id)[0]);
   }, [people, person_id]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const params = {
-        limit: 24,
-        occasion: eventsByPerson[0].occasion.name,
-        taxonomy_id: personDetail.interest.id,
-        gender: personDetail.gender.name,
-        relationship: personDetail.relationship.type
-      };
-
-      const paramsString = Object.keys(params).map((key) => {
-        return [key, params[key]].join("=");
-      }).join("&");
-
-      const url = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST + `/api/products?${paramsString}`;
-
-      const response = await fetch(url);
-      if (response.ok) {
-        const data = await response.json();
-        const dataForProductRows = Array.from(Array(Math.ceil(data.products.length / 4)), () => []);
-        let [row, count] = [0, 0];
-        data.products.forEach((product) => {
-          dataForProductRows[row].push(product);
-          count++;
-          if (count > 3) {
-            row++;
-            count = 0;
-          }
-        });
-        setProductRows(dataForProductRows);
-      }
-    };
-
-    if (eventsByPerson.length > 0)
-      fetchProducts();
-
-  }, [eventsByPerson, personDetail]);
 
   const handlePersonData = async (e) => {
     setPerson(e.target.value);
   };
 
   return (
-    <div className="container mt-2 shadow p-4 mt-4">
+    <div className="container box mt-2 shadow p-4 mt-4">
       <PersonDropdown
         people={people}
         person_id={person_id}
@@ -246,8 +312,7 @@ const Dashboard = () => {
       {+person_id !== 0 &&
         <TableAndCards
           person_id={person_id}
-          eventsByPerson={eventsByPerson}
-          productRows={productRows}
+          personDetail={personDetail}
         />
       }
     </div >

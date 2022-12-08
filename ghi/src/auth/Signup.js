@@ -52,7 +52,7 @@ function SignUp(props) {
   return (
     <div className="container mt-2">
       <div className='offset-3 col-6'>
-        <div className="shadow p-4 mt-4">
+        <div className="box shadow p-4 mt-4">
           <h1>Signup</h1>
           <form onSubmit={handleSubmit}>
             <BootstrapInput

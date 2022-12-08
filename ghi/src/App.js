@@ -4,7 +4,7 @@ import Nav from './nav/Nav';
 import './App.css';
 import MainPage from './main/MainPage';
 import Dashboard from './main/Dashboard';
-import Calendar from './main/Calendar';
+import CalendarPage from './main/Calendar';
 import Login from './auth/Login';
 import Signup from './auth/Signup';
 import EventForm from './forms/EventForm';
@@ -31,7 +31,7 @@ function App() {
         <Route element={<PrivateRoutes />}>
           {/* Main Routes */}
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/calendar" element={<CalendarPage />} />
           {/* Form Routes */}
           <Route path="/create_event" element={<EventForm />} />
           <Route path="/create_person" element={<PersonForm />} />

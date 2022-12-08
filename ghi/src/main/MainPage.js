@@ -17,14 +17,14 @@ function ProductColumn(props) {
 
         return (
           <div className="col mb-4" id="mainpage-card" key={product.MainImage.listing_id}>
-            <div className="card h-100">
+            <div className="card h-100 mb-3 shadow">
               <a href={product.url} className="mainpage-link">
                 <div className="mainpage-hover">
                   <div className="mainpage-hover-content"><i className="fas fa-cart-shopping fa-3x"></i></div>
                 </div>
                 <img src={product.MainImage.url_170x135} className="card-img-top" alt="..." />
               </a>
-              <div className="card-body h-100">
+              <div className="card-body">
                 <div className="card-title">{htmlDecode(product.title)}</div>
                 <p className="card-subtitle mb-2 text-muted">${product.price} {product.currency_code}</p>
               </div>
@@ -126,7 +126,7 @@ function MainPage() {
   return (
     <div className="container mt-2" id="mainpage">
       <div className="row justify-content-center">
-        <div className="col-lg-6 carousel">
+        <div className="col-lg-6 carousel box shadow-lg p-3 mb-5">
           <div className="carousel slide carousel-fade" data-bs-ride="carousel" id="carousel">
             <h2>Gift shopping made easier</h2>
             <p>
@@ -159,7 +159,7 @@ function MainPage() {
       </div>
 
       <div className="row justify-content-center">
-        <div className="col cards fluid">
+        <div className="col cards fluid box shadow-lg p-3 mb-5">
           <div className="row row-cols-1 row-cols-sm-3 pb-3">
             <div className="col-md-4 d-flex justify-content-center">
               <select onChange={e => setOccasion(e.target.value)} value={occasion} id="occasion" className="form-select btn-outline-danger shrink-when-sm" aria-label="Occasion">

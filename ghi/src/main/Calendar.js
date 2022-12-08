@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useGetTokenQuery } from '../store/tokenApi';
 import { Link } from "react-router-dom";
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 const baseURL = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST;
 
-function Calendar() {
+function CalendarPage() {
   const [events, setEvents] = useState([]);
   useEffect(() => {
     const getEventData = async () => {
@@ -36,11 +39,21 @@ function Calendar() {
     }
   };
 
+  const localizer = momentLocalizer(moment)
+  const myEventsList = []
+  for (let item of events) {
+    myEventsList.push({ start: item.date, end: item.date, title: item.person.name + "'s " + item.name })
+  }
+
+
   return (
     <div className="container mt-2 shadow p-4 mt-4">
       <div className="row text-center">
-        <h1>Calendar</h1>
-        <p> A list of your upcoming events.</p>
+      <h1>Calendar</h1>
+        <Calendar localizer={localizer} events={myEventsList} views={['month', 'agenda']}
+          startAccesor="start" endAccesor="end"
+          style={{ height: 500, backgroundColor: 'white', border: 'black', borderStyle: 'solid' }} />
+        <h4> A list of your upcoming events.</h4>
         <div className="col d-flex justify-content-center">
           <Link to="/create_event" className="btn btn-primary">Add event</Link>
         </div><table className="table table-striped">
@@ -72,4 +85,4 @@ function Calendar() {
   );
 }
 
-export default Calendar;
+export default CalendarPage;
