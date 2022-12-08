@@ -127,3 +127,6 @@ I worked on adding validation to all of our forms in the app. I was able to add 
 Today, I spent some time on styling the site a little more CSS, asking for input from the rest of the team along the way. Right now, the site is looking better than it was before.
 
 ### 12/7/2022
+Today I added some filtering functionally to the dashboard. Users can now select which occasion is the now active event. They can now also choose what criteria is now included when fetching the results.
+
+I also ironed out a few hiccups that where encountered when the pipeline was running for deployment. A few minor changes needed to be made to the code so that the unit test step of the build process would run correctly.
