@@ -6,7 +6,7 @@
 - Jonathan Roman
 - Theresa Villa
 
-Largesseance - "insert catch phrase here"
+Largesseance - "Personalized gifts for special occasions"
 "INSERT LINK TO DEPLOYED APP HERE"
 
 ## Design

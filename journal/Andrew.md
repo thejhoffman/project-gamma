@@ -46,3 +46,7 @@ Today I with the help of my team I have fixed my test, and it worked! It was fai
 
 ### 12/07/2022
 Today the team is doing a great job with stretch goals, the team has added a calender and dashboard filters for the API
+
+
+### 12/08/2022
+Today the team is doing a great job with stretch goals, Theresa got the email porting working but due to issues we probably will have to abandon that part of the stretch goal.
