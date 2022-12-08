@@ -16,7 +16,7 @@ class ExampleAuthenticator(Authenticator):
 
     async def get_account_data(
         self,
-        email: str,  # can be called email based on whatproject uses
+        email: str,
         accounts: AccountQueries,
     ):
         # Use your repo to get the account based on the
@@ -43,4 +43,8 @@ class ExampleAuthenticator(Authenticator):
         return account.email, AccountOut(**account.dict())
 
 
-authenticator = ExampleAuthenticator(os.environ["SIGNING_KEY"])
+signing_key = os.environ.get("SIGNING_KEY")
+if signing_key is not None:
+    authenticator = ExampleAuthenticator(signing_key)
+else:
+    authenticator = ExampleAuthenticator(None)
