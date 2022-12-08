@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, Response
 from typing import List, Union
 from queries.events import EventIn, EventOut, EventRepository, ErrorMessage
 from authenticator import authenticator
+from routers.email import notification_email
 
 
 router = APIRouter(tags=["Events"])
@@ -29,6 +30,7 @@ async def create_event(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: EventRepository = Depends(),
 ) -> Union[EventOut, ErrorMessage]:
+    await notification_email(email=[account_data["email"]], body=event)
     return repo.create_event(account_data["id"], event)
 
 

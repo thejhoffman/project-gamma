@@ -17,6 +17,7 @@ from queries.accounts import (
     AccountQueries,
     DuplicateAccountError,
 )
+from routers.email import welcome_email
 
 
 class AccountForm(BaseModel):
@@ -65,4 +66,5 @@ async def create_account(
         )
     form = AccountForm(username=info.email, password=info.password)
     token = await authenticator.login(response, request, form, accounts)
+    await welcome_email(email=[info.email], body=info)
     return AccountToken(account=account, **token.dict())
