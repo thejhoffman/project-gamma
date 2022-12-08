@@ -18,6 +18,12 @@ services:
       WAIT_BEFORE: 5
       WAIT_TIMEOUT: 60
       ETSY_API_KEY: ${ETSY_API_KEY}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM: ${MAIL_FROM}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_SERVER: ${MAIL_SERVER}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME}
     volumes:
       - ./sample_service:/app
 

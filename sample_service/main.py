@@ -10,11 +10,13 @@ from routers import (
     occasions,
     gender,
     people,
-    products
+    products,
+    email
 )
 import os
 
 app = FastAPI()
+app.include_router(email.router)
 app.include_router(authenticator.router)
 app.include_router(accounts.router)
 app.include_router(relationships.router)

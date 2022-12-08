@@ -8,6 +8,8 @@ from fastapi import (
 )
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
+from routers.email import welcome_email
+from fastapi import BackgroundTasks
 
 from pydantic import BaseModel
 
@@ -65,4 +67,5 @@ async def create_account(
         )
     form = AccountForm(username=info.email, password=info.password)
     token = await authenticator.login(response, request, form, accounts)
+    await welcome_email(email=[info.email])
     return AccountToken(account=account, **token.dict())
