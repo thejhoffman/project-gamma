@@ -26,6 +26,15 @@ conf = ConnectionConfig(
     TEMPLATE_FOLDER = './routers/templates'
 )
 
+from routers.scheduler import app as app_rocketry
+session = app_rocketry.session
+
+@router.get("/my-route")
+async def get_tasks():
+    return session.tasks
+
+if __name__ == "__main__":
+    router.run()
 
 @router.post("/welcome_email")
 async def welcome_email(
@@ -43,4 +52,19 @@ async def welcome_email(
 
     await fm.send_message(message, template_name='welcome.html')
 
+    return JSONResponse(status_code=200, content={"message": "email has been sent"})
+
+
+@router.post("/email")
+async def simple_send(email: EmailSchema) -> JSONResponse:
+    html = """<p>Hi this test mail, thanks for using Fastapi-mail</p> """
+
+    message = MessageSchema(
+        subject="Fastapi-Mail module",
+        recipients=["largesseance@gmail.com"],
+        body=html,
+        subtype=MessageType.html)
+
+    fm = FastMail(conf)
+    await fm.send_message(message)
     return JSONResponse(status_code=200, content={"message": "email has been sent"})
