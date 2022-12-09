@@ -7,7 +7,7 @@
 - Theresa Villa
 
 Largesseance - "Personalized gifts for special occasions"
-"INSERT LINK TO DEPLOYED APP HERE"
+https://largesseance.gitlab.io/project-gamma/
 
 ## Design
 - [API design](docs/api-design.md)
