@@ -50,3 +50,6 @@ Today the team is doing a great job with stretch goals, the team has added a cal
 
 ### 12/08/2022
 Today the team is doing a great job with stretch goals, Theresa got the email porting working but due to issues we probably will have to abandon that part of the stretch goal.
+
+### 12/09/2022
+The functionality of the email does work. We have it when a person signs up they will get a email notification for signing up and creating an event. Today is clean up and adding to the read me
