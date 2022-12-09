@@ -75,7 +75,6 @@ const TableAndCards = (props) => {
   };
 
   const handleFilterToggle = (e, currentState, toggleState) => {
-    console.log(e);
     toggleState(!currentState);
   };
 
