@@ -56,3 +56,7 @@ To fully enjoy this application on your local machine, please make sure to follo
 - James Hoffman - Age_range
 - Jonathan Roman - Interests
 - Theresa Villa - Occasions & Relationships
+
+## Wire frame
+
+![Screenshot_2022-12-09_at_9.31.42_AM](/uploads/55ea06d44aea3175f7ebc6f8e47b1699/Screenshot_2022-12-09_at_9.31.42_AM.png)![Screenshot_2022-12-09_at_9.26.48_AM](/uploads/07fba0f680aba7f4ffdf30825681f193/Screenshot_2022-12-09_at_9.26.48_AM.png)![Screenshot_2022-12-09_at_9.27.03_AM](/uploads/398269537a995334f055d287d8569d7f/Screenshot_2022-12-09_at_9.27.03_AM.png)![Screenshot_2022-12-09_at_9.27.35_AM](/uploads/4498b8e23a39601ebbd1e9a389c6c67c/Screenshot_2022-12-09_at_9.27.35_AM.png)![Screenshot_2022-12-09_at_9.27.47_AM](/uploads/7e7b805ee06462b9208ca730f23d5881/Screenshot_2022-12-09_at_9.27.47_AM.png)![Screenshot_2022-12-09_at_9.28.04_AM](/uploads/7c6fdd29ac556e059a812c2808215c2c/Screenshot_2022-12-09_at_9.28.04_AM.png)![Screenshot_2022-12-09_at_9.28.21_AM](/uploads/4a0e27d12aa7778b0d97f5b9eea6a245/Screenshot_2022-12-09_at_9.28.21_AM.png)![Screenshot_2022-12-09_at_9.28.32_AM](/uploads/c26192391f1ecdc89cd142c0fe7fa475/Screenshot_2022-12-09_at_9.28.32_AM.png)![Screenshot_2022-12-09_at_9.28.48_AM](/uploads/87ca74237a204dc77fb9c968db815d0e/Screenshot_2022-12-09_at_9.28.48_AM.png)
