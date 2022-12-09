@@ -19,11 +19,8 @@ class GenderOut(BaseModel):
 class GenderRepository:
     def get_all(self) -> Union[Error, List[GenderOut]]:
         try:
-            # connect the database
             with pool.connection() as conn:
-                # get cursor
                 with conn.cursor() as db:
-                    # Run our SELECT statement
                     result = db.execute(
                         """
                         SELECT id, name
@@ -41,11 +38,8 @@ class GenderRepository:
             return {"message": "Could not get gender"}
 
     def create(self, gender: GenderIn) -> GenderOut:
-        # connect the database
         with pool.connection() as conn:
-            # get cursor
             with conn.cursor() as db:
-                # run our INSERT
                 result = db.execute(
                     """
                     INSERT INTO gender
@@ -57,6 +51,5 @@ class GenderRepository:
                     [gender.name],
                 )
                 id = result.fetchone()[0]
-                # Return new data
                 old_data = gender.dict()
                 return GenderOut(id=id, **old_data)

@@ -18,7 +18,6 @@ class AgeRangeOut(BaseModel):
 
 
 class AgeRangeQueries:
-    # GET ALL AGE RANGES
     def get_all(
         self,
     ) -> Union[List[AgeRangeOut], ErrorMessage]:
@@ -41,7 +40,6 @@ class AgeRangeQueries:
                 code=500,
             )
 
-    # CREATE A NEW AGE RANGE
     def create(
         self,
         age_range: AgeRangeIn,
@@ -67,7 +65,6 @@ class AgeRangeQueries:
                 code=500,
             )
 
-    # GET DETAIL OF ONE AGE RANGE
     def get_one(
         self,
         age_range_id: int,
@@ -96,7 +93,6 @@ class AgeRangeQueries:
                 code=500,
             )
 
-    # UPDATE AN AGE RANGE
     def update(
         self,
         age_range_id: int,
@@ -125,7 +121,6 @@ class AgeRangeQueries:
                 code=500,
             )
 
-    # DELETE AN AGE RANGE
     def delete(
         self,
         age_range_id: int,

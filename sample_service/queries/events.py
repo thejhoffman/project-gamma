@@ -36,7 +36,6 @@ class EventOut(BaseModel):
 
 
 class EventRepository:
-    # GET ALL EVENTS
     def get_all(
         self,
         account_id: int,
@@ -72,7 +71,6 @@ class EventRepository:
                 code=500,
             )
 
-    #  CREATE A NEW PERSON
     def create_event(
         self,
         account_id: int,
@@ -106,7 +104,6 @@ class EventRepository:
                 code=500,
             )
 
-    # GET DETAIL OF ONE EVENT
     def get_one(
         self,
         account_id,
@@ -128,7 +125,6 @@ class EventRepository:
                 code=404,
             )
 
-    # UPDATE AN EVENT
     def update_event(
         self,
         account_id: int,
@@ -176,7 +172,6 @@ class EventRepository:
                 code=404,
             )
 
-    # DELETE AN EVENT
     def delete(
         self,
         account_id: int,
@@ -200,7 +195,6 @@ class EventRepository:
         except Exception:
             return False
 
-    # helper methods
     def get_event_record(self, db: cursor, account_id, event_id):
         db.execute(
             """

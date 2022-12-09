@@ -31,7 +31,6 @@ class PersonOut(BaseModel):
 
 
 class PeopleQueries:
-    # GET ALL PEOPLE
     def get_all(
         self,
         account_id: int,
@@ -74,7 +73,6 @@ class PeopleQueries:
                 code=500,
             )
 
-    # CREATE A NEW PERSON
     def create_person(
         self,
         account_id: int,
@@ -114,7 +112,6 @@ class PeopleQueries:
                 code=500,
             )
 
-    # GET DETAIL OF ONE PERSON
     def get_person(
         self,
         account_id: int,
@@ -132,12 +129,10 @@ class PeopleQueries:
                     return self.record_to_person_out(record)
         except Exception as e:
             return ErrorMessage(
-                # message="Could not get that person",
                 message=str(e),
                 code=404,
             )
 
-    # UPDATE A PERSON
     def update_person(
         self,
         account_id: int,
@@ -189,7 +184,6 @@ class PeopleQueries:
                 code=404,
             )
 
-    # DELETE A PERSON
     def delete_person(
         self,
         account_id: int,
@@ -213,7 +207,6 @@ class PeopleQueries:
         except Exception:
             return False
 
-    # helper methods
     def get_person_record(self, db: cursor, account_id, person_id):
         db.execute(
             """
