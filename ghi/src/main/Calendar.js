@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useGetTokenQuery } from '../store/tokenApi';
 import { Link } from "react-router-dom";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const baseURL = process.env.REACT_APP_SAMPLE_SERVICE_API_HOST;
 
@@ -39,17 +39,17 @@ function CalendarPage() {
     }
   };
 
-  const localizer = momentLocalizer(moment)
-  const myEventsList = []
+  const localizer = momentLocalizer(moment);
+  const myEventsList = [];
   for (let item of events) {
-    myEventsList.push({ start: item.date, end: item.date, title: item.person.name + "'s " + item.name })
+    myEventsList.push({ start: item.date, end: item.date, title: item.person.name + "'s " + item.name });
   }
 
 
   return (
-    <div className="container mt-2 shadow p-4 mt-4">
+    <div className="container box mt-2 shadow p-4 mt-4">
       <div className="row text-center">
-      <h1>Calendar</h1>
+        <h1>Calendar</h1>
         <Calendar localizer={localizer} events={myEventsList} views={['month', 'agenda']}
           startAccesor="start" endAccesor="end"
           style={{ height: 500, backgroundColor: 'white', border: 'black', borderStyle: 'solid' }} />
