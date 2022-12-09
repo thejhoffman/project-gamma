@@ -10,8 +10,6 @@ function ProductColumn(props) {
     <>
       {props.list.map(product => {
         if (product === undefined) {
-          // Attempting to catch error when etsy give a bad result
-          console.log("Etsy returned an undefined product.");
           return null;
         }
 

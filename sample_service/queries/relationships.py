@@ -28,8 +28,7 @@ class RelationshipRepository:
                         RelationshipOut(id=record[0], type=record[1])
                         for record in db
                     ]
-        except Exception as e:
-            print(e)
+        except Exception:
             return {" message": "could not get all vacations"}
 
     def get_relationship(self, relationship_id: int) -> RelationshipOut:

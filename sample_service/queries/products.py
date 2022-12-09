@@ -39,7 +39,6 @@ class ProductRepo:
         if occasion is not None:
             keywords.append(occasion)
         if gender is not None:
-            print(gender)
             if gender == "Male":
                 gender = "men"
             elif gender == "Female":
@@ -56,8 +55,6 @@ class ProductRepo:
 
         response = requests.get(url, params=params)
         content = json.loads(response.content)
-
-        print(params)
 
         products = []
         for item in content["results"]:
