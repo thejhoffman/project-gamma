@@ -7,7 +7,6 @@ from authenticator import authenticator
 router = APIRouter(tags=["People"])
 
 
-# GET ALL PEOPLE
 @router.get(
     "/api/people",
     response_model=Union[List[PersonOut], ErrorMessage],
@@ -19,7 +18,6 @@ async def get_all(
     return repo.get_all(account_data["id"])
 
 
-# CREATE A NEW PERSON
 @router.post(
     "/api/people",
     response_model=Union[PersonOut, ErrorMessage],
@@ -32,7 +30,6 @@ async def create_person(
     return repo.create_person(account_data["id"], person)
 
 
-# GET DETAIL OF ONE PERSON
 @router.get(
     "/api/people/{person_id}",
     response_model=Union[PersonOut, ErrorMessage],
@@ -48,7 +45,6 @@ async def get_one_person(
     return person
 
 
-# UPDATE A PERSON
 @router.put(
     "/api/people/{person_id}",
     response_model=Union[PersonOut, ErrorMessage],
@@ -65,7 +61,6 @@ async def update_person(
     return person
 
 
-# DELETE A PERSON
 @router.delete(
     "/api/people/{person_id}",
     response_model=Union[bool, ErrorMessage],
@@ -81,7 +76,6 @@ async def delete_person(
     return did_delete
 
 
-# function to set response code
 def set_response_code(error_check):
     if type(error_check) is ErrorMessage:
         return error_check.code

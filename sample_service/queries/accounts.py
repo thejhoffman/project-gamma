@@ -44,8 +44,7 @@ class AccountQueries:
                         hashed_password=record[2],
                         name=record[3],
                     )
-        except Exception as e:
-            print(e)
+        except Exception:
             return {"message": "Could not get that user"}
 
     def create(
