@@ -6,8 +6,8 @@
 - Jonathan Roman
 - Theresa Villa
 
-Largesseance - "insert catch phrase here"
-"INSERT LINK TO DEPLOYED APP HERE"
+Largesseance - "Personalized gifts for special occasions"
+https://largesseance.gitlab.io/project-gamma/
 
 ## Design
 - [API design](docs/api-design.md)
