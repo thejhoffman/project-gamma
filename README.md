@@ -12,6 +12,7 @@ https://largesseance.gitlab.io/project-gamma/
 ## Design
 - [API design](docs/api-design.md)
 - [Data model](docs/data-model.md)
+- [GHI](docs/ghi.md)
 - [Integrations](docs/integrations.md)
 
 ## Intended market
