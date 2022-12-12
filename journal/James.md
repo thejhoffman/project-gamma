@@ -130,3 +130,15 @@ Today, I spent some time on styling the site a little more CSS, asking for input
 Today I added some filtering functionally to the dashboard. Users can now select which occasion is the now active event. They can now also choose what criteria is now included when fetching the results.
 
 I also ironed out a few hiccups that where encountered when the pipeline was running for deployment. A few minor changes needed to be made to the code so that the unit test step of the build process would run correctly.
+
+## 12/8/2022
+I worked on deploying the application again. I was able to deploy it successfully before, but that was before the inclusion of the unit tests which are now causing the pipeline to fail. I had to change how some environment variables where handled before the tests would pass when running via the pipeline.
+
+## 12/9/2022
+We are approaching the final stages so there was not much done today. Fixed a few things such as the favicon icon and title for the app so that it longer just shows "React App". I had to do a few more fixes since the pipelines were failing again after we added the mail functionally, this was just more changes to the environment variables again.
+
+---
+
+## Week 5
+### 12/12/2022
+Day of submission. I only just spent some time tweaking the readme and the documentation a bit. We also showed a demo of our project to Candice. Overall, I am satisfied withe the result of our MVP.
